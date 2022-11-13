@@ -23,7 +23,7 @@ public class TankSelectionScreen implements Screen {
     private static final double START_X = Game.WIDTH/11.36;
     private static final double START_Y = Game.HEIGHT/2.77;
     private static final double IMG_X = Game.WIDTH/1.62;
-    private static final double IMG_y = Game.HEIGHT/11.61;
+    private static final double IMG_Y = Game.HEIGHT/11.61;
     private static final double IMG_WIDTH = Game.WIDTH/3.27;
     private static final double IMG_HEIGHT = Game.HEIGHT/2.48;
     private static final double FORWARD_X = Game.WIDTH/1.087;
@@ -85,14 +85,14 @@ public class TankSelectionScreen implements Screen {
             game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(TOXIC_INACTIVE, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(ATOMIC_ROTATED, (float) IMG_X, (float) IMG_y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
+            game.batch.draw(ATOMIC_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
         }
         else if(selection_number == 2) {
             game.batch.draw(PUMPKIN_CLICK, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(TOXIC_INACTIVE, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PUMPKIN_ROTATED, (float) IMG_X, (float) IMG_y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
+            game.batch.draw(PUMPKIN_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
 
         }
         else if(selection_number == 3) {
@@ -100,7 +100,7 @@ public class TankSelectionScreen implements Screen {
             game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(TOXIC_ROTATED, (float) IMG_X, (float) IMG_y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
+            game.batch.draw(TOXIC_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
 
         }
         else if(selection_number == 4){
@@ -108,7 +108,7 @@ public class TankSelectionScreen implements Screen {
             game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(TOXIC_INACTIVE, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PINKY_ROTATED, (float) IMG_X, (float) IMG_y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
+            game.batch.draw(PINKY_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
         }
 
         int y = Game.HEIGHT - Gdx.input.getY();
