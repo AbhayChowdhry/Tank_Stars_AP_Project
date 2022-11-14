@@ -15,12 +15,12 @@ public class MainMenuScreen implements Screen {
     Texture LOAD_INACTIVE, LOAD_ACTIVE,LOAD_CLICK;
     Texture EXIT_INACTIVE, EXIT_ACTIVE, EXIT_CLICK;
     Texture MAIN_BACK;
-    private static final double BUTTON_WIDTH = Game.WIDTH / 5.36;
+    private static final double BUTTON_WIDTH = Game.getWIDTH() / 5.36;
     // private static final double BUTTON_HEIGHT = Game.HEIGHT / 13.4;
-    private static final double BUTTON_HEIGHT = Game.HEIGHT / 12.56;
-    private static final double BUTTON_X = Game.WIDTH/9.89;
-    private static final double BUTTON_Y = Game.HEIGHT/2.28;
-    private static final double BUTTON_DIF = Game.HEIGHT/10.09;
+    private static final double BUTTON_HEIGHT = Game.getHEIGHT() / 12.56;
+    private static final double BUTTON_X = Game.getWIDTH()/9.89;
+    private static final double BUTTON_Y = Game.getHEIGHT()/2.28;
+    private static final double BUTTON_DIF = Game.getHEIGHT()/10.09;
 
     public MainMenuScreen(Game game){
         this.game = game;
@@ -49,7 +49,7 @@ public class MainMenuScreen implements Screen {
         ScreenUtils.clear(0, 0, 0, 0);
         game.batch.begin();
 
-        game.batch.draw(MAIN_BACK, 0, 0, game.WIDTH, game.HEIGHT);
+        game.batch.draw(MAIN_BACK, 0, 0, game.getWIDTH(), game.getHEIGHT());
         game.batch.draw(VS_FRIEND_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
         game.batch.draw(VS_COMP_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y - (float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
         game.batch.draw(LOAD_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
@@ -57,7 +57,7 @@ public class MainMenuScreen implements Screen {
 
 
         // Introduction of new variable y because Gdx.input.getY() return the distance from top, while the drawings of the buttons are made from the bottom
-        int y = Game.HEIGHT - Gdx.input.getY();
+        int y = Game.getHEIGHT() - Gdx.input.getY();
 
         if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y && y < BUTTON_Y + BUTTON_HEIGHT) {
             game.batch.draw(VS_FRIEND_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);

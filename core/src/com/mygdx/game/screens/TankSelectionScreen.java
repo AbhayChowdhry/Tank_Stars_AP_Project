@@ -16,9 +16,9 @@ public class TankSelectionScreen implements Screen {
     Texture PUMPKIN_ACTIVE, PUMPKIN_CLICK, PUMPKIN_INACTIVE, PUMPKIN_ROTATED;
     Texture FORWARD_ACTIVE, BACK_ACTIVE;
 
-    private static final double BLOCK_WIDTH = Game.WIDTH/6.46;
-    private static final double BLOCK_HEIGHT = Game.HEIGHT/3.6;
-    private static final double DIF_HORIZ = Game.WIDTH/6;
+    private static final double BLOCK_WIDTH = Game.getWIDTH()/6.46;
+    private static final double BLOCK_HEIGHT = Game.getHEIGHT()/3.6;
+    private static final double DIF_HORIZ = Game.getWIDTH()/6;
     private static final double DIF_VERT = Game.HEIGHT/3.32;
     private static final double START_X = Game.WIDTH/11.36;
     private static final double START_Y = Game.HEIGHT/2.77;

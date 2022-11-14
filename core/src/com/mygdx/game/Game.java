@@ -9,10 +9,17 @@ public class Game extends com.badlogic.gdx.Game {
 
 	// public static final int WIDTH = 720;
 	// public static final int HEIGHT = 405;
-	public static final int WIDTH = 1080;
-	public static final int HEIGHT = 607;
+	private static final int WIDTH = 1080;
+	private static final int HEIGHT = 607;
 	public SpriteBatch batch;
-	
+
+	public static int getWIDTH() {
+		return WIDTH;
+	}
+	public static int getHEIGHT() {
+		return HEIGHT;
+	}
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
