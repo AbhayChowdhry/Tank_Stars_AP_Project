@@ -19,19 +19,19 @@ public class TankSelectionScreen implements Screen {
     private static final double BLOCK_WIDTH = Game.getWIDTH()/6.46;
     private static final double BLOCK_HEIGHT = Game.getHEIGHT()/3.6;
     private static final double DIF_HORIZ = Game.getWIDTH()/6;
-    private static final double DIF_VERT = Game.HEIGHT/3.32;
-    private static final double START_X = Game.WIDTH/11.36;
-    private static final double START_Y = Game.HEIGHT/2.77;
-    private static final double IMG_X = Game.WIDTH/1.62;
-    private static final double IMG_Y = Game.HEIGHT/11.61;
-    private static final double IMG_WIDTH = Game.WIDTH/3.27;
-    private static final double IMG_HEIGHT = Game.HEIGHT/2.48;
-    private static final double FORWARD_X = Game.WIDTH/1.087;
-    private static final double FORWARD_Y = Game.HEIGHT/16.61;
-    private static final double BACK_X = Game.WIDTH/38.4;
-    private static final double BACK_Y = Game.HEIGHT/1.167;
-    private static final double NAV_WIDTH = Game.WIDTH/20.42;
-    private static final double NAV_HEIGHT = Game.HEIGHT/11.49;
+    private static final double DIF_VERT = Game.getHEIGHT()/3.32;
+    private static final double START_X = Game.getWIDTH()/11.36;
+    private static final double START_Y = Game.getHEIGHT()/2.77;
+    private static final double IMG_X = Game.getWIDTH()/1.62;
+    private static final double IMG_Y = Game.getHEIGHT()/11.61;
+    private static final double IMG_WIDTH = Game.getWIDTH()/3.27;
+    private static final double IMG_HEIGHT = Game.getHEIGHT()/2.48;
+    private static final double FORWARD_X = Game.getWIDTH()/1.087;
+    private static final double FORWARD_Y = Game.getHEIGHT()/16.61;
+    private static final double BACK_X = Game.getWIDTH()/38.4;
+    private static final double BACK_Y = Game.getHEIGHT()/1.167;
+    private static final double NAV_WIDTH = Game.getWIDTH()/20.42;
+    private static final double NAV_HEIGHT = Game.getHEIGHT()/11.49;
     private boolean isSelected = false;
     private int selection_number = 0;
     public TankSelectionScreen(Game game){
@@ -73,7 +73,7 @@ public class TankSelectionScreen implements Screen {
         ScreenUtils.clear(0, 0, 0, 0);
         game.batch.begin();
 
-        game.batch.draw(SELECTION_NO_TANK, 0, 0, game.WIDTH, game.HEIGHT);
+        game.batch.draw(SELECTION_NO_TANK, 0, 0, game.getWIDTH(), game.getHEIGHT());
         game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
         game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
         game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
@@ -97,7 +97,7 @@ public class TankSelectionScreen implements Screen {
             game.batch.draw(PINKY_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
         }
 
-        int y = Game.HEIGHT - Gdx.input.getY();
+        int y = Game.getHEIGHT() - Gdx.input.getY();
 
         if (Gdx.input.getX() > FORWARD_X && Gdx.input.getX() < FORWARD_X + NAV_WIDTH && y > FORWARD_Y && y < FORWARD_Y + NAV_HEIGHT) {
             game.batch.draw(FORWARD_ACTIVE, (float) FORWARD_X, (float) (FORWARD_Y), (float) NAV_WIDTH, (float) NAV_HEIGHT);

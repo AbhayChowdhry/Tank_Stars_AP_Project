@@ -8,7 +8,7 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.setWindowedMode(Game.WIDTH, Game.HEIGHT);
+		config.setWindowedMode(Game.getWIDTH(), Game.getHEIGHT());
 		config.setResizable(false);
 		config.setTitle("My GDX Game");
 		new Lwjgl3Application(new Game(), config);
