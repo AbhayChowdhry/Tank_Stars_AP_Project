@@ -82,32 +82,18 @@ public class TankSelectionScreen implements Screen {
 
         if(selection_number == 1) {
             game.batch.draw(ATOMIC_CLICK, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(TOXIC_INACTIVE, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(ATOMIC_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
         }
         else if(selection_number == 2) {
             game.batch.draw(PUMPKIN_CLICK, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(TOXIC_INACTIVE, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(PUMPKIN_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
-
         }
         else if(selection_number == 3) {
             game.batch.draw(TOXIC_CLICK, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(TOXIC_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
-
         }
         else if(selection_number == 4){
             game.batch.draw(PINKY_CLICK, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
-            game.batch.draw(TOXIC_INACTIVE, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             game.batch.draw(PINKY_ROTATED, (float) IMG_X, (float) IMG_Y, (float) IMG_WIDTH, (float) IMG_HEIGHT);
         }
 
