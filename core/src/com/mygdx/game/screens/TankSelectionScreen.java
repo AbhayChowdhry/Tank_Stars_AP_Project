@@ -18,7 +18,7 @@ public class TankSelectionScreen implements Screen {
 
     private static final double BLOCK_WIDTH = Game.getWIDTH()/6.46;
     private static final double BLOCK_HEIGHT = Game.getHEIGHT()/3.6;
-    private static final double DIF_HORIZ = Game.getWIDTH()/6;
+    private static final double DIF_HORIZ = Game.getWIDTH()/6.0;
     private static final double DIF_VERT = Game.getHEIGHT()/3.32;
     private static final double START_X = Game.getWIDTH()/11.36;
     private static final double START_Y = Game.getHEIGHT()/2.77;
