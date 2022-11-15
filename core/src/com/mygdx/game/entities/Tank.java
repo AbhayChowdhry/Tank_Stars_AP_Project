@@ -1,8 +1,10 @@
 package com.mygdx.game.entities;
 
 abstract class Tank {
-    private float x;
-    private float y;
-    public void move();
+    abstract void fire();
+    abstract void selectWeapon();
 
+    void move() {
+
+    }
 }
