@@ -10,10 +10,26 @@ public class Player {
     // Total fuel is 10
     private double fuel;
 
-    Player(int name, Tank tank) {
+    public Player(int name, Tank tank) {
         this.name = name;
-        this.tank = tank;
+        this.tank = new Pumpkin();
         this.health = 100;
         this.fuel = 10;
+    }
+
+    public double getFuel() {
+        return fuel;
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public int getName() {
+        return name;
+    }
+
+    public Tank getTank() {
+        return tank;
     }
 }
