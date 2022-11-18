@@ -14,11 +14,13 @@ public class MainGameScreen implements Screen{
     public static final float SPEED = 120;
     public static final int TANK_X = 150;
     public static final int TANK_Y = 200;
+    Texture BACKGROUND = new Texture("PLAY_BACK.png");
     Game game;
     Sprite p1_body, p1_snout, p2_body, p2_snout;
     Texture img;
     private Pumpkin pumpkin;
     Player player1 = new Player(1, pumpkin);
+    Player player2 = new Player(2, pumpkin);
 
 
     public MainGameScreen (Game game){
@@ -37,11 +39,28 @@ public class MainGameScreen implements Screen{
 
         p1_body=new Sprite(p1_body_texture);
         p1_snout=new Sprite(p1_snout_texture);
-        p1_body.setSize(652,366);
+        //p1_body.setSize(652,366);
+        p1_body.setSize(326,183);
         p1_body.setOrigin(0,0);
 
-        p1_snout.setSize(652,146);
-        p1_snout.setOrigin(325,73);
+        //p1_snout.setSize(652,146);
+        p1_snout.setSize(326,73);
+        p1_snout.setOrigin(164,36);
+
+        Texture p2_snout_texture = player2.getTank().getSnout();
+        Texture p2_body_texture = player2.getTank().getBody();
+
+        p2_body=new Sprite(p2_body_texture);
+        p2_snout=new Sprite(p2_snout_texture);
+        //p1_body.setSize(652,366);
+        p2_body.setSize(326,183);
+        p2_body.setOrigin(0,0);
+        p2_body.flip(true, false);
+
+        //p1_snout.setSize(652,146);
+        p2_snout.setSize(326,73);
+        p2_snout.setOrigin(163,36);
+        p2_snout.flip(true, false);
 
     }
     @Override
@@ -58,12 +77,19 @@ public class MainGameScreen implements Screen{
         ScreenUtils.clear(1, 0, 0, 1);
 
         game.batch.begin();
+        game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
 
         p1_body.setPosition(player1.getTank().getX_body(),player1.getTank().getY_body());
-        p1_snout.setPosition(player1.getTank().getX_snout(),player1.getTank().getY_snout() + 215);
+        p1_snout.setPosition(player1.getTank().getX_snout(),player1.getTank().getY_snout() + 102);
+
+        p2_body.setPosition(player2.getTank().getX_body() + Game.getWIDTH()*3/4,player1.getTank().getY_body());
+        p2_snout.setPosition(player2.getTank().getX_snout() + Game.getWIDTH()*3/4,player1.getTank().getY_snout() + 102);
 
         p1_snout.draw(game.batch);
         p1_body.draw(game.batch);
+
+        p2_snout.draw(game.batch);
+        p2_body.draw(game.batch);
 
         if(Gdx.input.isKeyPressed(Input.Keys.UP)){
             p1_snout.setRotation(p1_snout.getRotation() + 1);

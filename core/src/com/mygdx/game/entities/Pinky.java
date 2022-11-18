@@ -7,6 +7,7 @@ public class Pinky extends Tank{
 
     private Texture body = new Texture("pinky_body.png");
     private Texture snout = new Texture("pinky_snout.png");
+    private Texture extra = new Texture("pinky_extra.png");
 
     private float x_body = 0;
     private float y_body = 0;
@@ -32,5 +33,9 @@ public class Pinky extends Tank{
     @Override
     public Texture getSnout() {
         return snout;
+    }
+
+    public Texture getExtra() {
+        return extra;
     }
 }
