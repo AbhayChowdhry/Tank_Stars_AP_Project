@@ -7,8 +7,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.Play;
+import com.mygdx.game.entities.Play;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Pumpkin;
+import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.Pumpkin;
+
 import java.util.concurrent.TimeUnit;
 
 public class MainGameScreen implements Screen{
@@ -50,6 +54,12 @@ public class MainGameScreen implements Screen{
     public MainGameScreen (Game game){
         this.game = game;
         //        this.stage = new Stage(viewport);
+
+        // int[] height=Play.
+
+
+//        ScreenViewport viewport = new ScreenViewport();
+//        this.stage = new Stage(viewport);
 //        Gdx.input.setInputProcessor(stage);
 //        Actor actor = new Actor();
 //        stage.addActor(actor);
