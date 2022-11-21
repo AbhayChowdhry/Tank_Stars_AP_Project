@@ -7,6 +7,9 @@ public class Play {
     private Player player2;
     private static float[] terrain=new float[Game.getWIDTH()];
 
+    float impact_rad;
+    int impact_coord;
+
     public Play() {
         Player player1 = new Player();
         Player player2 = new Player();
@@ -32,8 +35,12 @@ public class Play {
         return terrain;
     }
 
-    //    public Terrain getTerrain() {
-//        return terrain;
+//    public void updateTerrain(float impact_rad, float impact_coord) {
+//        float height=terrain[impact_coord];
+//        for(int i=0;i<=impact_rad;i++)
+//        {
+//
+//        }
 //    }
 
     //make a method to calculate radius of impact
