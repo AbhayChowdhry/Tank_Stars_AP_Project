@@ -24,7 +24,7 @@ public class Play {
                 else
                     terrain[i]+=Math.pow(Math.cos(x/Math.pow(2,j)),2);
             }
-
+            terrain[i]*=Game.getHEIGHT()/10;
         }
     }
 
