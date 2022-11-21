@@ -1,14 +1,9 @@
 package com.mygdx.game.screens;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.Play;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.entities.Pumpkin;
 
 public class MainGameScreen implements Screen{
 
@@ -16,6 +11,8 @@ public class MainGameScreen implements Screen{
     public static final int TANK_X = 150;
     public static final int TANK_Y = 200;
     Texture BACKGROUND = new Texture("PLAY_BACK.png");
+    Texture TERRAIN = new Texture("TERRAIN.png");
+    Texture TERR_BORDER = new Texture("TERR_BORDER.png")
     Game game;
 //    Sprite p1_body, p1_snout, p2_body, p2_snout;
 //    Texture img;
@@ -31,7 +28,7 @@ public class MainGameScreen implements Screen{
     public MainGameScreen (Game game){
         this.game = game;
 
-        int[] height=Play.
+
 
 
 //        ScreenViewport viewport = new ScreenViewport();
@@ -87,7 +84,11 @@ public class MainGameScreen implements Screen{
         game.batch.begin();
         game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
 
-        int[] height;
+        float[] height=play.getTerrain();
+        for(int i=0;i<Game.getWIDTH();i++){
+            game.batch.draw(TERRAIN, i, 0, 1, height[i]*(Game.getHEIGHT()/10));
+
+        }
 
 //        p1_body.setPosition(player1.getTank().getX_body(),player1.getTank().getY_body());
 //        p1_snout.setPosition(player1.getTank().getX_snout(),player1.getTank().getY_snout() + 102);
