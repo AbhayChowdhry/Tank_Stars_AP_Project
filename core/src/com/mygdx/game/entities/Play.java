@@ -5,13 +5,19 @@ public class Play {
     private Player player2;
     private Terrain terrain;
 
-    Play() {
+    public Play() {
         Player player1 = new Player();
         Player player2 = new Player();
         Terrain terrain = new Terrain();
     }
 
-    public void drawTerrain(){
-        int vals = terrain.get
-    }
+//    public Terrain getTerrain() {
+//        return terrain;
+//    }
+
+    //make a method to calculate radius of impact
+    //sent that r and x to terrain
+    //terrian will modify heights accordingly and draw it in the next second
+
+
 }

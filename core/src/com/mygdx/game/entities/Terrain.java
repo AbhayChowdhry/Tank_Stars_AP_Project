@@ -15,10 +15,13 @@ public class Terrain {
             else if(height[i]>140)
                 height[i]=140;
         }
-
-
-
     }
 
+//    public void updateTerrian(int r, int x) {
+//
+//    }
 
+    public static int[] getHeight() {
+        return height;
+    }
 }
