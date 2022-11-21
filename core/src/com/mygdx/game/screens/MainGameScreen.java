@@ -1,9 +1,15 @@
 package com.mygdx.game.screens;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
-import com.mygdx.game.entities.Play;
+import com.mygdx.game.entities.Player;
+import com.mygdx.game.entities.Pumpkin;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainGameScreen implements Screen{
 
@@ -11,25 +17,36 @@ public class MainGameScreen implements Screen{
     public static final int TANK_X = 150;
     public static final int TANK_Y = 200;
     Texture BACKGROUND = new Texture("PLAY_BACK.png");
-    Texture TERRAIN = new Texture("TERRAIN.png");
-    Texture TERR_BORDER = new Texture("TERR_BORDER.png")
+    Texture PAUSE_INACTIVE = new Texture("PAUSE_INACTIVE.png");
+    Texture PAUSE_ACTIVE = new Texture("PAUSE_ACTIVE.png");
+    Texture RESUME_ACTIVE = new Texture("RESUME_ACTIVE.png");
+    Texture RESUME_INACTIVE = new Texture("RESUME_INACTIVE.png");
+    Texture SAVE_ACTIVE = new Texture("SAVE_ACTIVE.png");
+    Texture SAVE_INACTIVE = new Texture("SAVE_INACTIVE.png");
+    Texture EXIT_ACTIVE = new Texture("EXIT_ACTIVE.png");
+    Texture EXIT_INACTIVE = new Texture("EXIT_INACTIVE.png");
+
+    private static final double BUTTON_WIDTH = Game.getWIDTH() / 5.36;
+    private static final double BUTTON_HEIGHT = Game.getHEIGHT() / 12.56;
+    private static final double BUTTON_DIF = Game.getHEIGHT() / 9.0;
+    private static final double BUTTON_X = Game.getWIDTH() / 1.37;
+    private static final double BUTTON_Y = Game.getHEIGHT() / 1.129;
+    private static final double PAUSE_Y = BUTTON_Y;
+    private static final double PAUSE_X = Game.getWIDTH() / 1.067;
+    private static final double PAUSE_WIDTH = Game.getWIDTH() / 22.32;
+    private static final double PAUSE_HEIGHT = Game.getHEIGHT() / 12.558;
+
+    boolean isPaused = false;
     Game game;
-//    Sprite p1_body, p1_snout, p2_body, p2_snout;
-//    Texture img;
+    Sprite p1_body, p1_snout, p2_body, p2_snout;
+    Texture img;
 //    private Pumpkin pumpkin;
 //    Player player1 = new Player(1, pumpkin);
 //    Player player2 = new Player(2, pumpkin);
 
-    Play play=new Play();
-
-
-
 
     public MainGameScreen (Game game){
         this.game = game;
-
-
-
 
 //        ScreenViewport viewport = new ScreenViewport();
 //        this.stage = new Stage(viewport);
@@ -84,10 +101,27 @@ public class MainGameScreen implements Screen{
         game.batch.begin();
         game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
 
-        float[] height=play.getTerrain();
-        for(int i=0;i<Game.getWIDTH();i++){
-            game.batch.draw(TERRAIN, i, 0, 1, height[i]*(Game.getHEIGHT()/10));
-
+        int y = Game.getHEIGHT() - Gdx.input.getY();
+        if(isPaused == false) {
+            game.batch.draw(PAUSE_INACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+            if(Gdx.input.getX() > PAUSE_X && Gdx.input.getX() < PAUSE_X + PAUSE_WIDTH && y > PAUSE_Y && y < PAUSE_Y + PAUSE_HEIGHT){
+                game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                        isPaused = true;
+                    }
+            }
+        }
+        else{
+            game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+            game.batch.draw(RESUME_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+            game.batch.draw(SAVE_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+            game.batch.draw(EXIT_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - 2*BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+            if(Gdx.input.getX() > PAUSE_X && Gdx.input.getX() < PAUSE_X + PAUSE_WIDTH && y > PAUSE_Y && y < PAUSE_Y + PAUSE_HEIGHT){
+                game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                    isPaused = false;
+                }
+            }
         }
 
 //        p1_body.setPosition(player1.getTank().getX_body(),player1.getTank().getY_body());
