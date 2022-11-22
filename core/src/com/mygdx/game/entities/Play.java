@@ -29,11 +29,19 @@ public class Play {
             }
             terrain[i]*=Game.getHEIGHT()/10;
         }
-        updateTerrain(100, 300);
+        updateTerrain(70, 300);
     }
 
     public float[] getTerrain() {
         return terrain;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
     }
 
     public void updateTerrain(int impact_rad, int impact_coord) {

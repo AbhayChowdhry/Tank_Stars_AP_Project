@@ -27,15 +27,20 @@ public class MainGameScreen implements Screen{
     Texture EXIT_ACTIVE = new Texture("EXIT_ACTIVE.png");
     Texture EXIT_INACTIVE = new Texture("EXIT_INACTIVE.png");
 
+    Texture HEALTH_RECT = new Texture("HEALTH_RECT.png");
+    Texture HEALTH_CURR = new Texture("HEALTH_CURR.png");
+
     private static final double BUTTON_WIDTH = Game.getWIDTH() / 5.36;
     private static final double BUTTON_HEIGHT = Game.getHEIGHT() / 12.56;
     private static final double BUTTON_DIF = Game.getHEIGHT() / 9.0;
-    private static final double BUTTON_X = Game.getWIDTH() / 1.37;
-    private static final double BUTTON_Y = Game.getHEIGHT() / 1.129;
-    private static final double PAUSE_Y = BUTTON_Y;
+    private static final double BUTTON_X = Game.getWIDTH() / 1.257;
+    private static final double BUTTON_Y = Game.getHEIGHT() / 1.291;
+    private static final double PAUSE_Y = Game.getHEIGHT() / 1.129;
     private static final double PAUSE_X = Game.getWIDTH() / 1.067;
     private static final double PAUSE_WIDTH = Game.getWIDTH() / 22.32;
     private static final double PAUSE_HEIGHT = Game.getHEIGHT() / 12.558;
+
+//    private static final double HEALTH_X =
 
     boolean isPaused = false;
 
@@ -127,6 +132,14 @@ public class MainGameScreen implements Screen{
                 }
             }
         }
+
+//        int health1 = play.getPlayer1().getHealth();
+        game.batch.draw(HEALTH_RECT, 113, 535, 208, 40);
+        game.batch.draw(HEALTH_CURR, 117, 539, 200, 32);
+//        int health2 = play.getPlayer2().getHealth();
+        game.batch.draw(HEALTH_RECT, 759, 535, 208, 40);
+        game.batch.draw(HEALTH_CURR, 763, 539, 200, 32);
+
 
         //        p1_body.setPosition(player1.getTank().getX_body(),player1.getTank().getY_body());
         //        p1_snout.setPosition(player1.getTank().getX_snout(),player1.getTank().getY_snout() + 102);

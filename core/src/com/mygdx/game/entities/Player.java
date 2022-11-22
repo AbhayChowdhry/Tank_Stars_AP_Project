@@ -4,7 +4,7 @@ public class Player {
     private Tank tank;
 
     // Total health is 100
-    private double health;
+    private int health;
 
     // Total fuel is 10
     private double fuel;
@@ -20,7 +20,7 @@ public class Player {
         return fuel;
     }
 
-    public double getHealth() {
+    public int getHealth() {
         return health;
     }
 
