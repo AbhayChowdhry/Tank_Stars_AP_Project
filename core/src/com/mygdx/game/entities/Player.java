@@ -14,7 +14,8 @@ public class Player {
         this.health = 100;
         this.fuel = 10;
     }
-    public Player(){}
+
+    Player() {}
 
     public double getFuel() {
         return fuel;
