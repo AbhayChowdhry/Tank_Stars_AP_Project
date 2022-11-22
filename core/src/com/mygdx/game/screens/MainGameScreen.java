@@ -104,7 +104,6 @@ public class MainGameScreen implements Screen{
         for(int i=0;i<Game.getWIDTH();i++){
             game.batch.draw(TERRAIN, i, 0, 1, height[i]);
             game.batch.draw(TERR_BORDER, i, height[i], 1, Game.getHEIGHT()/120);
-
         }
         int y = Game.getHEIGHT() - Gdx.input.getY();
         if(isPaused == false) {

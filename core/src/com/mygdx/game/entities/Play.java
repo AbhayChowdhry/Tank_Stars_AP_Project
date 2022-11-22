@@ -5,10 +5,10 @@ import com.mygdx.game.Game;
 public class Play {
     private Player player1;
     private Player player2;
-    private static float[] terrain=new float[Game.getWIDTH()];
+    private float[] terrain=new float[Game.getWIDTH()];
 
-    float impact_rad;
-    int impact_coord;
+    private int impact_rad, impact_coord;
+    boolean flag=false;
 
     public Play() {
         Player player1 = new Player();
@@ -29,19 +29,23 @@ public class Play {
             }
             terrain[i]*=Game.getHEIGHT()/10;
         }
+        updateTerrain(100, 300);
     }
 
-    public static float[] getTerrain() {
+    public float[] getTerrain() {
         return terrain;
     }
 
-//    public void updateTerrain(float impact_rad, float impact_coord) {
-//        float height=terrain[impact_coord];
-//        for(int i=0;i<=impact_rad;i++)
-//        {
-//ggg
-//        }
-//    }
+    public void updateTerrain(int impact_rad, int impact_coord) {
+        float[] terrain=getTerrain();
+        float height=terrain[impact_coord]+(float)(impact_rad/(Game.getHEIGHT()/175));
+        for(int i=0;i<=impact_rad;i++)
+            if(impact_coord+i<Game.getWIDTH())
+                terrain[impact_coord + i] = Math.min(terrain[impact_coord + i], height - (float) Math.pow(impact_rad * impact_rad - i * i, 0.5));
+        for(int i=0;i<=impact_rad;i++)
+            if(impact_coord-i>=0)
+                terrain[impact_coord - i] = Math.min(terrain[impact_coord - i], height - (float) Math.pow(impact_rad * impact_rad - i * i, 0.5));
+    }
 
     //make a method to calculate radius of impact
     //sent that r and x to terrain
