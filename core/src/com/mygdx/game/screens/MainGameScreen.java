@@ -7,13 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.Play;
-import com.mygdx.game.entities.Play;
 import com.mygdx.game.entities.Player;
 import com.mygdx.game.entities.Pumpkin;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.entities.Pumpkin;
-
-import java.util.concurrent.TimeUnit;
 
 public class MainGameScreen implements Screen{
 

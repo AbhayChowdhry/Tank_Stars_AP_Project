@@ -103,7 +103,8 @@ public class TankSelectionScreen implements Screen {
             game.batch.draw(FORWARD_ACTIVE, (float) FORWARD_X, (float) (FORWARD_Y), (float) NAV_WIDTH, (float) NAV_HEIGHT);
             if (Gdx.input.isTouched()) {
                 if(isSelected){
-                    game.setScreen(new TankSelectionScreen(game));
+//                    game.setScreen(new TankSelectionScreen(game));
+                    game.setScreen(new MainGameScreen(game));
                 }
             }
         }else if (Gdx.input.getX() > BACK_X && Gdx.input.getX() < BACK_X + NAV_WIDTH && y > BACK_Y && y < BACK_Y + NAV_HEIGHT) {
