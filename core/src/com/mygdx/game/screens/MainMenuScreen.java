@@ -64,7 +64,7 @@ public class MainMenuScreen implements Screen {
             if(Gdx.input.isTouched()){
                 game.batch.draw(VS_FRIEND_CLICK, (float) BUTTON_X, (float) BUTTON_Y, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
                 // this.dispose();
-                game.setScreen(new TankSelectionScreen(game));
+                game.setScreen(new TankSelectionScreen(game, false));
             }
 
         }else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - (float) BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT- (float) BUTTON_DIF){

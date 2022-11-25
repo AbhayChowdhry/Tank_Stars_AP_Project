@@ -1,10 +1,14 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
+import com.mygdx.game.entities.Atomic;
+import com.mygdx.game.entities.Tank;
+import com.mygdx.game.entities.Toxic;
 
 public class TankSelectionScreen implements Screen {
 
@@ -15,6 +19,7 @@ public class TankSelectionScreen implements Screen {
     Texture ATOMIC_ACTIVE, ATOMIC_CLICK, ATOMIC_INACTIVE, ATOMIC_ROTATED;
     Texture PUMPKIN_ACTIVE, PUMPKIN_CLICK, PUMPKIN_INACTIVE, PUMPKIN_ROTATED;
     Texture FORWARD_ACTIVE, BACK_ACTIVE;
+    Texture PLAYER1_BANNER, PLAYER2_BANNER;
 
     private static final double BLOCK_WIDTH = Game.getWIDTH()/6.46;
     private static final double BLOCK_HEIGHT = Game.getHEIGHT()/3.6;
@@ -32,10 +37,27 @@ public class TankSelectionScreen implements Screen {
     private static final double BACK_Y = Game.getHEIGHT()/1.167;
     private static final double NAV_WIDTH = Game.getWIDTH()/20.42;
     private static final double NAV_HEIGHT = Game.getHEIGHT()/11.49;
+    private static final double BANNER_X = Game.getWIDTH()/1.768;
+    private static final double BANNER_Y = Game.getHEIGHT()/1.390;
+    private static final double BANNER_WIDTH = Game.getWIDTH()/2.5;
+    private static final double BANNER_HEIGHT = Game.getHEIGHT()/8.182;
     private boolean isSelected = false;
+    private boolean isP1Done = false;
+    private int player1_tank;
+    private int player2_tank;
     private int selection_number = 0;
-    public TankSelectionScreen(Game game){
+
+    public int getPlayer1_tank() {
+        return player1_tank;
+    }
+
+    public int getPlayer2_tank() {
+        return player2_tank;
+    }
+
+    public TankSelectionScreen(Game game, boolean isP1Done){
         this.game = game;
+        this.isP1Done = isP1Done;
         TANK_SELECTION_BACK = new Texture("TANK_SELECTION_BACK.png");
         SELECTION_NO_TANK = new Texture("SELECTION_NO_TANK.png");
 
@@ -62,6 +84,9 @@ public class TankSelectionScreen implements Screen {
         FORWARD_ACTIVE = new Texture("FORWARD_ACTIVE.png");
         BACK_ACTIVE = new Texture("BACK_ACTIVE.png");
 
+        PLAYER1_BANNER = new Texture("PLAYER1_BANNER.png");
+        PLAYER2_BANNER = new Texture("PLAYER2_BANNER.png");
+
     }
     @Override
     public void show() {
@@ -74,6 +99,13 @@ public class TankSelectionScreen implements Screen {
         game.batch.begin();
 
         game.batch.draw(SELECTION_NO_TANK, 0, 0, game.getWIDTH(), game.getHEIGHT());
+        if(!isP1Done){
+            game.batch.draw(PLAYER1_BANNER, (float) BANNER_X, (float) BANNER_Y,(float) BANNER_WIDTH, (float) BANNER_HEIGHT);
+        }
+        else{
+            game.batch.draw(PLAYER2_BANNER, (float) BANNER_X, (float) BANNER_Y,(float) BANNER_WIDTH, (float) BANNER_HEIGHT);
+        }
+
         game.batch.draw(ATOMIC_INACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
         game.batch.draw(PUMPKIN_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
         game.batch.draw(PINKY_INACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
@@ -101,18 +133,37 @@ public class TankSelectionScreen implements Screen {
 
         if (Gdx.input.getX() > FORWARD_X && Gdx.input.getX() < FORWARD_X + NAV_WIDTH && y > FORWARD_Y && y < FORWARD_Y + NAV_HEIGHT) {
             game.batch.draw(FORWARD_ACTIVE, (float) FORWARD_X, (float) (FORWARD_Y), (float) NAV_WIDTH, (float) NAV_HEIGHT);
-            if (Gdx.input.isTouched()) {
-                if(isSelected){
-//                    game.setScreen(new TankSelectionScreen(game));
-                    game.setScreen(new MainGameScreen(game));
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                if(isP1Done) {
+                    if (isSelected) {
+                        player2_tank = selection_number;
+                        game.setScreen(new MainGameScreen(game));
+                    }
+                }
+                else{
+                    player1_tank = selection_number;
+                    game.setScreen(new TankSelectionScreen(game, true));
                 }
             }
-        }else if (Gdx.input.getX() > BACK_X && Gdx.input.getX() < BACK_X + NAV_WIDTH && y > BACK_Y && y < BACK_Y + NAV_HEIGHT) {
+//            if (Gdx.input.isTouched()) {
+//                if(isSelected){
+////                    game.setScreen(new TankSelectionScreen(game));
+//                    game.setScreen(new MainGameScreen(game));
+//                }
+//            }
+        }
+        else if (Gdx.input.getX() > BACK_X && Gdx.input.getX() < BACK_X + NAV_WIDTH && y > BACK_Y && y < BACK_Y + NAV_HEIGHT) {
             game.batch.draw(BACK_ACTIVE, (float) BACK_X, (float) (BACK_Y), (float) NAV_WIDTH, (float) NAV_HEIGHT);
-            if (Gdx.input.isTouched()) {
+            if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                if(isP1Done) {
+                    game.setScreen(new TankSelectionScreen(game, false));
+                }
+                else{
                     game.setScreen(new MainMenuScreen(game));
+                }
             }
-        }  else if (Gdx.input.getX() > START_X && Gdx.input.getX() < START_X + BLOCK_WIDTH && y > START_Y && y < START_Y + BLOCK_HEIGHT) {
+        }
+        else if (Gdx.input.getX() > START_X && Gdx.input.getX() < START_X + BLOCK_WIDTH && y > START_Y && y < START_Y + BLOCK_HEIGHT) {
             if(selection_number != 1){
                 game.batch.draw(ATOMIC_ACTIVE, (float) START_X, (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             }
@@ -121,7 +172,8 @@ public class TankSelectionScreen implements Screen {
                 selection_number = 1;
                 isSelected = true;
             }
-        } else if (Gdx.input.getX() > START_X + DIF_HORIZ && Gdx.input.getX() < START_X + BLOCK_WIDTH + DIF_HORIZ && y > START_Y && y < START_Y + BLOCK_HEIGHT) {
+        }
+        else if (Gdx.input.getX() > START_X + DIF_HORIZ && Gdx.input.getX() < START_X + BLOCK_WIDTH + DIF_HORIZ && y > START_Y && y < START_Y + BLOCK_HEIGHT) {
             if(selection_number != 2) {
                 game.batch.draw(PUMPKIN_ACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             }
@@ -130,7 +182,8 @@ public class TankSelectionScreen implements Screen {
                 selection_number = 2;
                 isSelected = true;
             }
-        } else if (Gdx.input.getX() > START_X + DIF_HORIZ && Gdx.input.getX() < START_X + BLOCK_WIDTH + DIF_HORIZ && y > START_Y - DIF_VERT && y < START_Y + BLOCK_HEIGHT - DIF_VERT) {
+        }
+        else if (Gdx.input.getX() > START_X + DIF_HORIZ && Gdx.input.getX() < START_X + BLOCK_WIDTH + DIF_HORIZ && y > START_Y - DIF_VERT && y < START_Y + BLOCK_HEIGHT - DIF_VERT) {
             if(selection_number != 4){
                 game.batch.draw(PINKY_ACTIVE, (float) (START_X + DIF_HORIZ), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             }
@@ -139,7 +192,8 @@ public class TankSelectionScreen implements Screen {
                 selection_number = 4;
                 isSelected = true;
             }
-        } else if (Gdx.input.getX() > START_X && Gdx.input.getX() < START_X + BLOCK_WIDTH && y > START_Y - DIF_VERT && y < START_Y + BLOCK_HEIGHT - DIF_VERT) {
+        }
+        else if (Gdx.input.getX() > START_X && Gdx.input.getX() < START_X + BLOCK_WIDTH && y > START_Y - DIF_VERT && y < START_Y + BLOCK_HEIGHT - DIF_VERT) {
             if(selection_number != 3) {
                 game.batch.draw(TOXIC_ACTIVE, (float) (START_X), (float) (START_Y - DIF_VERT), (float) BLOCK_WIDTH, (float) BLOCK_HEIGHT);
             }
