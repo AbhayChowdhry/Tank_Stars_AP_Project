@@ -15,7 +15,11 @@ public class Player {
         this.fuel = 10;
     }
 
-    Player() {}
+    Player() {
+        this.fuel=10;
+        this.health=100;
+    }
+
 
     public double getFuel() {
         return fuel;

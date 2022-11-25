@@ -8,11 +8,12 @@ public class Play {
     private float[] terrain=new float[Game.getWIDTH()];
 
     private int impact_rad, impact_coord;
+    private int val;
     boolean flag=false;
 
     public Play() {
-        Player player1 = new Player();
-        Player player2 = new Player();
+        player1 = new Player();
+        player2 = new Player();
         int[] arr=new int[4];
         for(int i=0;i<4;i++)
             arr[i]=(int)(Math.random()*(2));
@@ -29,6 +30,7 @@ public class Play {
             }
             terrain[i]*=Game.getHEIGHT()/10.0;
         }
+
     }
 
     public float[] getTerrain() {

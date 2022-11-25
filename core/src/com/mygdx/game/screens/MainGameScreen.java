@@ -34,6 +34,11 @@ public class MainGameScreen implements Screen{
 
     Texture VS = new Texture("VS.png");
 
+    Texture FIRE_BUTTON = new Texture("FIRE_BUTTON.png");
+    Texture FUEL = new Texture("FUEL.png");
+    Texture FUEL_BACK = new Texture("FUEL_BACK.png");
+    Texture FUEL_CURR = new Texture("FUEL_CURR.png");
+
 
     private static final double BUTTON_WIDTH = Game.getWIDTH() / 5.36;
     private static final double BUTTON_HEIGHT = Game.getHEIGHT() / 12.56;
@@ -65,6 +70,29 @@ public class MainGameScreen implements Screen{
 
     private static final double HEALTH_CURR_HEIGHT = Game.getHEIGHT() / 19.836;
     private static final double HEALTH_CURR_WIDTH = Game.getWIDTH() / 4.987;
+
+    private static final double FUEL_BACK_X = Game.getWIDTH() / 9.458;
+    private static final double FUEL_BACK_Y = Game.getHEIGHT() / 1.371;
+
+    private static final double FUEL_BACK_HEIGHT = Game.getHEIGHT() / 15.428;
+    private static final double FUEL_BACK_WIDTH = Game.getWIDTH() / 6.4;
+
+    private static final double FUEL_CURR_X = Game.getWIDTH() / 9.014;
+    private static final double FUEL_CURR_Y = Game.getHEIGHT() / 1.357;
+
+    private static final double FUEL_CURR_HEIGHT = Game.getHEIGHT() / 19.838;
+    private static final double FUEL_CURR_WIDTH = Game.getWIDTH() / 6.857;
+    private static final double FUEL_X = Game.getWIDTH() / 6.2;
+    private static final double FUEL_Y = Game.getHEIGHT() / 1.333;
+
+    private static final double FUEL_HEIGHT = Game.getHEIGHT() / 39;
+    private static final double FUEL_WIDTH = Game.getWIDTH() / 20;
+
+    private static final double FIRE_X = Game.getWIDTH() / 1.207;
+    private static final double FIRE_Y = Game.getHEIGHT() / 25.714;
+
+    private static final double FIRE_HEIGHT = Game.getHEIGHT() / 9.231;
+    private static final double FIRE_WIDTH = Game.getWIDTH() / 10.667;
 
 
     boolean isPaused = false;
@@ -161,11 +189,15 @@ public class MainGameScreen implements Screen{
         game.batch.draw(HEALTH_LOGO_P1, (float) HEALTH_LOGO_X1, (float) HEALTH_LOGO_Y, (float) HEALTH_LOGO_WIDTH, (float) HEALTH_LOGO_HEIGHT);
         game.batch.draw(HEALTH_LOGO_P2, (float) HEALTH_LOGO_X2, (float) HEALTH_LOGO_Y, (float) HEALTH_LOGO_WIDTH, (float) HEALTH_LOGO_HEIGHT);
         game.batch.draw(VS, (float) VS_X, (float) VS_Y, (float) VS_WIDTH, (float) VS_HEIGHT);
-//        int health1 = play.getPlayer1().getHealth();
-        game.batch.draw(HEALTH_CURR_P1, (float) HEALTH_CURR_X1, (float) HEALTH_CURR_Y, (float) (HEALTH_CURR_WIDTH*0.2), (float) HEALTH_CURR_HEIGHT);
-//        int health2 = play.getPlayer2().getHealth();
-        game.batch.draw(HEALTH_CURR_P2, (float) HEALTH_CURR_X2, (float) HEALTH_CURR_Y, (float) HEALTH_CURR_WIDTH, (float) HEALTH_CURR_HEIGHT);
+        int health1 = play.getPlayer1().getHealth();
+        game.batch.draw(HEALTH_CURR_P1, (float) HEALTH_CURR_X1, (float) HEALTH_CURR_Y, (float) (HEALTH_CURR_WIDTH/100 * health1), (float) HEALTH_CURR_HEIGHT);
+        int health2 = play.getPlayer2().getHealth();
+        game.batch.draw(HEALTH_CURR_P2, (float) (HEALTH_CURR_X2 + HEALTH_CURR_WIDTH - HEALTH_CURR_WIDTH/100 * health2), (float) HEALTH_CURR_Y, (float) (HEALTH_CURR_WIDTH/100 *health2), (float) HEALTH_CURR_HEIGHT);
 
+        game.batch.draw(FUEL_BACK, (float) FUEL_BACK_X, (float) FUEL_BACK_Y, (float) FUEL_BACK_WIDTH, (float) FUEL_BACK_HEIGHT);
+        game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
+        game.batch.draw(FUEL_CURR, (float) FUEL_CURR_X, (float) FUEL_CURR_Y, (float) (FUEL_CURR_WIDTH), (float) FUEL_CURR_HEIGHT);
+        game.batch.draw(FUEL, (float) FUEL_X, (float) FUEL_Y, (float) FUEL_WIDTH, (float) FUEL_HEIGHT);
         //        p1_body.setPosition(player1.getTank().getX_body(),player1.getTank().getY_body());
         //        p1_snout.setPosition(player1.getTank().getX_snout(),player1.getTank().getY_snout() + 102);
 //
