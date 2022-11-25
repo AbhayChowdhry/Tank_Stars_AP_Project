@@ -1,12 +1,11 @@
 package com.mygdx.game.entities;
 
 public class Player {
+    private int SPEED = 4;
+    private int x_coord;
+    private int y_coord;
     private Tank tank;
-
-    // Total health is 100
     private int health;
-
-    // Total fuel is 10
     private double fuel;
 
     public Player(Tank tank){
@@ -20,6 +19,19 @@ public class Player {
         this.health=100;
     }
 
+    public void move_forward(){
+        this.x_coord += SPEED;
+    }
+    public void move_backward(){
+        this.x_coord -= SPEED;
+    }
+    public int getX_coord() {
+        return x_coord;
+    }
+
+    public int getY_coord() {
+        return y_coord;
+    }
 
     public double getFuel() {
         return fuel;

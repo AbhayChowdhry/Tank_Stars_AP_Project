@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Game;
 
+import java.util.ArrayList;
+
 public abstract class Tank {
 
     protected Sprite body, snout;
@@ -11,14 +13,17 @@ public abstract class Tank {
     protected float y_body = 0;
     protected float x_snout;
     protected float y_snout;
+    protected ArrayList<Weapon> WeaponList;
+    protected Weapon SelectedWeapon;
 
     private double tank_width;
     private double tank_height;
 
     protected static final float SPEED = 50;
-//    abstract void fire();
-//    abstract void selectWeapon();
+    abstract void fire();
+    abstract void selectWeapon();
 //    abstract void drawTank();
+
 
     public void forward(){
         x_body += 4;

@@ -29,6 +29,16 @@ public class Toxic extends Tank{
     }
 
     @Override
+    void fire() {
+
+    }
+
+    @Override
+    void selectWeapon() {
+
+    }
+
+    @Override
     public Sprite getBody() {
         return body;
     }
