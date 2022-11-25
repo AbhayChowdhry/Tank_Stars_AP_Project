@@ -32,12 +32,16 @@ public class Pinky extends Tank{
 
     @Override
     void fire() {
-
+        for(int i=0; i<10; i++){
+            ;
+        }
     }
 
     @Override
     void selectWeapon() {
-
+        for(int i=0; i<10; i++){
+            ;
+        }
     }
 
     @Override

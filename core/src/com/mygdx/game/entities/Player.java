@@ -1,6 +1,8 @@
 package com.mygdx.game.entities;
 
-public class Player {
+import com.mygdx.game.Serizable;
+
+public class Player implements Serizable {
     private int SPEED = 4;
     private int x_coord;
     private int y_coord;

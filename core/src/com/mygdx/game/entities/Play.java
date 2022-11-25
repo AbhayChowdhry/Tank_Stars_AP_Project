@@ -1,8 +1,9 @@
 package com.mygdx.game.entities;
 
 import com.mygdx.game.Game;
+import com.mygdx.game.Serizable;
 
-public class Play {
+public class Play implements Serizable {
     private Player player1;
     private Player player2;
     private float[] terrain=new float[Game.getWIDTH()];

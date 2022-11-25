@@ -36,7 +36,7 @@ public class Pumpkin extends Tank{
 
     @Override
     void fire() {
-
+        System.out.println("bello");
     }
 
     @Override
