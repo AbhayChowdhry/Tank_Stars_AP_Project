@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.Play;
@@ -99,6 +100,7 @@ public class MainGameScreen implements Screen{
 
     boolean isPaused = false;
     int x = 0;
+    private World world;
 
     Game game;
 //    Texture img;
