@@ -18,6 +18,7 @@ public class Player {
     Player() {
         this.fuel=10;
         this.health=100;
+        this.tank = new Pinky();
     }
 
 
@@ -27,6 +28,14 @@ public class Player {
 
     public int getHealth() {
         return health;
+    }
+
+    public void setFuel(double fuel) {
+        this.fuel = fuel;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public Tank getTank() {

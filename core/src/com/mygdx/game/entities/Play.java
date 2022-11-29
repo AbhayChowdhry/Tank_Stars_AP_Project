@@ -30,6 +30,7 @@ public class Play {
             }
             terrain[i]*=Game.getHEIGHT()/10.0;
         }
+        updateTerrain(30,400);
 
     }
 
