@@ -40,6 +40,8 @@ public class MainGameScreen implements Screen{
     Texture FUEL_BACK = new Texture("FUEL_BACK.png");
     Texture FUEL_CURR = new Texture("FUEL_CURR.png");
 
+    Sprite ground = new Sprite(TERRAIN);
+
 
     private static final double BUTTON_WIDTH = Game.getWIDTH() / 5.36;
     private static final double BUTTON_HEIGHT = Game.getHEIGHT() / 12.56;
@@ -103,7 +105,7 @@ public class MainGameScreen implements Screen{
     int x = 0;
     private World world;
     private Box2DDebugRenderer debugRenderer;
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
 
     Game game;
 //    Texture img;
@@ -111,6 +113,7 @@ public class MainGameScreen implements Screen{
 //    Player player1 = new Player(1, pumpkin);
 //    Player player2 = new Player(2, pumpkin);
     Play play=new Play();
+    Body body;
     public MainGameScreen (Game game, int tank1, int tank2){
         this.game = game;
         switch (tank1) {
@@ -193,16 +196,30 @@ public class MainGameScreen implements Screen{
     }
     @Override
     public void show() {
-
-        world = new World(new Vector2(0,-9.18f), false);
+        world = new World(new Vector2(0,-9.81f), false);
         debugRenderer = new Box2DDebugRenderer();
         camera.setToOrtho(false, Game.getWIDTH(), Game.getHEIGHT());
         debugRenderer.render(world, camera.combined.cpy().scl(PPM));
 
         BodyDef bodydef = new BodyDef();
-        bodydef.type = BodyDef.BodyType.DynamicBody;
-        bodydef.position.set(0,1);
 
+        float[] height=play.getTerrain();
+//        BodyDef bodydef = new BodyDef();
+        for(int i=0;i<Game.getWIDTH();i++)
+        {
+            bodydef.type = BodyDef.BodyType.StaticBody;
+            bodydef.position.set(i/PPM,0);
+            PolygonShape shape = new PolygonShape();
+            shape.setAsBox(1/PPM, height[i]/PPM);
+            FixtureDef fixturedef = new FixtureDef();
+            fixturedef.shape = shape;
+            world.createBody(bodydef).createFixture(fixturedef);
+
+        }
+
+        bodydef.type = BodyDef.BodyType.DynamicBody;
+        bodydef.position.set(Game.getWIDTH()/(2*PPM),Game.getHEIGHT()/(2*PPM));
+//
         CircleShape shape = new CircleShape();
         shape.setRadius(0.5f);
 
@@ -212,20 +229,20 @@ public class MainGameScreen implements Screen{
         fixtureDef.friction = 0.25f;
         fixtureDef.restitution = 0.75f;
         world.createBody(bodydef).createFixture(fixtureDef);
+////
+//        bodydef.type = BodyDef.BodyType.StaticBody;
+//        bodydef.position.set(0,0);
+//
+//        ChainShape ground = new ChainShape();
+//        ground.createChain(new Vector2[]{new Vector2(0,0), new Vector2(1080/PPM,607/PPM)});
+//
+//        fixtureDef.shape = ground;
+//        fixtureDef.friction = 0.5f;
+//        fixtureDef.restitution = 0;
+//        world.createBody(bodydef).createFixture(fixtureDef);
 
-        bodydef.type = BodyDef.BodyType.StaticBody;
-        bodydef.position.set(0,0);
 
-        ChainShape ground = new ChainShape();
-        ground.createChain(new Vector2[]{new Vector2(0,0), new Vector2(5,5)});
-
-        fixtureDef.shape = ground;
-        fixtureDef.friction = 0.5f;
-        fixtureDef.restitution = 0;
-        world.createBody(bodydef).createFixture(fixtureDef);
-
-
-        shape.dispose();
+//        shape.dispose();
 
 
 
@@ -237,10 +254,9 @@ public class MainGameScreen implements Screen{
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
-        world.step(1/60f, 8, 3);
+        world.step(Gdx.graphics.getDeltaTime(), 8, 3);
         debugRenderer.render(world, camera.combined.cpy().scl(PPM));
 
-//
         game.batch.begin();
         //Background
 //        game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
@@ -308,13 +324,48 @@ public class MainGameScreen implements Screen{
 //            fuel=play.getPlayer2().getFuel();
 //        game.batch.draw(FUEL_CURR, (float) FUEL_CURR_X, (float) FUEL_CURR_Y, (float) (FUEL_CURR_WIDTH/10*fuel), (float) FUEL_CURR_HEIGHT);
 //        game.batch.draw(FUEL, (float) FUEL_X, (float) FUEL_Y, (float) FUEL_WIDTH, (float) FUEL_HEIGHT);
+
+//        float[] height=play.getTerrain();
+//        BodyDef bodydef = new BodyDef();
+//        for(int i=0;i<Game.getWIDTH();i++)
+//        {
+//            bodydef.type = BodyDef.BodyType.StaticBody;
+//            bodydef.position.set(i/PPM,0);
+//            PolygonShape shape = new PolygonShape();
+//            shape.setAsBox(1/PPM, height[i]/PPM);
+//            FixtureDef fixturedef = new FixtureDef();
+//            fixturedef.shape = shape;
+//            world.createBody(bodydef).createFixture(fixturedef);
 //
+//        }
+
+//        bodydef.position.set(Game.getWIDTH()/(2*PPM),Game.getHEIGHT()/(2*PPM));
 //
+//        CircleShape shape = new CircleShape();
+//        shape.setRadius(0.5f);
+//
+//        FixtureDef fixtureDef = new FixtureDef();
+//        fixtureDef.shape = shape;
+//        fixtureDef.density = 2.5f;
+//        fixtureDef.friction = 0.25f;
+//        fixtureDef.restitution = 0.75f;
+//        world.createBody(bodydef).createFixture(fixtureDef);
 
 //        float[] height=play.getTerrain();
 //        for(int i=0;i<Game.getWIDTH();i++){
 //            game.batch.draw(TERRAIN, i, 0, 1, height[i]);
 //            game.batch.draw(TERR_BORDER, i, height[i], 1, Game.getHEIGHT()/120);
+//        }
+
+//        ground.setPosition(10,0);
+//        ground.setSize(1,100);
+//        ground.draw(game.batch);
+//        float[] height=play.getTerrain();
+//        for(int i=0;i<Game.getWIDTH();i++) {
+//            ground.setPosition(i,0);
+//            ground.setSize(1,height[i]);
+//            ground.draw(game.batch);
+//            System.out.println(i+" "+height[i]);
 //        }
 
 //
@@ -355,7 +406,7 @@ public class MainGameScreen implements Screen{
 
     public void update(float delta)
     {
-        world.step(1/60f, 8, 3);
+        world.step(Gdx.graphics.getDeltaTime(), 8, 3);
     }
     @Override
     public void resize(int width, int height) {
