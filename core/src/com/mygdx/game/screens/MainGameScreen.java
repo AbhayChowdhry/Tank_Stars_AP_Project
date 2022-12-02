@@ -3,16 +3,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
-import com.mygdx.game.entities.Play;
-import com.mygdx.game.entities.Player;
-import com.mygdx.game.entities.Pumpkin;
-import com.mygdx.game.entities.Tank;
+import com.mygdx.game.entities.*;
 
 public class MainGameScreen implements Screen{
 
@@ -99,33 +100,74 @@ public class MainGameScreen implements Screen{
     private static final double FIRE_HEIGHT = Game.getHEIGHT() / 9.231;
     private static final double FIRE_WIDTH = Game.getWIDTH() / 10.667;
 
+    private final float PPM = 32f;
+
 
     boolean isPaused = false;
     int x = 0;
     private World world;
     private Box2DDebugRenderer debugRenderer;
     private OrthographicCamera camera;
-
+    Array<Body> bodies_arr = new Array<>();
     Game game;
-//    Texture img;
-//    private Pumpkin pumpkin;
-//    Player player1 = new Player(1, pumpkin);
-//    Player player2 = new Player(2, pumpkin);
-    Play play=new Play();
-    public MainGameScreen (Game game){
+    Play play;
+    Body body;
+//    Player player1;
+//    Player player2;
+
+    public MainGameScreen (Game game, int player1_sel, int player2_sel){
         this.game = game;
-        //        this.stage = new Stage(viewport);
+        play = new Play();
+//        Player player1 = play.getPlayer1();
+//        Player player2 = play.getPlayer2();
 
-        // int[] height=Play.
 
+        switch (player1_sel) {
+            case 1:
+                Atomic atomic = new Atomic();
+                play.getPlayer1().setTank(atomic);
+                break;
+            case 2:
+                Pumpkin pumpkin = new Pumpkin();
+                play.getPlayer1().setTank(pumpkin);
+                break;
+            case 3:
+                Toxic toxic = new Toxic();
+                play.getPlayer1().setTank(toxic);
+                break;
+            case 4:
+                Pinky pinky = new Pinky();
+                play.getPlayer1().setTank(pinky);
+                break;
+        }
 
-//        ScreenViewport viewport = new ScreenViewport();
-//        this.stage = new Stage(viewport);
-//        Gdx.input.setInputProcessor(stage);
-//        Actor actor = new Actor();
-//        stage.addActor(actor);
-//        stage.setKeyboardFocus(actor);
-//        img = new Texture("TestTank.png");
+//        switch (player2_sel) {
+//            case 1:
+//                Atomic atomic = new Atomic();
+//                player2_sel.setTank(atomic);
+//                break;
+//            case 2:
+//                Pumpkin pumpkin = new Pumpkin();
+//                player2_sel.setTank(pumpkin);
+//                break;
+//            case 3:
+//                Toxic toxic = new Toxic();
+//                player2_sel.setTank(toxic);
+//                break;
+//            case 4:
+//                Pinky pinky = new Pinky();
+//                player2_sel.setTank(pinky);
+//                break;
+//        }
+        //p1_body.setSize(652,366);
+        //play.getPlayer1().getTank().getSnout().setSize(326,183);
+        //play.getPlayer1().getTank().getBody().setOrigin(0,0);
+
+        //p1_snout.setSize(652,146);
+//        play.getPlayer1().getTank().getSnout().setSize(326,73);
+        //play.getPlayer1().getTank().getSnout().setOrigin(164,36);
+
+        play.getPlayer1().getTank().getBody().setSize((float) play.getPlayer1().getTank().getTank_width(), (float) play.getPlayer1().getTank().getTank_height());
 //        Texture p1_snout_texture = player1.getTank().getSnout();
 //        Texture p1_body_texture = player1.getTank().getBody();
 //
@@ -156,37 +198,71 @@ public class MainGameScreen implements Screen{
     }
     @Override
     public void show() {
-
-        world = new World(new Vector2(0,-9.18f), false);
+        world = new World(new Vector2(0,-9.18f), true);
         debugRenderer = new Box2DDebugRenderer();
-        camera = new OrthographicCamera(Game.getWIDTH()/10, Game.getHEIGHT()/10);
-        BodyDef bodydef = new BodyDef();
-        bodydef.type = BodyDef.BodyType.DynamicBody;
-        bodydef.position.set(0,1);
+        camera = new OrthographicCamera(Game.getWIDTH(), Game.getHEIGHT());
+//        BodyDef bodydef = new BodyDef();
+//        bodydef.type = BodyDef.BodyType.DynamicBody;
+//        bodydef.position.set(0,1);
+//
+//        CircleShape shape = new CircleShape();
+//        shape.setRadius(5f);
+//
+//        FixtureDef fixtureDef = new FixtureDef();
+//        fixtureDef.shape = shape;
+//        fixtureDef.density = 2.5f;
+//        fixtureDef.friction = 0.25f;
+//        fixtureDef.restitution = 0.75f;
+//        world.createBody(bodydef).createFixture(fixtureDef);
+//
 
-        CircleShape shape = new CircleShape();
-        shape.setRadius(0.5f);
+        //play.getPlayer1().getTank().getBody().setPosition(play.getPlayer1().getTank().getX_body(),  play.getPlayer1().getTank().getY_body());
 
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = 2.5f;
-        fixtureDef.friction = 0.25f;
-        fixtureDef.restitution = 0.75f;
-        world.createBody(bodydef).createFixture(fixtureDef);
+//        play.getPlayer1().getTank().getBody().setPosition(Gdx.graphics.getWidth() / 2 - play.getPlayer1().getTank().getBody().getWidth() / 2, Gdx.graphics.getHeight() / 2);
 
-        bodydef.type = BodyDef.BodyType.StaticBody;
-        bodydef.position.set(0,0);
+//        play.getPlayer1().getTank().getBody().setX(Game.getWIDTH()/ 2);
+//        play.getPlayer1().getTank().getBody().setY(Game.getHEIGHT() / 2);
+
+//        play.getPlayer1().getTank().getBody().setPosition(Game.getWIDTH()/ 2, Game.getHEIGHT()/ 2);
+//        play.getPlayer1().getTank().getBody().setSize((float) play.getPlayer1().getTank().getTank_width(), (float) play.getPlayer1().getTank().getTank_height());
+
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        //bodyDef.position.set(play.getPlayer1().getTank().getBody().getX(), play.getPlayer1().getTank().getBody().getY());
+        bodyDef.position.set(0, 100);
+        //bodyDef.position.set(play.getPlayer1().getTank().getX_body(), play.getPlayer1().getTank().getY_body());
+        // Create a body in the world using our definition
+
+        // Now define the dimensions of the physics shape
+        PolygonShape shape2 = new PolygonShape();
+        shape2.setAsBox((float) play.getPlayer1().getTank().getTank_width()/2, (float) play.getPlayer1().getTank().getTank_height()/2);
+
+        body = world.createBody(bodyDef);
+        FixtureDef fixtureDef2 = new FixtureDef();
+        fixtureDef2.shape = shape2;
+        fixtureDef2.density = 1f;
+
+        Fixture fixture = body.createFixture(fixtureDef2);
+
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(0,0);
 
         ChainShape ground = new ChainShape();
-        ground.createChain(new Vector2[]{new Vector2(-200,-20), new Vector2(500,0)});
+        ground.createChain(new Vector2[]{new Vector2(-500,-200), new Vector2(500,100)});
 
-        fixtureDef.shape = ground;
-        fixtureDef.friction = 0.5f;
-        fixtureDef.restitution = 0;
-        world.createBody(bodydef).createFixture(fixtureDef);
+        fixtureDef2.shape = ground;
+        fixtureDef2.friction = 0.5f;
+        fixtureDef2.restitution = 0;
+        world.createBody(bodyDef).createFixture(fixtureDef2);
 
 
-        shape.dispose();
+        ground.dispose();
+
+        // Shape is the only disposable of the lot, so get rid of it
+        shape2.dispose();
+
+
 
 
 
@@ -198,15 +274,14 @@ public class MainGameScreen implements Screen{
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0, 1);
-        debugRenderer.render(world, camera.combined);
-        world.step(1/60f, 8, 3);
 
 //        Tank player1_tank = play.getPlayer1().getTank();
 //        Tank player1_tank = new Pumpkin();
 //        // Tank player2_tank = play.getPlayer2().getTank();
 //
+        game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-//        game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
+        game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
 
 //        float[] height=play.getTerrain();
 //        for(int i=0;i<Game.getWIDTH();i++){
@@ -266,10 +341,11 @@ public class MainGameScreen implements Screen{
 //        game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
 //        game.batch.draw(FUEL_CURR, (float) FUEL_CURR_X, (float) FUEL_CURR_Y, (float) (FUEL_CURR_WIDTH), (float) FUEL_CURR_HEIGHT);
 //        game.batch.draw(FUEL, (float) FUEL_X, (float) FUEL_Y, (float) FUEL_WIDTH, (float) FUEL_HEIGHT);
+
 //        // player1_tank.getBody().setOrigin((float) player1_tank.getTank_width()/2, 0);
 //        player1_tank.getBody().setPosition(x, height[x]);
 //        player1_tank.getBody().setSize((float) player1_tank.getTank_width()/2, (float) player1_tank.getTank_height()/2);
-//        //game.batch.draw(player1_tank.getBody());
+//        game.batch.draw(player1_tank.getBody());
 //        player1_tank.getBody().draw(game.batch);
 //        //        p1_body.setPosition(player1.getTank().getX_body(),player1.getTank().getY_body());
 //        //        p1_snout.setPosition(player1.getTank().getX_snout(),player1.getTank().getY_snout() + 102);
@@ -294,7 +370,34 @@ public class MainGameScreen implements Screen{
 //        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
 //            x += 3;
 //        }
+
+        //play.getPlayer1().getTank().getBody().setPosition(x, height[x]);
+        //play.getPlayer1().getTank().getBody().setPosition(body.getPosition().x + 3*play.getPlayer1().getTank().getBody().getWidth(), body.getPosition().y + (float)(1.7)*play.getPlayer1().getTank().getBody().getWidth());
+        //play.getPlayer1().getTank().getBody().setSize((float) play.getPlayer1().getTank().getTank_width(), (float) play.getPlayer1().getTank().getTank_height());
+        //float x = body.getPosition().x;
+        //float y = body.getPosition().y;
+        //game.batch.draw(play.getPlayer1().getTank().getBody(), play.getPlayer1().getTank().getBody().getX(), play.getPlayer1().getTank().getBody().getY());
+//        play.getPlayer1().getTank().getBody().draw(game.batch);
+
+//        world.getBodies(bodies_arr);
+//        for(Body body : bodies_arr){
+//
+//        }
+        play.getPlayer1().getTank().getBody().setPosition(body.getPosition().x - play.getPlayer1().getTank().getBody().getWidth()/2, body.getPosition().y - play.getPlayer1().getTank().getBody().getHeight()/2);
+        play.getPlayer1().getTank().getBody().setRotation(body.getAngle()* MathUtils.radiansToDegrees);
+        play.getPlayer1().getTank().getBody().setOrigin(play.getPlayer1().getTank().getBody().getWidth()/2, play.getPlayer1().getTank().getBody().getHeight()/2);
+        play.getPlayer1().getTank().getBody().draw(game.batch);
+//        Pumpkin pumpkin = new Pumpkin();
+//        play.getPlayer1().setTank(pumpkin);
+//        Player player1 = new Player();
+//        player1.setTank(pumpkin);
+        //Tank temp = player1.getTank();
+        //Tank temp = player1.getTank();
+
         game.batch.end();
+
+        debugRenderer.render(world, camera.combined);
+        world.step(Gdx.graphics.getDeltaTime(), 8, 3);
     }
     @Override
     public void resize(int width, int height) {

@@ -1,5 +1,6 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.entities.Pumpkin;
 import com.mygdx.game.screens.MainGameScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.TankSelectionScreen;
@@ -24,7 +25,7 @@ public class Game extends com.badlogic.gdx.Game {
 	public void create () {
 		batch = new SpriteBatch();
 //		 this.setScreen(new MainMenuScreen(this));
-		this.setScreen(new MainGameScreen(this));
+		this.setScreen(new MainGameScreen(this, 2, 2));
 	}
 
 	@Override

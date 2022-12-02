@@ -71,7 +71,7 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(VS_COMP_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y - (float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
                 game.batch.draw(VS_COMP_CLICK, (float) BUTTON_X, (float) BUTTON_Y - (float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-                game.setScreen(new MainGameScreen(game));
+                // game.setScreen(new MainGameScreen(game));
             }
         }
         else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y -  2*(float) BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - 2*(float) BUTTON_DIF){

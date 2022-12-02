@@ -137,7 +137,7 @@ public class TankSelectionScreen implements Screen {
                 if(isP1Done) {
                     if (isSelected) {
                         player2_tank = selection_number;
-                        game.setScreen(new MainGameScreen(game));
+                        game.setScreen(new MainGameScreen(game, getPlayer1_tank(), getPlayer2_tank()));
                     }
                 }
                 else{

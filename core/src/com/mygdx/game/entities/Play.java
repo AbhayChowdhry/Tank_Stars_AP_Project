@@ -39,11 +39,11 @@ public class Play {
     }
 
     public Player getPlayer1() {
-        return player1;
+        return this.player1;
     }
 
     public Player getPlayer2() {
-        return player2;
+        return this.player2;
     }
 
     public void updateTerrain(int impact_rad, int impact_coord) {
