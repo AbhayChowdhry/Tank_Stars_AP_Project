@@ -20,6 +20,8 @@ public abstract class Tank {
 //    abstract void selectWeapon();
 //    abstract void drawTank();
 
+    abstract String name();
+
     public void forward(){
         x_body += 4;
         x_snout += 4;

@@ -27,6 +27,11 @@ public class Pumpkin extends Tank{
 //    body.setOrigin(0,0);
 
 
+    @Override
+    String name() {
+        return "1";
+    }
+
     public void move_forward(){
         x_body += 4;
     }
@@ -53,4 +58,6 @@ public class Pumpkin extends Tank{
     public double getTank_width() {
         return tank_width;
     }
+
+
 }

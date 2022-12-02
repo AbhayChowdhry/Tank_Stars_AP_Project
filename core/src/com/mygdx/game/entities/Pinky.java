@@ -16,6 +16,12 @@ public class Pinky extends Tank{
     // private float y_snout = (float) (y_body + Game.getHEIGHT()/5.0232);
     // private float y_snout = (float) (y_body + 215);
 
+
+    @Override
+    String name() {
+        return "2";
+    }
+
     private double tank_width = Game.getWIDTH()/7.0;
     private double tank_height = Game.getHEIGHT()/8.0;
 

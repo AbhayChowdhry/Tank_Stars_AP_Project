@@ -8,12 +8,11 @@ public class Play {
     private float[] terrain=new float[Game.getWIDTH()];
 
     private int impact_rad, impact_coord;
-    private int val;
-    boolean flag=false;
+    private boolean turn;
 
     public Play() {
-        player1 = new Player();
-        player2 = new Player();
+        player1 = new Player(new Pinky());
+        player2 = new Player(new Pumpkin());
         int[] arr=new int[4];
         for(int i=0;i<4;i++)
             arr[i]=(int)(Math.random()*(2));
@@ -30,8 +29,7 @@ public class Play {
             }
             terrain[i]*=Game.getHEIGHT()/10.0;
         }
-        updateTerrain(30,400);
-
+        turn = true;
     }
 
     public float[] getTerrain() {
@@ -45,6 +43,11 @@ public class Play {
     public Player getPlayer2() {
         return player2;
     }
+
+    public boolean getTurn() {
+        return turn;
+    }
+
 
     public void updateTerrain(int impact_rad, int impact_coord) {
         float[] terrain=getTerrain();

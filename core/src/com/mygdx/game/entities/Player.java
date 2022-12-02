@@ -1,5 +1,7 @@
 package com.mygdx.game.entities;
 
+import java.util.LinkedList;
+
 public class Player {
     private Tank tank;
 
@@ -7,22 +9,22 @@ public class Player {
     private int health;
 
     // Total fuel is 10
-    private double fuel;
+    private int fuel;
 
-    public Player(Tank tank){
-        this.tank = new Pumpkin();
-        this.health = 100;
-        this.fuel = 10;
-    }
+    private LinkedList<Weapon> weapons;
 
-    Player() {
+    Player(Tank tank) {
         this.fuel=10;
         this.health=100;
-        this.tank = new Pinky();
+        this.tank=tank;
+        this.weapons.add(new SharpShooter());
+        this.weapons.add(new RainbowAttack());
+        this.weapons.add(new MakeItRain());
+        this.weapons.add(new MassiveDrop());
     }
 
 
-    public double getFuel() {
+    public int getFuel() {
         return fuel;
     }
 
@@ -30,7 +32,7 @@ public class Player {
         return health;
     }
 
-    public void setFuel(double fuel) {
+    public void setFuel(int fuel) {
         this.fuel = fuel;
     }
 
