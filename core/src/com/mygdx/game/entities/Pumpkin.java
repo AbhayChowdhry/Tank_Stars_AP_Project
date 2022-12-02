@@ -6,9 +6,21 @@ import com.mygdx.game.Game;
 
 public class Pumpkin extends Tank{
 
-     private Texture body_texture = new Texture("pumpkin_body.png");
-     private Texture snout_texture = new Texture("pumpkin_snout.png");
+     private Texture PUMPKIN_BODY = new Texture("PUMPKIN_BODY.png");
+     private Texture PUMPKIN_SNOUT = new Texture("PUMPKIN_SNOUT.png");
 
+    Sprite body = new Sprite(PUMPKIN_BODY);
+    Sprite snout = new Sprite(PUMPKIN_SNOUT);
+
+    @Override
+    public Sprite getBody() {
+        return body;
+    }
+
+    @Override
+    public Sprite getSnout() {
+        return snout;
+    }
     private float x_body = 0;
     private float y_body = 0;
     private float x_snout = x_body;
@@ -20,8 +32,7 @@ public class Pumpkin extends Tank{
     private double tank_height = Game.getHEIGHT()/8.0;
 
     // Sprite body, snout;
-    Sprite body = new Sprite(body_texture);
-    Sprite snout = new Sprite(snout_texture);
+
 
 //    body.setSize(326,183);
 //    body.setOrigin(0,0);
@@ -39,15 +50,7 @@ public class Pumpkin extends Tank{
         x_body -= 4;
     }
 
-    @Override
-    public Sprite getBody() {
-        return body;
-    }
 
-    @Override
-    public Sprite getSnout() {
-        return snout;
-    }
 
     @Override
     public double getTank_height() {

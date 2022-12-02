@@ -13,14 +13,13 @@ public class Player {
 
     private LinkedList<Weapon> weapons;
 
-    Player(Tank tank) {
+    Player() {
         this.fuel=10;
         this.health=100;
-        this.tank=tank;
-        this.weapons.add(new SharpShooter());
-        this.weapons.add(new RainbowAttack());
-        this.weapons.add(new MakeItRain());
-        this.weapons.add(new MassiveDrop());
+//        this.weapons.add(new SharpShooter());
+//        this.weapons.add(new RainbowAttack());
+//        this.weapons.add(new MakeItRain());
+//        this.weapons.add(new MassiveDrop());
     }
 
 

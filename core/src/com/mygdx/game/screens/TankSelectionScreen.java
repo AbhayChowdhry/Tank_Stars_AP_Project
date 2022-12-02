@@ -46,6 +46,7 @@ public class TankSelectionScreen implements Screen {
     private int player1_tank;
     private int player2_tank;
     private int selection_number = 0;
+    private int sel;
 
     public int getPlayer1_tank() {
         return player1_tank;
@@ -55,9 +56,10 @@ public class TankSelectionScreen implements Screen {
         return player2_tank;
     }
 
-    public TankSelectionScreen(Game game, boolean isP1Done){
+    public TankSelectionScreen(Game game, boolean isP1Done, int sel){
         this.game = game;
         this.isP1Done = isP1Done;
+        this.sel = sel;
         TANK_SELECTION_BACK = new Texture("TANK_SELECTION_BACK.png");
         SELECTION_NO_TANK = new Texture("SELECTION_NO_TANK.png");
 
@@ -137,12 +139,12 @@ public class TankSelectionScreen implements Screen {
                 if(isP1Done) {
                     if (isSelected) {
                         player2_tank = selection_number;
-                        game.setScreen(new MainGameScreen(game));
+                        game.setScreen(new MainGameScreen(game, sel, selection_number));
                     }
                 }
                 else{
                     player1_tank = selection_number;
-                    game.setScreen(new TankSelectionScreen(game, true));
+                    game.setScreen(new TankSelectionScreen(game, true, selection_number));
                 }
             }
 //            if (Gdx.input.isTouched()) {
@@ -156,7 +158,7 @@ public class TankSelectionScreen implements Screen {
             game.batch.draw(BACK_ACTIVE, (float) BACK_X, (float) (BACK_Y), (float) NAV_WIDTH, (float) NAV_HEIGHT);
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 if(isP1Done) {
-                    game.setScreen(new TankSelectionScreen(game, false));
+                    game.setScreen(new TankSelectionScreen(game, false, sel));
                 }
                 else{
                     game.setScreen(new MainMenuScreen(game));

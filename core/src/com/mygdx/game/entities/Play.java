@@ -11,8 +11,8 @@ public class Play {
     private boolean turn;
 
     public Play() {
-        player1 = new Player(new Pinky());
-        player2 = new Player(new Pumpkin());
+        player1 = new Player();
+        player2 = new Player();
         int[] arr=new int[4];
         for(int i=0;i<4;i++)
             arr[i]=(int)(Math.random()*(2));

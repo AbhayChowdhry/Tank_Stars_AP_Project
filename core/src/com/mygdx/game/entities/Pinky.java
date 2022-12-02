@@ -6,11 +6,30 @@ import com.mygdx.game.Game;
 
 public class Pinky extends Tank{
 
-    private Texture body_texture = new Texture("pinky_body.png");
-    private Texture snout_texture = new Texture("pinky_snout.png");
-    private Texture extra_texture = new Texture("pinky_extra.png");
+    private Texture PINKY_BODY = new Texture("PINKY_BODY.png");
+    private Texture PINKY_SNOUT = new Texture("PINKY_SNOUT.png");
+    private Texture PINKY_EXTRAS = new Texture("PINKY_EXTRAS.png");
 
-//    private float x_body = 0;
+    Sprite body = new Sprite(PINKY_BODY);
+    Sprite snout = new Sprite(PINKY_SNOUT);
+    Sprite extras = new Sprite(PINKY_EXTRAS);
+
+    @Override
+    public Sprite getBody() {
+
+        return body;
+    }
+
+    @Override
+    public Sprite getSnout() {
+
+        return snout;
+    }
+
+    public Sprite getExtras() {
+        return extras;
+    }
+    //    private float x_body = 0;
 //    private float y_body = 0;
 //    private float x_snout = x_body;
     // private float y_snout = (float) (y_body + Game.getHEIGHT()/5.0232);
@@ -25,28 +44,10 @@ public class Pinky extends Tank{
     private double tank_width = Game.getWIDTH()/7.0;
     private double tank_height = Game.getHEIGHT()/8.0;
 
-    Sprite body = new Sprite(body_texture);
-    Sprite snout = new Sprite(snout_texture);
-    Sprite extra = new Sprite(extra_texture);
-
     public void move_forward(){
         x_body += 4;
     }
     public void move_backward(){
         x_body -= 4;
-    }
-
-    @Override
-    public Sprite getBody() {
-        return body;
-    }
-
-    @Override
-    public Sprite getSnout() {
-        return snout;
-    }
-
-    public Sprite getExtra() {
-        return extra;
     }
 }
