@@ -400,31 +400,12 @@ public class MainGameScreen implements Screen{
         play.getPlayer1().getTank().getBody().setOrigin((float) play.getPlayer1().getTank().getTank_width()/2, (float)play.getPlayer1().getTank().getTank_height()/2);
         play.getPlayer1().getTank().getBody().draw(game.batch);
 
-
-//        play.getPlayer1().getTank().getSnout().setRotation(tank_1);
-
-//        // player1_tank.getBody().setOrigin((float) player1_tank.getTank_width()/2, 0);
-//        player1_tank.getBody().setPosition(x, height[x]);
-//        player1_tank.getBody().setSize((float) player1_tank.getTank_width()/2, (float) player1_tank.getTank_height()/2);
-//        //game.batch.draw(player1_tank.getBody());
-//        player1_tank.getBody().draw(game.batch);
-//                p1_body.setPosition(player1.getTank().getX_body(),player1.getTank().getY_body());
-//                p1_snout.setPosition(player1.getTank().getX_snout(),player1.getTank().getY_snout() + 102);
-
-////        p2_body.setPosition(player2.getTank().getX_body() + Game.getWIDTH()*3/4,player1.getTank().getY_body());
-////        p2_snout.setPosition(player2.getTank().getX_snout() + Game.getWIDTH()*3/4,player1.getTank().getY_snout() + 102);
-////
-////        p1_snout.draw(game.batch);
-////        p1_body.draw(game.batch);
-////
-////        p2_snout.draw(game.batch);
-////        p2_body.draw(game.batch);
-////        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-////            p1_snout.setRotation(p1_snout.getRotation() + 1);
-////        }
-////        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-////            p1_snout.setRotation(p1_snout.getRotation() - 1);
-////        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+//            p1_snout.setRotation(p1_snout.getRotation() + 1);
+//        }
+//        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+//            p1_snout.setRotation(p1_snout.getRotation() - 1);
+//        }
 //        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
 //            x -= 3;
 //        }
