@@ -18,6 +18,7 @@ public abstract class Tank {
     private double snout_height;
     private double snout_x;
     private double snout_y;
+    private Texture PUMPKIN_SNOUT;
 
     protected static final float SPEED = 50;
 //    abstract void fire();
@@ -64,6 +65,10 @@ public abstract class Tank {
 
     public double getTank_width() {
         return tank_width;
+    }
+
+    public Texture getPUMPKIN_SNOUT() {
+        return PUMPKIN_SNOUT;
     }
 
     public double getSnout_height() {

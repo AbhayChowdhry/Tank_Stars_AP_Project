@@ -102,11 +102,8 @@ public class MainGameScreen implements Screen{
     private static final double FIRE_HEIGHT = Game.getHEIGHT() / 9.231;
     private static final double FIRE_WIDTH = Game.getWIDTH() / 10.667;
 
-    private Array<Body> tempBodies = new Array<Body>();
-
-
-
     private static final float PPM = 32f;
+
     boolean isPaused = false;
     int x = 0;
     private World world;
@@ -222,7 +219,7 @@ public class MainGameScreen implements Screen{
             fixturedef = new FixtureDef();
             shape = new PolygonShape();
             shape.setAsBox(1/PPM, height[i]/PPM);
-            fixturedef.friction = 1f;
+            fixturedef.friction = 0.2f;
             fixturedef.shape = shape;
             terrain[i]=world.createBody(bodydef);
             terrain[i].createFixture(fixturedef);
@@ -230,29 +227,17 @@ public class MainGameScreen implements Screen{
         }
 
         //Player 1 Tank
-        bodydef.type = BodyDef.BodyType.StaticBody;
-        bodydef.position.set(200/PPM, 250/PPM);
+        bodydef.type = BodyDef.BodyType.DynamicBody;
+        bodydef.position.set(590/PPM, height[590]/PPM+10/PPM);
         fixturedef = new FixtureDef();
         shape = new PolygonShape();
         shape.setAsBox((float)(play.getPlayer1().getTank().getTank_width()/(2*PPM)),(float)(play.getPlayer1().getTank().getTank_height()/(2*PPM)));
         fixturedef.shape = shape;
         fixturedef.density = 10f;
-        fixturedef.friction = 1f;
+        fixturedef.friction = 0.2f;
         tank_1=world.createBody(bodydef);
         tank_1.createFixture(fixturedef);
-
-        //Player 1 Snout
-        bodydef.type = BodyDef.BodyType.StaticBody;
-        bodydef.position.set(200/PPM+(float)play.getPlayer1().getTank().getSnout_x()/PPM, 250/PPM+(float)play.getPlayer1().getTank().getSnout_y()/PPM);
-        shape = new PolygonShape();
-        shape.setAsBox((float)(play.getPlayer1().getTank().getSnout_width()/(2*PPM)),(float)(play.getPlayer1().getTank().getSnout_height()/(2*PPM)));
-        fixturedef = new FixtureDef();
-        fixturedef.shape = shape;
-        fixturedef.density = 10f;
-        fixturedef.friction = 1f;
-        snout_1=world.createBody(bodydef);
-        snout_1.createFixture(fixturedef);
-
+//        tank_1.setFixedRotation(false);
 
 
 //        bodydef.position.set(100/PPM,100/PPM);
@@ -436,6 +421,8 @@ public class MainGameScreen implements Screen{
 //        ground.setPosition(10,0);
 //        ground.setSize(1,100);
 //        ground.draw(game.batch);
+
+        //Terrain
         float[] height=play.getTerrain();
         for(int i=0;i<Game.getWIDTH();i++) {
             ground.setPosition(i,0);
@@ -443,13 +430,22 @@ public class MainGameScreen implements Screen{
             ground.draw(game.batch);
         }
 
+        //Player 1 Snout
+        play.getPlayer1().getTank().getSnout().setPosition((float)(tank_1.getPosition().x*PPM+play.getPlayer1().getTank().getSnout_x()), (float)(tank_1.getPosition().y*PPM+play.getPlayer1().getTank().getSnout_y()));
+        play.getPlayer1().getTank().getSnout().setSize((float) play.getPlayer1().getTank().getSnout_width(), (float) play.getPlayer1().getTank().getSnout_height());
+        play.getPlayer1().getTank().getSnout().setRotation(tank_1.getAngle()*MathUtils.radiansToDegrees);
+        play.getPlayer1().getTank().getSnout().setOrigin(0,0);
+        play.getPlayer1().getTank().getSnout().draw(game.batch);
 
-        System.out.println(snout_1.getPosition().x+" "+snout_1.getPosition().y);
+        //Player 1 Tank
+        play.getPlayer1().getTank().getBody().setPosition((float)(tank_1.getPosition().x*PPM-play.getPlayer1().getTank().getTank_width()/2), (float)(tank_1.getPosition().y*PPM-play.getPlayer1().getTank().getTank_height()/2));
+        play.getPlayer1().getTank().getBody().setSize((float) play.getPlayer1().getTank().getTank_width(), (float) play.getPlayer1().getTank().getTank_height());
+        play.getPlayer1().getTank().getBody().setRotation(tank_1.getAngle()*MathUtils.radiansToDegrees);
+        play.getPlayer1().getTank().getBody().setOrigin((float) play.getPlayer1().getTank().getTank_width()/2, (float)play.getPlayer1().getTank().getTank_height()/2);
+        play.getPlayer1().getTank().getBody().draw(game.batch);
 
-//
-//
 
-//        game.batch.draw(FUEL_CURR, (float) FUEL_CURR_X, (float) FUEL_CURR_Y, (float) (FUEL_CURR_WIDTH), (float) FUEL_CURR_HEIGHT);
+//        play.getPlayer1().getTank().getSnout().setRotation(tank_1);
 
 //        // player1_tank.getBody().setOrigin((float) player1_tank.getTank_width()/2, 0);
 //        player1_tank.getBody().setPosition(x, height[x]);

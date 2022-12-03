@@ -31,11 +31,14 @@ public class Pumpkin extends Tank{
     private double tank_height = Game.getHEIGHT()/15.960;
     private double snout_width = Game.getWIDTH()/28.223f;
     private double snout_height = Game.getHEIGHT()/38.571f;
-    private double snout_x = Game.getWIDTH()/61.905f;
-    private double snout_y = Game.getHEIGHT()/51.386f;
+    private double snout_x = -Game.getWIDTH()/1280f;
+    private double snout_y = Game.getHEIGHT()/284.211f;
 
+    public Texture getPUMPKIN_SNOUT() {
+        return PUMPKIN_SNOUT;
+    }
 
-    // Sprite body, snout;
+// Sprite body, snout;
 
 
 //    body.setSize(326,183);
