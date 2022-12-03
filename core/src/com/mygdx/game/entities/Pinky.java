@@ -8,46 +8,60 @@ public class Pinky extends Tank{
 
     private Texture PINKY_BODY = new Texture("PINKY_BODY.png");
     private Texture PINKY_SNOUT = new Texture("PINKY_SNOUT.png");
-    private Texture PINKY_EXTRAS = new Texture("PINKY_EXTRAS.png");
-
     Sprite body = new Sprite(PINKY_BODY);
     Sprite snout = new Sprite(PINKY_SNOUT);
-    Sprite extras = new Sprite(PINKY_EXTRAS);
 
     @Override
     public Sprite getBody() {
-
         return body;
     }
 
     @Override
     public Sprite getSnout() {
-
         return snout;
     }
-
-    public Sprite getExtras() {
-        return extras;
-    }
-    //    private float x_body = 0;
-//    private float y_body = 0;
-//    private float x_snout = x_body;
-    // private float y_snout = (float) (y_body + Game.getHEIGHT()/5.0232);
-    // private float y_snout = (float) (y_body + 215);
-
-
+    private final double tank_width = Game.getWIDTH()/14.979f;
+    private final double tank_height = Game.getHEIGHT()/10.8f;
+    private final double snout_width = Game.getWIDTH()/26.667f;
+    private final double snout_height = Game.getHEIGHT()/54f;
+    private final double snout_x = -Game.getWIDTH()/1280f;
+    private final double snout_y = -Game.getHEIGHT()/120f;
     @Override
     String name() {
         return "2";
     }
 
-    private double tank_width = Game.getWIDTH()/7.0;
-    private double tank_height = Game.getHEIGHT()/8.0;
 
     public void move_forward(){
         x_body += 4;
     }
     public void move_backward(){
         x_body -= 4;
+    }
+
+    public double getSnout_height() {
+        return snout_height;
+    }
+
+    public double getSnout_width() {
+        return snout_width;
+    }
+
+    @Override
+    public double getTank_height() {
+        return tank_height;
+    }
+
+    @Override
+    public double getTank_width() {
+        return tank_width;
+    }
+
+    public double getSnout_x() {
+        return snout_x;
+    }
+
+    public double getSnout_y() {
+        return snout_y;
     }
 }

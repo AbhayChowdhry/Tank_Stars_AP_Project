@@ -21,30 +21,14 @@ public class Pumpkin extends Tank{
     public Sprite getSnout() {
         return snout;
     }
-    private float x_body = 0;
-    private float y_body = 0;
-    private float x_snout = x_body;
-    private float y_snout = (float) (y_body + 215);
 
 
-    private double tank_width = Game.getWIDTH()/15f;
-    private double tank_height = Game.getHEIGHT()/15.960;
-    private double snout_width = Game.getWIDTH()/28.223f;
-    private double snout_height = Game.getHEIGHT()/38.571f;
-    private double snout_x = -Game.getWIDTH()/1280f;
-    private double snout_y = Game.getHEIGHT()/284.211f;
-
-    public Texture getPUMPKIN_SNOUT() {
-        return PUMPKIN_SNOUT;
-    }
-
-// Sprite body, snout;
-
-
-//    body.setSize(326,183);
-//    body.setOrigin(0,0);
-
-
+    private final double tank_width = Game.getWIDTH()/15f;
+    private final double tank_height = Game.getHEIGHT()/15.960;
+    private final double snout_width = Game.getWIDTH()/28.223f;
+    private final double snout_height = Game.getHEIGHT()/38.571f;
+    private final double snout_x = -Game.getWIDTH()/1280f;
+    private final double snout_y = Game.getHEIGHT()/284.211f;
     @Override
     String name() {
         return "1";

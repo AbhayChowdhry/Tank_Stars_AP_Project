@@ -8,12 +8,9 @@ public class Atomic extends Tank{
 
     private Texture ATOMIC_BODY = new Texture("ATOMIC_BODY.png");
     private Texture ATOMIC_SNOUT = new Texture("ATOMIC_SNOUT.png");
-    private Texture ATOMIC_EXTRAS = new Texture("ATOMIC_EXTRAS.png");
 
     Sprite body = new Sprite(ATOMIC_BODY);
     Sprite snout = new Sprite(ATOMIC_SNOUT);
-    Sprite extras = new Sprite(ATOMIC_EXTRAS);
-
     @Override
     public Sprite getBody() {
 
@@ -25,10 +22,12 @@ public class Atomic extends Tank{
 
         return snout;
     }
-
-    public Sprite getExtras() {
-        return extras;
-    }
+    private final double tank_width = Game.getWIDTH()/12.8f;
+    private final double tank_height = Game.getHEIGHT()/14.448;
+    private final double snout_width = Game.getWIDTH()/13.567f;
+    private final double snout_height = Game.getHEIGHT()/26.341;
+    private final double snout_x = -Game.getWIDTH()/32f;
+    private final double snout_y = Game.getHEIGHT()/100f;
 
 //    private float x_body = 0;
 //    private float y_body = 0;
@@ -42,15 +41,38 @@ public class Atomic extends Tank{
         return "4";
     }
 
-    private double tank_width = Game.getWIDTH()/7.0;
-    private double tank_height = Game.getHEIGHT()/8.0;
-
 
     public void move_forward(){
         x_body += 4;
     }
     public void move_backward(){
         x_body -= 4;
+    }
+
+    public double getSnout_height() {
+        return snout_height;
+    }
+
+    public double getSnout_width() {
+        return snout_width;
+    }
+
+    @Override
+    public double getTank_height() {
+        return tank_height;
+    }
+
+    @Override
+    public double getTank_width() {
+        return tank_width;
+    }
+
+    public double getSnout_x() {
+        return snout_x;
+    }
+
+    public double getSnout_y() {
+        return snout_y;
     }
 
 }
