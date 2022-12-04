@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -16,7 +17,7 @@ import com.mygdx.game.entities.*;
 
 public class MainGameScreen implements Screen{
 
-    public static final float SPEED = 120;
+    public static final float FORCE = 500;
     public static final int TANK_X = 150;
     public static final int TANK_Y = 200;
     Texture BACKGROUND = new Texture("PLAY_BACK.png");
@@ -115,11 +116,28 @@ public class MainGameScreen implements Screen{
     private Body[] terrain;
     private Body tank_1, tank_2;
     private Body snout_1, snout_2;
-    private Body extras_1, extras_2;
     private int player1_tank, player2_tank;
+    private int angle_1, angle_2;
+
+    public int getAngle_1() {
+        return angle_1;
+    }
+
+    public void updateAngle_1(int a) {
+        this.angle_1 += a;
+    }
+    public int getAngle_2() {
+        return angle_2;
+    }
+
+    public void updateAngle_2(int a) {
+        this.angle_2 += a;
+    }
 
     public MainGameScreen (Game game, int tank1, int tank2){
         this.game = game;
+        this.angle_1 = 0;
+        this.angle_2 = 0;
         switch (tank1) {
             case 1:
                 play.getPlayer1().setTank(new Atomic());
@@ -206,9 +224,11 @@ public class MainGameScreen implements Screen{
         camera.setToOrtho(false, Game.getWIDTH(), Game.getHEIGHT());
         debugRenderer.render(world, camera.combined.cpy().scl(PPM));
 
+//        Gdx.input.setInputProcessor(new Input.Keys());
+
         BodyDef bodydef = new BodyDef();
-        FixtureDef fixturedef = new FixtureDef();
-        PolygonShape shape = new PolygonShape();
+        FixtureDef fixturedef;
+        PolygonShape shape;
 
         //Terrain
         terrain = new Body[Game.getWIDTH()];
@@ -220,7 +240,6 @@ public class MainGameScreen implements Screen{
             fixturedef = new FixtureDef();
             shape = new PolygonShape();
             shape.setAsBox(1/PPM, height[i]/PPM);
-            fixturedef.friction = 0.2f;
             fixturedef.shape = shape;
             terrain[i]=world.createBody(bodydef);
             terrain[i].createFixture(fixturedef);
@@ -229,15 +248,17 @@ public class MainGameScreen implements Screen{
 
         //Player 1 Tank
         bodydef.type = BodyDef.BodyType.DynamicBody;
-        bodydef.position.set(200/PPM, 200/PPM);
+        bodydef.position.set(200/PPM, height[200] /PPM);
         fixturedef = new FixtureDef();
         shape = new PolygonShape();
         shape.setAsBox((float)(play.getPlayer1().getTank().getTank_width()/(2*PPM)),(float)(play.getPlayer1().getTank().getTank_height()/(2*PPM)));
         fixturedef.shape = shape;
         fixturedef.density = 10f;
         fixturedef.friction = 0.2f;
+        fixturedef.restitution = 0;
         tank_1=world.createBody(bodydef);
         tank_1.createFixture(fixturedef);
+
 
 //        bodydef.position.set(100/PPM,100/PPM);
 //        PolygonShape boxShape = new PolygonShape();
@@ -309,71 +330,71 @@ public class MainGameScreen implements Screen{
         game.batch.begin();
 
         //Background
-        game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
-
-        //Health
-        game.batch.draw(HEALTH_LOGO_P1, (float) HEALTH_LOGO_X1, (float) HEALTH_LOGO_Y, (float) HEALTH_LOGO_WIDTH, (float) HEALTH_LOGO_HEIGHT);
-        game.batch.draw(HEALTH_LOGO_P2, (float) HEALTH_LOGO_X2, (float) HEALTH_LOGO_Y, (float) HEALTH_LOGO_WIDTH, (float) HEALTH_LOGO_HEIGHT);
-        game.batch.draw(VS, (float) VS_X, (float) VS_Y, (float) VS_WIDTH, (float) VS_HEIGHT);
-        int health1 = play.getPlayer1().getHealth();
-        game.batch.draw(HEALTH_CURR_P1, (float) HEALTH_CURR_X1, (float) HEALTH_CURR_Y, (float) (HEALTH_CURR_WIDTH/100 * health1), (float) HEALTH_CURR_HEIGHT);
-        int health2 = play.getPlayer2().getHealth();
-        game.batch.draw(HEALTH_CURR_P2, (float) (HEALTH_CURR_X2 + HEALTH_CURR_WIDTH - HEALTH_CURR_WIDTH/100 * health2), (float) HEALTH_CURR_Y, (float) (HEALTH_CURR_WIDTH/100 *health2), (float) HEALTH_CURR_HEIGHT);
-
-        //Fire
-        game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
-
-        //Pause Menu
-        int y = Game.getHEIGHT() - Gdx.input.getY();
-        if(isPaused == false) {
-            game.batch.draw(PAUSE_INACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
-            if(Gdx.input.getX() > PAUSE_X && Gdx.input.getX() < PAUSE_X + PAUSE_WIDTH && y > PAUSE_Y && y < PAUSE_Y + PAUSE_HEIGHT){
-                game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
-                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-                    isPaused = true;
-                }
-            }
-        }
-        else {
-            game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
-            game.batch.draw(RESUME_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-            game.batch.draw(SAVE_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-            game.batch.draw(EXIT_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - 2 * BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-            if (Gdx.input.getX() > PAUSE_X && Gdx.input.getX() < PAUSE_X + PAUSE_WIDTH && y > PAUSE_Y && y < PAUSE_Y + PAUSE_HEIGHT) {
-                game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
-                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                    isPaused = false;
-                }
-            }
-            else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y && y < BUTTON_Y + BUTTON_HEIGHT){
-                game.batch.draw(RESUME_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                    isPaused = false;
-                }
-            }
-            else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - BUTTON_DIF){
-                game.batch.draw(SAVE_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                    //
-                }
-            }
-            else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - 2* BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - 2* BUTTON_DIF){
-                game.batch.draw(EXIT_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - 2 * BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                    game.setScreen(new MainMenuScreen(game));
-                }
-            }
-        }
-
-        //Fuel
-        game.batch.draw(FUEL_BACK, (float) FUEL_BACK_X, (float) FUEL_BACK_Y, (float) FUEL_BACK_WIDTH, (float) FUEL_BACK_HEIGHT);
-        int fuel;
-        if(play.getTurn())
-            fuel=play.getPlayer1().getFuel();
-        else
-            fuel=play.getPlayer2().getFuel();
-        game.batch.draw(FUEL_CURR, (float) FUEL_CURR_X, (float) FUEL_CURR_Y, (float) (FUEL_CURR_WIDTH/10*fuel), (float) FUEL_CURR_HEIGHT);
-        game.batch.draw(FUEL, (float) FUEL_X, (float) FUEL_Y, (float) FUEL_WIDTH, (float) FUEL_HEIGHT);
+//        game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
+//
+//        //Health
+//        game.batch.draw(HEALTH_LOGO_P1, (float) HEALTH_LOGO_X1, (float) HEALTH_LOGO_Y, (float) HEALTH_LOGO_WIDTH, (float) HEALTH_LOGO_HEIGHT);
+//        game.batch.draw(HEALTH_LOGO_P2, (float) HEALTH_LOGO_X2, (float) HEALTH_LOGO_Y, (float) HEALTH_LOGO_WIDTH, (float) HEALTH_LOGO_HEIGHT);
+//        game.batch.draw(VS, (float) VS_X, (float) VS_Y, (float) VS_WIDTH, (float) VS_HEIGHT);
+//        int health1 = play.getPlayer1().getHealth();
+//        game.batch.draw(HEALTH_CURR_P1, (float) HEALTH_CURR_X1, (float) HEALTH_CURR_Y, (float) (HEALTH_CURR_WIDTH/100 * health1), (float) HEALTH_CURR_HEIGHT);
+//        int health2 = play.getPlayer2().getHealth();
+//        game.batch.draw(HEALTH_CURR_P2, (float) (HEALTH_CURR_X2 + HEALTH_CURR_WIDTH - HEALTH_CURR_WIDTH/100 * health2), (float) HEALTH_CURR_Y, (float) (HEALTH_CURR_WIDTH/100 *health2), (float) HEALTH_CURR_HEIGHT);
+//
+//        //Fire
+//        game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
+//
+//        //Pause Menu
+//        int y = Game.getHEIGHT() - Gdx.input.getY();
+//        if(isPaused == false) {
+//            game.batch.draw(PAUSE_INACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+//            if(Gdx.input.getX() > PAUSE_X && Gdx.input.getX() < PAUSE_X + PAUSE_WIDTH && y > PAUSE_Y && y < PAUSE_Y + PAUSE_HEIGHT){
+//                game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+//                if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+//                    isPaused = true;
+//                }
+//            }
+//        }
+//        else {
+//            game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+//            game.batch.draw(RESUME_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+//            game.batch.draw(SAVE_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+//            game.batch.draw(EXIT_INACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - 2 * BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+//            if (Gdx.input.getX() > PAUSE_X && Gdx.input.getX() < PAUSE_X + PAUSE_WIDTH && y > PAUSE_Y && y < PAUSE_Y + PAUSE_HEIGHT) {
+//                game.batch.draw(PAUSE_ACTIVE, (float) PAUSE_X, (float) PAUSE_Y, (float) PAUSE_WIDTH, (float) PAUSE_HEIGHT);
+//                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+//                    isPaused = false;
+//                }
+//            }
+//            else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y && y < BUTTON_Y + BUTTON_HEIGHT){
+//                game.batch.draw(RESUME_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+//                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+//                    isPaused = false;
+//                }
+//            }
+//            else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - BUTTON_DIF){
+//                game.batch.draw(SAVE_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+//                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+//                    //
+//                }
+//            }
+//            else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - 2* BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - 2* BUTTON_DIF){
+//                game.batch.draw(EXIT_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - 2 * BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+//                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+//                    game.setScreen(new MainMenuScreen(game));
+//                }
+//            }
+//        }
+//
+//        //Fuel
+//        game.batch.draw(FUEL_BACK, (float) FUEL_BACK_X, (float) FUEL_BACK_Y, (float) FUEL_BACK_WIDTH, (float) FUEL_BACK_HEIGHT);
+//        int fuel;
+//        if(play.getTurn())
+//            fuel=play.getPlayer1().getFuel();
+//        else
+//            fuel=play.getPlayer2().getFuel();
+//        game.batch.draw(FUEL_CURR, (float) FUEL_CURR_X, (float) FUEL_CURR_Y, (float) (FUEL_CURR_WIDTH/10*fuel), (float) FUEL_CURR_HEIGHT);
+//        game.batch.draw(FUEL, (float) FUEL_X, (float) FUEL_Y, (float) FUEL_WIDTH, (float) FUEL_HEIGHT);
 
         //Terrain
         float[] height=play.getTerrain();
@@ -386,7 +407,7 @@ public class MainGameScreen implements Screen{
         //Player 1 Snout
         play.getPlayer1().getTank().getSnout().setPosition((float)(tank_1.getPosition().x*PPM+play.getPlayer1().getTank().getSnout_x()), (float)(tank_1.getPosition().y*PPM+play.getPlayer1().getTank().getSnout_y()));
         play.getPlayer1().getTank().getSnout().setSize((float) play.getPlayer1().getTank().getSnout_width(), (float) play.getPlayer1().getTank().getSnout_height());
-        play.getPlayer1().getTank().getSnout().setRotation(tank_1.getAngle()*MathUtils.radiansToDegrees);
+        play.getPlayer1().getTank().getSnout().setRotation(tank_1.getAngle()*MathUtils.radiansToDegrees+getAngle_1());
         if(player1_tank==1)
             play.getPlayer1().getTank().getSnout().setOrigin((float)play.getPlayer1().getTank().getSnout_width()/2-9.76f,(float)play.getPlayer1().getTank().getSnout_height()/2-30.875f);
         else
@@ -400,18 +421,24 @@ public class MainGameScreen implements Screen{
         play.getPlayer1().getTank().getBody().setOrigin((float) play.getPlayer1().getTank().getTank_width()/2, (float)play.getPlayer1().getTank().getTank_height()/2);
         play.getPlayer1().getTank().getBody().draw(game.batch);
 
-//        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-//            p1_snout.setRotation(p1_snout.getRotation() + 1);
-//        }
-//        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-//            p1_snout.setRotation(p1_snout.getRotation() - 1);
-//        }
-//        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-//            x -= 3;
-//        }
-//        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-//            x += 3;
-//        }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            updateAngle_1(1);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            updateAngle_1(-1);
+        }
+
+        int x1 = (int)(tank_1.getPosition().x*PPM-play.getPlayer1().getTank().getTank_width()/2);
+        int x2 = (int)(tank_1.getPosition().x*PPM+play.getPlayer1().getTank().getTank_width()/2);
+        System.out.println();
+        float slope = (height[x2]-height[x1])/(x2-x1);
+//        System.out.println(slope);
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            tank_1.applyForceToCenter(new Vector2(FORCE,FORCE*slope), true);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            tank_1.applyForceToCenter(new Vector2(-FORCE,-FORCE*slope), true);
+        }
         game.batch.end();
     }
 

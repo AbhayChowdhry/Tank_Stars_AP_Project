@@ -18,6 +18,7 @@ public class Play {
             arr[i]=(int)(Math.random()*(2));
         for(int i=0;i<Game.getWIDTH();i++)
         {
+//            terrain[i]=100;
             double x=(double)i/100;
             terrain[i]=0;
             for(int j=0;j<4;j++)
