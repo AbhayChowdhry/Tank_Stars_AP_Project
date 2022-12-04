@@ -30,7 +30,7 @@ public class Play {
             }
             terrain[i]*=Game.getHEIGHT()/10.0;
         }
-//        updateTerrain(30, 300);
+//        updateTerrain(100, 300);
         turn = true;
     }
 
@@ -61,10 +61,5 @@ public class Play {
             if(impact_coord-i>=0)
                 terrain[impact_coord - i] = Math.min(terrain[impact_coord - i], height - (float) Math.pow(impact_rad * impact_rad - i * i, 0.5));
     }
-
-    //make a method to calculate radius of impact
-    //sent that r and x to terrain
-    //terrian will modify heights accordingly and draw it in the next second
-
 
 }
