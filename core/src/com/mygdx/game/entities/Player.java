@@ -9,7 +9,7 @@ public class Player {
     private int health;
 
     // Total fuel is 10
-    private int fuel;
+    private float fuel;
 
     private LinkedList<Weapon> weapons;
 
@@ -23,7 +23,7 @@ public class Player {
     }
 
 
-    public int getFuel() {
+    public float getFuel() {
         return fuel;
     }
 
@@ -31,7 +31,7 @@ public class Player {
         return health;
     }
 
-    public void setFuel(int fuel) {
+    public void setFuel(float fuel) {
         this.fuel = fuel;
     }
 
