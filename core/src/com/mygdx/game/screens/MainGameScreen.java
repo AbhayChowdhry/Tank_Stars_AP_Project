@@ -746,7 +746,7 @@ public class MainGameScreen implements Screen{
                 }
             }
             if (Gdx.input.getX() > FIRE_X && Gdx.input.getX() < FIRE_X + FIRE_WIDTH && y > FIRE_Y && y < FIRE_Y + FIRE_HEIGHT){
-                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && weaponSelected){
                     for(Weapon weapon : play.getPlayer2().getTank().getWeapons()){
                         weapon.setIsSelected(false);
                     }
