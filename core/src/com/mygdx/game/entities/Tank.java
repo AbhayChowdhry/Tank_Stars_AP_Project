@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Game;
 
+import java.util.LinkedList;
+
 public abstract class Tank {
 
     protected Sprite body, snout;
@@ -20,8 +22,28 @@ public abstract class Tank {
     private double snout_y;
     private Texture PUMPKIN_SNOUT;
 
+    private Texture SpecialWeapon;
+    private Texture SharpShooter;
+    private Texture RainbowAttack;
+    private Texture MakeItRain;
+    private Texture MassiveDrop;
     protected static final float SPEED = 50;
-//    abstract void fire();
+
+    private LinkedList<Weapon> weapons;
+
+    Tank(){
+        weapons = new LinkedList<Weapon>();
+        this.weapons.add(new SharpShooter());
+        this.weapons.add(new RainbowAttack());
+        this.weapons.add(new MakeItRain());
+        this.weapons.add(new MassiveDrop());
+    }
+
+    public LinkedList<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    //    abstract void fire();
 //    abstract void selectWeapon();
 //    abstract void drawTank();
 
@@ -89,5 +111,24 @@ public abstract class Tank {
 
     public static float getSPEED() {
         return SPEED;
+    }
+    public Texture getMakeItRain() {
+        return MakeItRain;
+    }
+
+    public Texture getMassiveDrop() {
+        return MassiveDrop;
+    }
+
+    public Texture getRainbowAttack() {
+        return RainbowAttack;
+    }
+
+    public Texture getSharpShooter() {
+        return SharpShooter;
+    }
+
+    public Texture getSpecialWeapon() {
+        return SpecialWeapon;
     }
 }

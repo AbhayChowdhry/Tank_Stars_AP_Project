@@ -11,6 +11,31 @@ public class Toxic extends Tank{
     private Texture TOXIC_SNOUT = new Texture("TOXIC_SNOUT.png");
     Sprite body = new Sprite(TOXIC_BODY);
     Sprite snout = new Sprite(TOXIC_SNOUT);
+    private Texture SpecialWeapon = new Texture("3_0.png");
+    private Texture SharpShooter = new Texture("3_1.png");
+    private Texture RainbowAttack = new Texture("3_2.png");
+    private Texture MakeItRain = new Texture("3_3.png");
+    private Texture MassiveDrop = new Texture("3_4.png");
+
+    public Texture getMakeItRain() {
+        return MakeItRain;
+    }
+
+    public Texture getMassiveDrop() {
+        return MassiveDrop;
+    }
+
+    public Texture getRainbowAttack() {
+        return RainbowAttack;
+    }
+
+    public Texture getSharpShooter() {
+        return SharpShooter;
+    }
+
+    public Texture getSpecialWeapon() {
+        return SpecialWeapon;
+    }
     @Override
     public Sprite getBody() {
         return body;

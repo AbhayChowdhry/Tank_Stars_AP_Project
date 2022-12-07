@@ -11,15 +11,9 @@ public class Player {
     // Total fuel is 10
     private float fuel;
 
-    private LinkedList<Weapon> weapons;
-
     Player() {
         this.fuel=10;
         this.health=100;
-//        this.weapons.add(new SharpShooter());
-//        this.weapons.add(new RainbowAttack());
-//        this.weapons.add(new MakeItRain());
-//        this.weapons.add(new MassiveDrop());
     }
 
 

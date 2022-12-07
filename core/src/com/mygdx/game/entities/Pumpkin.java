@@ -4,10 +4,37 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Game;
 
+import java.util.concurrent.TransferQueue;
+
 public class Pumpkin extends Tank{
 
      private Texture PUMPKIN_BODY = new Texture("PUMPKIN_BODY.png");
      private Texture PUMPKIN_SNOUT = new Texture("PUMPKIN_SNOUT.png");
+     private Texture SpecialWeapon = new Texture("1_0.png");
+     private Texture SharpShooter = new Texture("1_1.png");
+     private Texture RainbowAttack = new Texture("1_2.png");
+     private Texture MakeItRain = new Texture("1_3.png");
+     private Texture MassiveDrop = new Texture("1_4.png");
+
+    public Texture getMakeItRain() {
+        return MakeItRain;
+    }
+
+    public Texture getMassiveDrop() {
+        return MassiveDrop;
+    }
+
+    public Texture getRainbowAttack() {
+        return RainbowAttack;
+    }
+
+    public Texture getSharpShooter() {
+        return SharpShooter;
+    }
+
+    public Texture getSpecialWeapon() {
+        return SpecialWeapon;
+    }
 
     Sprite body = new Sprite(PUMPKIN_BODY);
     Sprite snout = new Sprite(PUMPKIN_SNOUT);

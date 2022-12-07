@@ -9,6 +9,32 @@ public class Atomic extends Tank{
     private Texture ATOMIC_BODY = new Texture("ATOMIC_BODY.png");
     private Texture ATOMIC_SNOUT = new Texture("ATOMIC_SNOUT.png");
 
+    private Texture SpecialWeapon = new Texture("4_0.png");
+    private Texture SharpShooter = new Texture("4_1.png");
+    private Texture RainbowAttack = new Texture("4_2.png");
+    private Texture MakeItRain = new Texture("4_3.png");
+    private Texture MassiveDrop = new Texture("4_4.png");
+
+    public Texture getMakeItRain() {
+        return MakeItRain;
+    }
+
+    public Texture getMassiveDrop() {
+        return MassiveDrop;
+    }
+
+    public Texture getRainbowAttack() {
+        return RainbowAttack;
+    }
+
+    public Texture getSharpShooter() {
+        return SharpShooter;
+    }
+
+    public Texture getSpecialWeapon() {
+        return SpecialWeapon;
+    }
+
     Sprite body = new Sprite(ATOMIC_BODY);
     Sprite snout = new Sprite(ATOMIC_SNOUT);
     @Override

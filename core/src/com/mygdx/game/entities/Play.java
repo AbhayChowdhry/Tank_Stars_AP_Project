@@ -8,7 +8,7 @@ public class Play {
     private float[] terrain=new float[Game.getWIDTH()];
 
     private int impact_rad, impact_coord;
-    private boolean turn;
+    private boolean turn; // TRUE for player1 and FALSE for player2
 
     public Play() {
         player1 = new Player();
@@ -50,6 +50,9 @@ public class Play {
         return turn;
     }
 
+    public void setTurn(boolean turn) {
+        this.turn = turn;
+    }
 
     public void updateTerrain(int impact_rad, int impact_coord) {
         float[] terrain=getTerrain();

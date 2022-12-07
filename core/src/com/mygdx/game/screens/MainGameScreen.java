@@ -36,6 +36,11 @@ public class MainGameScreen implements Screen{
     Texture HEALTH_LOGO_P2 = new Texture("HEALTH_LOGO_P2.png");
     Texture HEALTH_CURR_P1 = new Texture("HEALTH_CURR_P1.png");
     Texture HEALTH_CURR_P2 = new Texture("HEALTH_CURR_P2.png");
+    Texture PLACEHOLDER_5 = new Texture("WPN_5.png");
+    Texture PLACEHOLDER_4 = new Texture("WPN_4.png");
+    Texture PLACEHOLDER_3 = new Texture("WPN_3.png");
+    Texture PLACEHOLDER_2 = new Texture("WPN_2.png");
+    Texture PLACEHOLDER_1 = new Texture("WPN_1.png");
 
     Texture VS = new Texture("VS.png");
 
@@ -44,6 +49,7 @@ public class MainGameScreen implements Screen{
     Texture FUEL = new Texture("FUEL.png");
     Texture FUEL_BACK = new Texture("FUEL_BACK.png");
     Texture FUEL_CURR = new Texture("FUEL_CURR.png");
+    Texture WPN_SEL_BACK = new Texture("WPN_SEL_BACK.png");
 
     Sprite ground = new Sprite(TERRAIN);
 
@@ -102,6 +108,28 @@ public class MainGameScreen implements Screen{
 
     private static final double FIRE_HEIGHT = Game.getHEIGHT() / 9.231;
     private static final double FIRE_WIDTH = Game.getWIDTH() / 10.667;
+    private static final double PLACEHOLDER_X = Game.getWIDTH() / 2.74;
+    private static final double PLACEHOLDER_Y = Game.getHEIGHT() / 36.0;
+    private static final double PLACEHOLDER_HEIGHT = Game.getHEIGHT() /7.2;
+    private static final double PLACEHOLDER_WIDTH_5 = Game.getWIDTH() / 2.704;
+    private static final double PLACEHOLDER_WIDTH_4 = Game.getWIDTH() / 3.25;
+    private static final double PLACEHOLDER_WIDTH_3 = Game.getWIDTH() / 4.08;
+    private static final double PLACEHOLDER_WIDTH_2 = Game.getWIDTH() / 5.48;
+    private static final double PLACEHOLDER_WIDTH_1 = Game.getWIDTH() / 8.34;
+    private static final double WEAPON_START_X = Game.getWIDTH() / 2.389;
+    private static final double WEAPON_START_Y = Game.getHEIGHT()/ 19.63;
+
+    private static final double WEAPON_WIDTH = Game.getWIDTH()/ 19.009;
+    private static final double WEAPON_HEIGHT = Game.getHEIGHT()/ 10.8;
+
+    private static final double WEAPON_SEl_X_DIF = Game.getWIDTH() / 2.389 + Game.getWIDTH() / 640.0 ;
+    private static final double WEAPON_SEL_Y_DIF = Game.getHEIGHT()/ 19.63 + Game.getHEIGHT()/ 270.0;
+
+    private static final double WEAPON_WIDTH_SEL = Game.getWIDTH()/ 19.009 - Game.getWIDTH() / 320.0;
+    private static final double WEAPON_HEIGHT_SEL = Game.getHEIGHT()/ 10.8 -  Game.getHEIGHT()/ 135.0;
+
+
+    private static final double WEAPON_DIF = Game.getWIDTH() / 15.86;
 
     private static final float PPM = 32f;
 
@@ -115,6 +143,8 @@ public class MainGameScreen implements Screen{
     Play play=new Play();
     private Body tank_1, tank_2;
     private Body snout_1, snout_2;
+    private int weapon_count;
+    private boolean weaponSelected = false;
     private int player1_tank, player2_tank;
     private int angle_1, angle_2;
     private boolean flip_2, flip_3;
@@ -444,23 +474,129 @@ public class MainGameScreen implements Screen{
         }
 
         tank_1.setLinearVelocity(new Vector2(0,0));
+        tank_2.setLinearVelocity(new Vector2(0,0));
 
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-            updateAngle_1(1);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            updateAngle_1(-1);
+        if(play.getTurn()) {
+
+            weapon_count =  play.getPlayer1().getTank().getWeapons().size();
+            Tank temp = play.getPlayer1().getTank();
+            float weapon_starter = (float) WEAPON_START_X;
+            switch(weapon_count){
+                case 5:
+                    game.batch.draw(PLACEHOLDER_5, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_5, (float) PLACEHOLDER_HEIGHT);
+                case 4:
+                    game.batch.draw(PLACEHOLDER_4, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_4, (float) PLACEHOLDER_HEIGHT);
+                case 3:
+                    game.batch.draw(PLACEHOLDER_3, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_3, (float) PLACEHOLDER_HEIGHT);
+                case 2:
+                    game.batch.draw(PLACEHOLDER_2, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_2, (float) PLACEHOLDER_HEIGHT);
+                case 1:
+                    game.batch.draw(PLACEHOLDER_1, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_1, (float) PLACEHOLDER_HEIGHT);
+            }
+            for(Weapon weapon : temp.getWeapons()){
+                if(weapon instanceof SharpShooter){
+                    game.batch.draw(temp.getSharpShooter(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof RainbowAttack){
+                    game.batch.draw(temp.getRainbowAttack(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof TheChosenOne){
+                    game.batch.draw(temp.getSpecialWeapon(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof  MassiveDrop){
+                    game.batch.draw(temp.getMassiveDrop(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof MakeItRain){
+                    game.batch.draw(temp.getMakeItRain(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                weapon_starter += WEAPON_DIF;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                updateAngle_1(1);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                updateAngle_1(-1);
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && play.getPlayer1().getFuel() > 0) {
+                tank_1.setLinearVelocity(new Vector2(SPEED, SPEED * slope1));
+                play.getPlayer1().setFuel(play.getPlayer1().getFuel() - 0.05f);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && play.getPlayer1().getFuel() > 0) {
+                tank_1.setLinearVelocity(new Vector2(-SPEED, -SPEED * slope1));
+                play.getPlayer1().setFuel(play.getPlayer1().getFuel() - 0.05f);
+            }
+            if (Gdx.input.getX() > WEAPON_START_Y && Gdx.input.getX() < WEAPON_START_X + WEAPON_WIDTH && y > WEAPON_START_Y && y < WEAPON_HEIGHT + WEAPON_START_Y){
+                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+
+                }
+            }
+            if (Gdx.input.getX() > FIRE_X && Gdx.input.getX() < FIRE_X + FIRE_WIDTH && y > FIRE_Y && y < FIRE_Y + FIRE_HEIGHT){
+                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                    play.setTurn(false);
+                    play.getPlayer1().setFuel(10);
+                    weaponSelected = false;
+                }
+            }
+
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && play.getPlayer1().getFuel()>0){
-                tank_1.setLinearVelocity(new Vector2(SPEED, SPEED*slope1));
-                play.getPlayer1().setFuel(play.getPlayer1().getFuel()-0.1f);
+        else{
+            weapon_count =  play.getPlayer2().getTank().getWeapons().size();
+            Tank temp2 = play.getPlayer2().getTank();
+            float weapon_starter = (float) WEAPON_START_X;
+            switch(weapon_count){
+                case 5:
+                    game.batch.draw(PLACEHOLDER_5, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_5, (float) PLACEHOLDER_HEIGHT);
+                case 4:
+                    game.batch.draw(PLACEHOLDER_4, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_4, (float) PLACEHOLDER_HEIGHT);
+                case 3:
+                    game.batch.draw(PLACEHOLDER_3, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_3, (float) PLACEHOLDER_HEIGHT);
+                case 2:
+                    game.batch.draw(PLACEHOLDER_2, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_2, (float) PLACEHOLDER_HEIGHT);
+                case 1:
+                    game.batch.draw(PLACEHOLDER_1, (float) PLACEHOLDER_X, (float) PLACEHOLDER_Y, (float) PLACEHOLDER_WIDTH_1, (float) PLACEHOLDER_HEIGHT);
+            }
+            for(Weapon weapon : temp2.getWeapons()){
+                if(weapon instanceof SharpShooter){
+                    game.batch.draw(temp2.getSharpShooter(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof RainbowAttack){
+                    game.batch.draw(temp2.getRainbowAttack(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof TheChosenOne){
+                    game.batch.draw(temp2.getSpecialWeapon(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof  MassiveDrop){
+                    game.batch.draw(temp2.getMassiveDrop(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                else if(weapon instanceof MakeItRain){
+                    game.batch.draw(temp2.getMakeItRain(), weapon_starter, (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
+                }
+                weapon_starter += WEAPON_DIF;
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+                updateAngle_2(1);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+                updateAngle_2(-1);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && play.getPlayer2().getFuel() > 0) {
+                tank_2.setLinearVelocity(new Vector2(SPEED, SPEED * slope2));
+                play.getPlayer2().setFuel(play.getPlayer2().getFuel() - 0.05f);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && play.getPlayer2().getFuel() > 0) {
+                tank_2.setLinearVelocity(new Vector2(-SPEED, -SPEED * slope2));
+                play.getPlayer2().setFuel(play.getPlayer2().getFuel() - 0.05f);
+            }
+            if (Gdx.input.getX() > FIRE_X && Gdx.input.getX() < FIRE_X + FIRE_WIDTH && y > FIRE_Y && y < FIRE_Y + FIRE_HEIGHT){
+                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+                    play.setTurn(true);
+                    play.getPlayer2().setFuel(10);
+                    weaponSelected = false;
+                }
+            }
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)  && play.getPlayer1().getFuel()>0){
-            tank_1.setLinearVelocity(new Vector2(-SPEED, -SPEED*slope1));
-            play.getPlayer1().setFuel(play.getPlayer1().getFuel()-0.1f);
-        }
-
 
 
         //Fire

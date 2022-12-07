@@ -10,6 +10,31 @@ public class Pinky extends Tank{
     private Texture PINKY_SNOUT = new Texture("PINKY_SNOUT.png");
     Sprite body = new Sprite(PINKY_BODY);
     Sprite snout = new Sprite(PINKY_SNOUT);
+    private Texture SpecialWeapon = new Texture("2_0.png");
+    private Texture SharpShooter = new Texture("2_1.png");
+    private Texture RainbowAttack = new Texture("2_2.png");
+    private Texture MakeItRain = new Texture("2_3.png");
+    private Texture MassiveDrop = new Texture("2_4.png");
+
+    public Texture getMakeItRain() {
+        return MakeItRain;
+    }
+
+    public Texture getMassiveDrop() {
+        return MassiveDrop;
+    }
+
+    public Texture getRainbowAttack() {
+        return RainbowAttack;
+    }
+
+    public Texture getSharpShooter() {
+        return SharpShooter;
+    }
+
+    public Texture getSpecialWeapon() {
+        return SpecialWeapon;
+    }
 
     @Override
     public Sprite getBody() {
