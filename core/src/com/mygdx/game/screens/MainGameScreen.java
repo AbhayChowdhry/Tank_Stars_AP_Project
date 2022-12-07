@@ -427,7 +427,7 @@ public class MainGameScreen implements Screen{
         play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
         play.getPlayer2().getTank().getSnout().setRotation(slope2*MathUtils.radiansToDegrees-getAngle_2());
         if(player2_tank==1)
-            play.getPlayer2().getTank().getSnout().setOrigin((float) play.getPlayer2().getTank().getSnout_width()/1.5f-1,0);
+            play.getPlayer2().getTank().getSnout().setOrigin((float) play.getPlayer2().getTank().getSnout_width()/1.5f,0);
         else
             play.getPlayer2().getTank().getSnout().setOrigin((float) (play.getPlayer2().getTank().getSnout_width()-Game.getWIDTH()/480)/1.5f, (float) (play.getPlayer2().getTank().getSnout_height()-Game.getHEIGHT()/180)/1.5f);
         play.getPlayer2().getTank().getSnout().draw(game.batch);
