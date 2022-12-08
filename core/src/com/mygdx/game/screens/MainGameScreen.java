@@ -665,8 +665,8 @@ public class MainGameScreen implements Screen{
                 tank_2.setLinearVelocity(new Vector2(-SPEED, -SPEED * slope2));
                 play.getPlayer2().setFuel(play.getPlayer2().getFuel() - 0.05f);
             }
-            if (Gdx.input.getX() > WEAPON_START_Y && Gdx.input.getX() < WEAPON_START_X + WEAPON_WIDTH && y > WEAPON_START_Y && y < WEAPON_HEIGHT + WEAPON_START_Y){
-                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && weaponSelected) {
+            if (Gdx.input.getX() > WEAPON_START_X && Gdx.input.getX() < WEAPON_START_X + WEAPON_WIDTH && y > WEAPON_START_Y && y < WEAPON_HEIGHT + WEAPON_START_Y){
+                if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                     for(Weapon weapon : play.getPlayer2().getTank().getWeapons()){
                         weapon.setIsSelected(false);
                     }
