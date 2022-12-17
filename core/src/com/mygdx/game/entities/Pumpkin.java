@@ -56,8 +56,6 @@ public class Pumpkin extends Tank{
     private final double snout_height = Game.getHEIGHT()/38.571f;
     private final double snout_x = Game.getWIDTH()/31.475f;
     private final double snout_y = Game.getHEIGHT()/26.554f;
-    private final double origin_x = Game.getWIDTH();
-    private final double origin_y = Game.getHEIGHT();
     @Override
     String name() {
         return "1";

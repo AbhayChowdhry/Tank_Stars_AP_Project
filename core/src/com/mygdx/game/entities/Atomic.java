@@ -52,8 +52,8 @@ public class Atomic extends Tank{
     private final double tank_height = Game.getHEIGHT()/14.448;
     private final double snout_width = Game.getWIDTH()/13.567f;
     private final double snout_height = Game.getHEIGHT()/26.341;
-    private final double snout_x = -Game.getWIDTH()/32f;
-    private final double snout_y = Game.getHEIGHT()/100f;
+    private final double snout_x = Game.getWIDTH()/137.14f;
+    private final double snout_y = Game.getHEIGHT()/22.618f;
 
 //    private float x_body = 0;
 //    private float y_body = 0;

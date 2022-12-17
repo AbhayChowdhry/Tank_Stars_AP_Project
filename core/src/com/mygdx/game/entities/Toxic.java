@@ -51,8 +51,8 @@ public class Toxic extends Tank{
     private final double tank_height = Game.getHEIGHT()/13.5;
     private final double snout_width = Game.getWIDTH()/22.746f;
     private final double snout_height = Game.getHEIGHT()/38.571f;
-    private final double snout_x = -Game.getWIDTH()/192f;
-    private final double snout_y = -Game.getHEIGHT()/360f;
+    private final double snout_x = Game.getWIDTH()/40f;
+    private final double snout_y = Game.getHEIGHT()/31.768f;
 
     @Override
     String name() {
