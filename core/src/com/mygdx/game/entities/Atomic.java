@@ -55,6 +55,10 @@ public class Atomic extends Tank{
     private final double snout_x = Game.getWIDTH()/137.14f;
     private final double snout_y = Game.getHEIGHT()/22.618f;
 
+    private final double snout_x_flip = 0;
+    //    private final double snout_x_flip = - Game.getWIDTH()/125.49;
+    private final double snout_y_flip = Game.getHEIGHT()/22.618f;
+
 //    private float x_body = 0;
 //    private float y_body = 0;
 //    private float x_snout = x_body;
@@ -101,4 +105,13 @@ public class Atomic extends Tank{
         return snout_y;
     }
 
+    @Override
+    public double getSnout_x_flip() {
+        return snout_x_flip;
+    }
+
+    @Override
+    public double getSnout_y_flip() {
+        return snout_y_flip;
+    }
 }
