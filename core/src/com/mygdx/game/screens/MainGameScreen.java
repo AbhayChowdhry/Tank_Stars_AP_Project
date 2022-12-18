@@ -426,12 +426,16 @@ public class MainGameScreen implements Screen{
         }
 
 
-        //Player 1 Slope
+//        Player 1 Slope
         int x1_1 = tank_1_position;
         int x2_1 = (int)(tank_1_position+play.getPlayer1().getTank().getTank_width()/1.5f);
         float slope1 =(float)Math.atan((height[x2_1]-height[x1_1])/(float)(x2_1-x1_1));
         float phi1 = (float)Math.atan(play.getPlayer1().getTank().getSnout_y()/play.getPlayer1().getTank().getSnout_x());
         float length1 = (float)Math.sqrt(Math.pow(play.getPlayer1().getTank().getSnout_x()/1.5f,2)+Math.pow(play.getPlayer1().getTank().getSnout_y()/1.5f,2));
+
+//        int x1_1 =(int)(tank_1_position+play.getPlayer1().getTank().getTank_width()/2f);
+//        int x2_1 = (int)(tank_1_position+play.getPlayer1().getTank().getTank_width());
+//        float slope1 =(float)Math.atan((height[x2_1]-height[x1_1])/(float)(x2_1-x1_1));
 
         //Player 1 Snout
         play.getPlayer1().getTank().getSnout().setPosition(tank_1_position+length1*(float)Math.cos(slope1+phi1),height[tank_1_position]+length1*(float)Math.sin(slope1+phi1));
@@ -456,13 +460,40 @@ public class MainGameScreen implements Screen{
         //Player 2 Slope
         int x1_2 = tank_2_position;
         int x2_2 = (int)(tank_2_position+play.getPlayer2().getTank().getTank_width()/1.5f);
-        float slope2 =(float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
+         float phi2 = (float)Math.atan(play.getPlayer2().getTank().getSnout_y_shift()/play.getPlayer2().getTank().getSnout_x_shift());
+        float length2 = (float)Math.sqrt(Math.pow(play.getPlayer2().getTank().getSnout_x_flip()/1.5f,2)+Math.pow(play.getPlayer2().getTank().getSnout_y_flip()/1.5f,2));
+        float slope2 = (float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
+        float slope2_minus90 = (float) Math.PI/2 - (float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
 
-        //Player 2 Snout
-//        if(!this.flip_2) {
-//            play.getPlayer2().getTank().getSnout().flip(true, false);
-//            this.flip_2 = true;
-//        }
+//        Player 2 Snout
+//        play.getPlayer2().getTank().getSnout().setPosition(tank_2_position+length2*(float)Math.cos(slope2+phi2),height[tank_2_position]+length2*(float)Math.sin(slope2+phi2));
+//        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
+//        play.getPlayer2().getTank().getSnout().setRotation(slope2*MathUtils.radiansToDegrees+getAngle_2());
+//        play.getPlayer2().getTank().getSnout().setOrigin(play.getPlayer2().getTank().getSnout().getWidth()/1.5f,play.getPlayer2().getTank().getSnout().getHeight()/1.5f);
+
+
+//        play.getPlayer2().getTank().getSnout().setPosition(tank_2_position-length2*(float)Math.cos(slope2_minus90),height[tank_2_position]+length2*(float)Math.sin(slope2_minus90));
+        // play.getPlayer2().getTank().getSnout().setPosition(tank_2_position,height[tank_2_position]);
+        // play.getPlayer2().getTank().getSnout().setPosition(tank_2_position+length1*(float)Math.cos(slope2+phi2),height[tank_2_position]+length1*(float)Math.sin(slope2+phi2));
+        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
+        play.getPlayer2().getTank().getSnout().setRotation(slope2*MathUtils.radiansToDegrees+getAngle_2());
+        // play.getPlayer2().getTank().getSnout().setOrigin((float) (play.getPlayer2().getTank().getSnout_width()/1.5f * Math.cos(slope2)),(float) (play.getPlayer2().getTank().getSnout_width()/1.5f * Math.sin(slope2)));
+        // play.getPlayer2().getTank().getSnout().setOrigin(0,0);
+
+        //play.getPlayer2().getTank().getSnout().setOrigin(tank_2_position-length2*(float)Math.cos(slope2_minus90)+play.getPlayer2().getTank().getSnout().getWidth()/1.5f,height[tank_2_position]+length2*(float)Math.sin(slope2_minus90));
+
+        //Atomic working
+//        if(player2_tank==1)
+//            play.getPlayer2().getTank().getSnout().setOrigin(5,5);
+//        else
+//            play.getPlayer2().getTank().getSnout().setOrigin(play.getPlayer2().getTank().getSnout().getWidth()/1.5f,0);
+//            play.getPlayer2().getTank().getSnout().setOrigin(0,0);
+        if(!this.flip_2) {
+            play.getPlayer2().getTank().getSnout().flip(true, false);
+            this.flip_2 = true;
+        }
+        play.getPlayer2().getTank().getSnout().draw(game.batch);
+
 //        play.getPlayer2().getTank().getSnout().setPosition((float)(tank_2.getPosition().x*PPM-play.getPlayer2().getTank().getSnout_x()/1.5f-play.getPlayer2().getTank().getSnout_width()/1.5f), (float)(tank_2.getPosition().y*PPM+play.getPlayer2().getTank().getSnout_y()/1.5f));
 //        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
 //        play.getPlayer2().getTank().getSnout().setRotation(slope2*MathUtils.radiansToDegrees-getAngle_2());
@@ -476,7 +507,8 @@ public class MainGameScreen implements Screen{
         play.getPlayer2().getTank().getBody().setPosition(tank_2_position, height[tank_2_position]);
         play.getPlayer2().getTank().getBody().setSize((float) play.getPlayer2().getTank().getTank_width()/1.5f, (float) play.getPlayer2().getTank().getTank_height()/1.5f);
         play.getPlayer2().getTank().getBody().setRotation(slope2*MathUtils.radiansToDegrees);
-        play.getPlayer2().getTank().getBody().setOrigin(0,0);
+        //play.getPlayer2().getTank().getBody().setOrigin((float) play.getPlayer2().getTank().getTank_width()/3f,(float) play.getPlayer2().getTank().getTank_height()/3f);
+        play.getPlayer2().getTank().getBody().setOrigin(0, 0);
         play.getPlayer2().getTank().getBody().draw(game.batch);
         if(!this.flip_3) {
             play.getPlayer2().getTank().getBody().flip(true, false);
@@ -652,10 +684,10 @@ public class MainGameScreen implements Screen{
                 }
             }
             if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                updateAngle_2(1);
+                updateAngle_2(-1);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                updateAngle_2(-1);
+                updateAngle_2(1);
             }
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && play.getPlayer2().getFuel() > 0) {
                 tank_2_position+=1;

@@ -20,6 +20,10 @@ public abstract class Tank {
     private double snout_height;
     private double snout_x;
     private double snout_y;
+    private double snout_x_flip;
+    private double snout_y_flip;
+    private double snout_x_shift;
+    private double snout_y_shift;
     private Texture PUMPKIN_SNOUT;
 
     private Texture SpecialWeapon;
@@ -79,6 +83,22 @@ public abstract class Tank {
 
     public float getY_snout() {
         return y_snout;
+    }
+
+    public double getSnout_x_flip() {
+        return snout_x_flip;
+    }
+
+    public double getSnout_y_flip() {
+        return snout_y_flip;
+    }
+
+    public double getSnout_x_shift() {
+        return snout_x_shift;
+    }
+
+    public double getSnout_y_shift() {
+        return snout_y_shift;
     }
 
     public double getTank_height() {
