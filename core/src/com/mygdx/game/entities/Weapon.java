@@ -3,7 +3,9 @@ package com.mygdx.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-public abstract class Weapon{
+import java.io.Serializable;
+
+public abstract class Weapon implements Serializable {
     private int damage;
     private int radius;
     private double width, height;

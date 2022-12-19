@@ -4,17 +4,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Game;
 
-public class Toxic extends Tank{
+import java.io.Serializable;
+
+public class Toxic extends Tank implements Serializable {
 
 
-    private Texture TOXIC_BODY = new Texture("TOXIC_BODY.png");
-    private Texture TOXIC_SNOUT = new Texture("TOXIC_SNOUT.png");
-    Sprite body = new Sprite(TOXIC_BODY);
-    Sprite snout = new Sprite(TOXIC_SNOUT);
-    private Texture SpecialWeapon = new Texture("3_0.png");
-    private Texture SharpShooter = new Texture("3_1.png");
-    private Texture MakeItRain = new Texture("3_3.png");
-    private Texture MassiveDrop = new Texture("3_4.png");
+    private transient Texture TOXIC_BODY = new Texture("TOXIC_BODY.png");
+    private transient Texture TOXIC_SNOUT = new Texture("TOXIC_SNOUT.png");
+    transient Sprite body = new Sprite(TOXIC_BODY);
+    transient Sprite snout = new Sprite(TOXIC_SNOUT);
+    private transient Texture SpecialWeapon = new Texture("3_0.png");
+    private transient Texture SharpShooter = new Texture("3_1.png");
+    private transient Texture MakeItRain = new Texture("3_3.png");
+    private transient Texture MassiveDrop = new Texture("3_4.png");
 
 
     public Texture getMakeItRain() {

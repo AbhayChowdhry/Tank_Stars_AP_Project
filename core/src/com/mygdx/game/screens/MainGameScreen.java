@@ -19,37 +19,45 @@ import com.sun.javafx.stage.StageHelper;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 public class MainGameScreen implements Screen{
 
     public static final float SPEED = 2;
     public static final int TANK_X = 150;
     public static final int TANK_Y = 200;
-    Texture BACKGROUND = new Texture("PLAY_BACK.png");
-    Texture TERRAIN = new Texture("TERRAIN.png");
+    transient Texture BACKGROUND = new Texture("PLAY_BACK.png");
+    transient Texture TERRAIN = new Texture("TERRAIN.png");
 
-    Texture PAUSE_INACTIVE = new Texture("PAUSE_INACTIVE.png");
-    Texture PAUSE_ACTIVE = new Texture("PAUSE_ACTIVE.png");
-    Texture RESUME_ACTIVE = new Texture("RESUME_ACTIVE.png");
-    Texture RESUME_INACTIVE = new Texture("RESUME_INACTIVE.png");
-    Texture SAVE_ACTIVE = new Texture("SAVE_ACTIVE.png");
-    Texture SAVE_INACTIVE = new Texture("SAVE_INACTIVE.png");
-    Texture EXIT_ACTIVE = new Texture("EXIT_ACTIVE.png");
-    Texture EXIT_INACTIVE = new Texture("EXIT_INACTIVE.png");
+    transient Texture PAUSE_INACTIVE = new Texture("PAUSE_INACTIVE.png");
+    transient Texture PAUSE_ACTIVE = new Texture("PAUSE_ACTIVE.png");
+    transient Texture RESUME_ACTIVE = new Texture("RESUME_ACTIVE.png");
+    transient Texture RESUME_INACTIVE = new Texture("RESUME_INACTIVE.png");
+    transient Texture SAVE_ACTIVE = new Texture("SAVE_ACTIVE.png");
+    transient Texture SAVE_INACTIVE = new Texture("SAVE_INACTIVE.png");
+    transient Texture EXIT_ACTIVE = new Texture("EXIT_ACTIVE.png");
+    transient Texture EXIT_INACTIVE = new Texture("EXIT_INACTIVE.png");
 
-    Texture HEALTH_LOGO_P1 = new Texture("HEALTH_LOGO_P1.png");
-    Texture HEALTH_LOGO_P2 = new Texture("HEALTH_LOGO_P2.png");
-    Texture HEALTH_CURR_P1 = new Texture("HEALTH_CURR_P1.png");
-    Texture HEALTH_CURR_P2 = new Texture("HEALTH_CURR_P2.png");
-    Texture PLACEHOLDER_5 = new Texture("WPN_5.png");
-    Texture PLACEHOLDER_4 = new Texture("WPN_4.png");
-    Texture PLACEHOLDER_3 = new Texture("WPN_3.png");
-    Texture PLACEHOLDER_2 = new Texture("WPN_2.png");
-    Texture PLACEHOLDER_1 = new Texture("WPN_1.png");
+    transient Texture HEALTH_LOGO_P1 = new Texture("HEALTH_LOGO_P1.png");
+    transient Texture HEALTH_LOGO_P2 = new Texture("HEALTH_LOGO_P2.png");
+    transient Texture HEALTH_CURR_P1 = new Texture("HEALTH_CURR_P1.png");
+    transient Texture HEALTH_CURR_P2 = new Texture("HEALTH_CURR_P2.png");
+    transient Texture PLACEHOLDER_5 = new Texture("WPN_5.png");
+    transient Texture PLACEHOLDER_4 = new Texture("WPN_4.png");
+    transient Texture PLACEHOLDER_3 = new Texture("WPN_3.png");
+    transient Texture PLACEHOLDER_2 = new Texture("WPN_2.png");
+    transient Texture PLACEHOLDER_1 = new Texture("WPN_1.png");
 
-    Texture VS = new Texture("VS.png");
+    transient Texture VS = new Texture("VS.png");
 
-    Texture FIRE_BUTTON = new Texture("FIRE_BUTTON.png");
+    transient Texture FIRE_BUTTON = new Texture("FIRE_BUTTON.png");
 
+    transient Texture FUEL = new Texture("FUEL.png");
+    transient Texture FUEL_BACK = new Texture("FUEL_BACK.png");
+    transient Texture FUEL_CURR = new Texture("FUEL_CURR.png");
+    transient Texture WPN_SEL_BACK = new Texture("WPN_SEL_BACK.png");
     Texture FUEL = new Texture("FUEL.png");
     Texture FUEL_BACK = new Texture("FUEL_BACK.png");
     Texture FUEL_CURR = new Texture("FUEL_CURR.png");
@@ -242,6 +250,8 @@ public class MainGameScreen implements Screen{
         }
         player1_tank = tank1;
         player2_tank = tank2;
+        play.setPlayer1_tank_number();
+        play.setPlayer2_tank_number();
         world = new World(new Vector2(0,-9.81f), false);
         debugRenderer = new Box2DDebugRenderer();
 
@@ -262,6 +272,104 @@ public class MainGameScreen implements Screen{
 
         this.tank_1_position = 200;
         this.tank_2_position = 800;
+
+        //        this.stage = new Stage(viewport);
+
+        // int[] height=Play.
+
+
+//        ScreenViewport viewport = new ScreenViewport();
+//        this.stage = new Stage(viewport);
+//        Gdx.input.setInputProcessor(stage);
+//        Actor actor = new Actor();
+//        stage.addActor(actor);
+//        stage.setKeyboardFocus(actor);
+//        img = new Texture("TestTank.png");
+//        Texture p1_snout_texture = player1.getTank().getSnout();
+//        Texture p1_body_texture = player1.getTank().getBody();
+//
+//        p1_body=new Sprite(p1_body_texture);
+//        p1_snout=new Sprite(p1_snout_texture);
+//        //p1_body.setSize(652,366);
+//        p1_body.setSize(326,183);
+//        p1_body.setOrigin(0,0);
+//
+//        //p1_snout.setSize(652,146);
+//        p1_snout.setSize(326,73);
+//        p1_snout.setOrigin(164,36);
+//
+//        Texture p2_snout_texture = player2.getTank().getSnout();
+//        Texture p2_body_texture = player2.getTank().getBody();
+//
+//        p2_body=new Sprite(p2_body_texture);
+//        p2_snout=new Sprite(p2_snout_texture);
+//        //p1_body.setSize(652,366);
+//        p2_body.setSize(326,183);
+//        p2_body.setOrigin(0,0);
+//        p2_body.flip(true, false);
+//
+//        //p1_snout.setSize(652,146);
+//        p2_snout.setSize(326,73);
+//        p2_snout.setOrigin(163,36);
+//        p2_snout.flip(true, false);
+    }
+    public MainGameScreen(Game game, Play newplay){
+        play = new Play();
+        play = newplay;
+        this.game = game;
+        this.angle_1 = 0;
+        this.angle_2 = 0;
+        this.flip_2 = false;
+        this.flip_3 = false;
+
+        int tank1 = newplay.getPlayer1_tank_number();
+        int tank2 = newplay.getPlayer2_tank_number();
+
+        switch (tank1) {
+            case 1:
+                play.getPlayer1().setTank(new Atomic());
+                break;
+            case 2:
+                play.getPlayer1().setTank(new Pumpkin());
+                break;
+            case 3:
+                play.getPlayer1().setTank(new Toxic());
+                break;
+            case 4:
+                play.getPlayer1().setTank(new Pinky());
+                break;
+        }
+
+        switch (tank2) {
+            case 1:
+                play.getPlayer2().setTank(new Atomic());
+                break;
+            case 2:
+                play.getPlayer2().setTank(new Pumpkin());
+                break;
+            case 3:
+                play.getPlayer2().setTank(new Toxic());
+                break;
+            case 4:
+                play.getPlayer2().setTank(new Pinky());
+                break;
+        }
+        player1_tank = tank1;
+        player2_tank = tank2;
+
+        world = new World(new Vector2(0,-9.81f), false);
+        debugRenderer = new Box2DDebugRenderer();
+
+        this.camera = new OrthographicCamera();
+        this.camera.setToOrtho(false, Game.getWIDTH(), Game.getHEIGHT());
+
+        game.batch.setProjectionMatrix(camera.combined);
+
+        this.tank_1_position = (int) newplay.getPlayer1().getTank().getX_body();
+        this.tank_2_position = (int) newplay.getPlayer2().getTank().getX_body();
+
+        play.getPlayer1().setHealth(newplay.getPlayer1().getHealth());
+        play.getPlayer2().setHealth(newplay.getPlayer2().getHealth());
     }
     @Override
     public void show() {
@@ -324,14 +432,13 @@ public class MainGameScreen implements Screen{
 //        bodydef.position.set(tank_1_position/PPM, height[tank_1_position]/PPM);
 //        fixturedef = new FixtureDef();
 //        shape = new PolygonShape();
-//        shape.setAsBox((float)s.getWidth(play.getPlayer1().getTank())/(3*PPM),(float)s.getHeight(play.getPlayer1().getTank())/(3*PPM));
+//        shape.setAsBox((float)(play.getPlayer2().getTank().getTank_width()/(3*PPM)),(float)(play.getPlayer2().getTank().getTank_height()/(3*PPM)));
 //        fixturedef.shape = shape;
-//        fixturedef.density = 5f;
+//        fixturedef.density = 50f;
 //        fixturedef.friction = 0.2f;
 //        fixturedef.restitution = 0;
 //        tank_2=world.createBody(bodydef);
 //        tank_2.createFixture(fixturedef);
-
 
 
 //        bodydef.type = BodyDef.BodyType.DynamicBody;
@@ -434,13 +541,18 @@ public class MainGameScreen implements Screen{
             else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - BUTTON_DIF){
                 game.batch.draw(SAVE_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-
+                    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("obj.txt"))) {
+                        oos.writeObject(play);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - 2* BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - 2* BUTTON_DIF){
                 game.batch.draw(EXIT_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - 2 * BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
                 if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                    game.setScreen(new MainMenuScreen(game));
+//                    game.setScreen(new MainMenuScreen(game));
+                    game.setScreen(MainMenuScreen.getInstance(game));
                 }
             }
         }
@@ -454,7 +566,6 @@ public class MainGameScreen implements Screen{
             fuel=play.getPlayer2().getFuel();
         game.batch.draw(FUEL_CURR, (float) FUEL_CURR_X, (float) FUEL_CURR_Y, (float) (FUEL_CURR_WIDTH/10*fuel), (float) FUEL_CURR_HEIGHT);
         game.batch.draw(FUEL, (float) FUEL_X, (float) FUEL_Y, (float) FUEL_WIDTH, (float) FUEL_HEIGHT);
-
 
         //Terrain
         float[] height=play.getTerrain();
@@ -499,14 +610,18 @@ public class MainGameScreen implements Screen{
         //Player 2 Slope
         int x1_2 = tank_2_position;
         int x2_2 = (int)(tank_2_position+play.getPlayer2().getTank().getTank_width()/1.5f);
-        float phi2 = (float)Math.atan(play.getPlayer2().getTank().getSnout_y_flip()/play.getPlayer2().getTank().getSnout_x_flip());
-        float length2 = (float)Math.sqrt(Math.pow(play.getPlayer2().getTank().getSnout_x_flip()/1.5f,2)+Math.pow(play.getPlayer2().getTank().getSnout_y_flip()/1.5f,2));
+        // float phi2 = (float)Math.atan(play.getPlayer2().getTank().getSnout_y_flip()/play.getPlayer2().getTank().getSnout_x_flip());
+        // float length2 = (float)Math.sqrt(Math.pow(play.getPlayer2().getTank().getSnout_x_flip()/1.5f,2)+Math.pow(play.getPlayer2().getTank().getSnout_y_flip()/1.5f,2));
+        float length2 = (float)(play.getPlayer2().getTank().getSnout_y_flip()/1.5f);
 
         // float phi2 = (float)Math.atan((play.getPlayer2().getTank().getTank_width()- play.getPlayer2().getTank().getSnout_x())/(play.getPlayer2().getTank().getTank_height()- play.getPlayer2().getTank().getSnout_y()));
         // float length2 = (float)Math.sqrt(Math.pow((play.getPlayer2().getTank().getTank_width()- play.getPlayer2().getTank().getSnout_x())/1.5f,2)+Math.pow((play.getPlayer2().getTank().getTank_height()- play.getPlayer2().getTank().getSnout_y())/1.5f,2));
 
         float slope2 = (float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
-        float slope2_minus90 = (float) Math.PI/2 - (float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
+        float slope2_minus90 = slope2 -(float) Math.PI/2 ;
+
+        //float slope2_sn = (float) Math.toRadians(Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2)));
+        // float slope2_sn_minus90 = slope2_sn -(float) Math.PI/2 ;
 
 
 //        Player 2 Snout
@@ -526,9 +641,14 @@ public class MainGameScreen implements Screen{
         play.getPlayer2().getTank().getSnout().setRotation(slope2 * MathUtils.radiansToDegrees+getAngle_2());
         // play.getPlayer2().getTank().getSnout().setOrigin((float) (play.getPlayer2().getTank().getSnout_width()/1.5f * Math.cos(slope2)),(float) (play.getPlayer2().getTank().getSnout_width()/1.5f * Math.sin(slope2)));
         play.getPlayer2().getTank().getSnout().setOrigin((float) play.getPlayer2().getTank().getSnout_width()/1.5f,0);
-        // play.getPlayer2().getTank().getSnout().setPosition((float)(tank_2_position),(float) (height[tank_2_position + (int)play.getPlayer2().getTank().getTank_width()/2]+play.getPlayer2().getTank().getSnout_y()/1.5f));
+        // play.getPlayer2().getTank().getSnout().setPosition(0, 0);
         // play.getPlayer2().getTank().getSnout().setPosition(tank_2_position+length2*(float)Math.cos(slope2+phi2),height[tank_2_position]+length2*(float)Math.sin(slope2+phi2));
-        play.getPlayer2().getTank().getSnout().setPosition((float) (tank_2_position + length2*Math.cos(phi2+slope2_minus90)),(float) (height[tank_2_position] + length2* Math.sin(phi2+slope2_minus90)));
+
+        // play.getPlayer2().getTank().getSnout().setPosition((float) (tank_2_position + length2*Math.cos(phi2+slope2_minus90)),(float) (height[tank_2_position] + length2* Math.sin(phi2+slope2_minus90)));
+        play.getPlayer2().getTank().getSnout().setPosition((float) (tank_2_position + length2*Math.cos(slope2_minus90)),(float) (height[tank_2_position] + length2* Math.sin(slope2_minus90)));
+        // play.getPlayer2().getTank().getSnout().setPosition((tank_2_position),(float) ((height[(int) (tank_2_position + play.getPlayer2().getTank().getSnout().getWidth()/1.5f)])));
+//        System.out.println(slope2);
+//        System.out.println(slope2_minus90);
         play.getPlayer2().getTank().getSnout().draw(game.batch);
 
         //play.getPlayer2().getTank().getSnout().setOrigin(tank_2_position-length2*(float)Math.cos(slope2_minus90)+play.getPlayer2().getTank().getSnout().getWidth()/1.5f,height[tank_2_position]+length2*(float)Math.sin(slope2_minus90));

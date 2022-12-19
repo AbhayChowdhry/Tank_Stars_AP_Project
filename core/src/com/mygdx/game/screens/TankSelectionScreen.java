@@ -13,13 +13,13 @@ import com.mygdx.game.entities.Toxic;
 public class TankSelectionScreen implements Screen {
 
     Game game;
-    Texture TANK_SELECTION_BACK, SELECTION_NO_TANK;
-    Texture TOXIC_ACTIVE, TOXIC_CLICK, TOXIC_INACTIVE, TOXIC_ROTATED;
-    Texture PINKY_ACTIVE, PINKY_CLICK, PINKY_INACTIVE, PINKY_ROTATED;
-    Texture ATOMIC_ACTIVE, ATOMIC_CLICK, ATOMIC_INACTIVE, ATOMIC_ROTATED;
-    Texture PUMPKIN_ACTIVE, PUMPKIN_CLICK, PUMPKIN_INACTIVE, PUMPKIN_ROTATED;
-    Texture FORWARD_ACTIVE, BACK_ACTIVE;
-    Texture PLAYER1_BANNER, PLAYER2_BANNER;
+    transient Texture TANK_SELECTION_BACK, SELECTION_NO_TANK;
+    transient Texture TOXIC_ACTIVE, TOXIC_CLICK, TOXIC_INACTIVE, TOXIC_ROTATED;
+    transient Texture PINKY_ACTIVE, PINKY_CLICK, PINKY_INACTIVE, PINKY_ROTATED;
+    transient Texture ATOMIC_ACTIVE, ATOMIC_CLICK, ATOMIC_INACTIVE, ATOMIC_ROTATED;
+    transient Texture PUMPKIN_ACTIVE, PUMPKIN_CLICK, PUMPKIN_INACTIVE, PUMPKIN_ROTATED;
+    transient Texture FORWARD_ACTIVE, BACK_ACTIVE;
+    transient Texture PLAYER1_BANNER, PLAYER2_BANNER;
 
     private static final double BLOCK_WIDTH = Game.getWIDTH()/6.46;
     private static final double BLOCK_HEIGHT = Game.getHEIGHT()/3.6;
@@ -161,7 +161,8 @@ public class TankSelectionScreen implements Screen {
                     game.setScreen(new TankSelectionScreen(game, false, sel));
                 }
                 else{
-                    game.setScreen(new MainMenuScreen(game));
+                    // game.setScreen(new MainMenuScreen(game));
+                    game.setScreen(MainMenuScreen.getInstance(game));
                 }
             }
         }
