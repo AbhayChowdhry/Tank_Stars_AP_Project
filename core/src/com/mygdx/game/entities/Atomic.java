@@ -4,16 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Game;
 
-public class Atomic extends Tank{
+import java.io.Serializable;
 
-    private Texture ATOMIC_BODY = new Texture("ATOMIC_BODY.png");
-    private Texture ATOMIC_SNOUT = new Texture("ATOMIC_SNOUT.png");
+public class Atomic extends Tank implements Serializable {
 
-    private Texture SpecialWeapon = new Texture("4_0.png");
-    private Texture SharpShooter = new Texture("4_1.png");
-    private Texture RainbowAttack = new Texture("4_2.png");
-    private Texture MakeItRain = new Texture("4_3.png");
-    private Texture MassiveDrop = new Texture("4_4.png");
+    private transient Texture ATOMIC_BODY = new Texture("ATOMIC_BODY.png");
+    private transient Texture ATOMIC_SNOUT = new Texture("ATOMIC_SNOUT.png");
+
+    private transient Texture SpecialWeapon = new Texture("4_0.png");
+    private transient Texture SharpShooter = new Texture("4_1.png");
+    private transient Texture RainbowAttack = new Texture("4_2.png");
+    private transient Texture MakeItRain = new Texture("4_3.png");
+    private transient Texture MassiveDrop = new Texture("4_4.png");
 
     public Texture getMakeItRain() {
         return MakeItRain;
@@ -35,8 +37,8 @@ public class Atomic extends Tank{
         return SpecialWeapon;
     }
 
-    Sprite body = new Sprite(ATOMIC_BODY);
-    Sprite snout = new Sprite(ATOMIC_SNOUT);
+    transient Sprite body = new Sprite(ATOMIC_BODY);
+    transient Sprite snout = new Sprite(ATOMIC_SNOUT);
     @Override
     public Sprite getBody() {
 
