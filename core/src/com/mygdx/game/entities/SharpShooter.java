@@ -2,12 +2,14 @@ package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class SharpShooter extends Weapon{
+import java.io.Serializable;
 
-    private final Texture pumpkin = new Texture("1_1.png");
-    private final Texture pinky = new Texture("2_1.png");
-    private final Texture toxic = new Texture("3_1.png");
-    private final Texture atomic = new Texture("4_1.png");
+public class SharpShooter extends Weapon implements Serializable {
+
+    private final transient Texture pumpkin = new Texture("1_1.png");
+    private final transient Texture pinky = new Texture("2_1.png");
+    private final transient Texture toxic = new Texture("3_1.png");
+    private final transient Texture atomic = new Texture("4_1.png");
     public Texture picture(Tank tank) {
         if (tank instanceof Pumpkin) {
             return pumpkin;

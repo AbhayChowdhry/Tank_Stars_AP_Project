@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Game;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public abstract class Tank {
+public abstract class Tank implements Serializable {
 
     protected Sprite body, snout;
     protected float x_body = 0;
@@ -24,13 +25,13 @@ public abstract class Tank {
     private double snout_y_flip;
     private double snout_x_shift;
     private double snout_y_shift;
-    private Texture PUMPKIN_SNOUT;
+    private transient Texture PUMPKIN_SNOUT;
 
-    private Texture SpecialWeapon;
-    private Texture SharpShooter;
-    private Texture RainbowAttack;
-    private Texture MakeItRain;
-    private Texture MassiveDrop;
+    private transient Texture SpecialWeapon;
+    private transient Texture SharpShooter;
+    private transient Texture RainbowAttack;
+    private transient Texture MakeItRain;
+    private transient Texture MassiveDrop;
     protected static final float SPEED = 50;
 
     private LinkedList<Weapon> weapons;

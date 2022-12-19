@@ -5,16 +5,20 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
+import com.mygdx.game.entities.Play;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.concurrent.TimeUnit;
 
 public class MainMenuScreen implements Screen {
     Game game;
-    Texture VS_FRIEND_ACTIVE, VS_FRIEND_INACTIVE, VS_FRIEND_CLICK;
-    Texture VS_COMP_ACTIVE, VS_COMP_INACTIVE, VS_COMP_CLICK;
-    Texture LOAD_INACTIVE, LOAD_ACTIVE,LOAD_CLICK;
-    Texture EXIT_INACTIVE, EXIT_ACTIVE, EXIT_CLICK;
-    Texture MAIN_BACK;
+    transient Texture VS_FRIEND_ACTIVE, VS_FRIEND_INACTIVE, VS_FRIEND_CLICK;
+    transient Texture VS_COMP_ACTIVE, VS_COMP_INACTIVE, VS_COMP_CLICK;
+    transient Texture LOAD_INACTIVE, LOAD_ACTIVE,LOAD_CLICK;
+    transient Texture EXIT_INACTIVE, EXIT_ACTIVE, EXIT_CLICK;
+    transient Texture MAIN_BACK;
     private static final double BUTTON_WIDTH = Game.getWIDTH() / 5.36;
     // private static final double BUTTON_HEIGHT = Game.HEIGHT / 13.4;
     private static final double BUTTON_HEIGHT = Game.getHEIGHT() / 12.56;
@@ -22,7 +26,15 @@ public class MainMenuScreen implements Screen {
     private static final double BUTTON_Y = Game.getHEIGHT()/2.28;
     private static final double BUTTON_DIF = Game.getHEIGHT()/10.09;
 
-    public MainMenuScreen(Game game){
+    private static MainMenuScreen gen = null;
+    public static MainMenuScreen getInstance(Game game1)
+    {
+        if (gen == null) {
+            gen = new MainMenuScreen(game1);
+        }
+        return gen;
+    }
+    private MainMenuScreen(Game game){
         this.game = game;
         VS_FRIEND_ACTIVE = new Texture("VS_FRIEND_ACTIVE.png");
         VS_FRIEND_INACTIVE = new Texture("VS_FRIEND_INACTIVE.png");
@@ -79,6 +91,17 @@ public class MainMenuScreen implements Screen {
             game.batch.draw(LOAD_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
                 game.batch.draw(LOAD_CLICK, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("obj.txt"))) {
+                    Play deserializedObj = (Play) ois.readObject();
+                    // System.out.println(deserializedObj);  // Output: 10
+                    // MainGameScreen mainscreen = new MainGameScreen(game, deserializedObj);
+                    // mainscreen.play = deserializedObj;
+                    game.setScreen( new MainGameScreen(game, deserializedObj));
+                    // game.setScreen();
+
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         }
         else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - 3 * (float) BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - 3*(float) BUTTON_DIF){

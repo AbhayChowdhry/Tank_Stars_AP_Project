@@ -4,17 +4,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.Game;
 
-public class Pinky extends Tank{
+import java.io.Serializable;
 
-    private Texture PINKY_BODY = new Texture("PINKY_BODY.png");
-    private Texture PINKY_SNOUT = new Texture("PINKY_SNOUT.png");
-    Sprite body = new Sprite(PINKY_BODY);
-    Sprite snout = new Sprite(PINKY_SNOUT);
-    private Texture SpecialWeapon = new Texture("2_0.png");
-    private Texture SharpShooter = new Texture("2_1.png");
-    private Texture RainbowAttack = new Texture("2_2.png");
-    private Texture MakeItRain = new Texture("2_3.png");
-    private Texture MassiveDrop = new Texture("2_4.png");
+public class Pinky extends Tank implements Serializable {
+
+    private transient Texture PINKY_BODY = new Texture("PINKY_BODY.png");
+    private transient Texture PINKY_SNOUT = new Texture("PINKY_SNOUT.png");
+    transient Sprite body = new Sprite(PINKY_BODY);
+    transient Sprite snout = new Sprite(PINKY_SNOUT);
+    private transient Texture SpecialWeapon = new Texture("2_0.png");
+    private transient Texture SharpShooter = new Texture("2_1.png");
+    private transient Texture RainbowAttack = new Texture("2_2.png");
+    private transient Texture MakeItRain = new Texture("2_3.png");
+    private transient Texture MassiveDrop = new Texture("2_4.png");
 
     public Texture getMakeItRain() {
         return MakeItRain;

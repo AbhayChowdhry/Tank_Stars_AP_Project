@@ -2,9 +2,13 @@ package com.mygdx.game.entities;
 
 import com.mygdx.game.Game;
 
-public class Play {
+import java.io.Serializable;
+
+public class Play implements Serializable {
     private Player player1;
     private Player player2;
+    private int player1_tank_number;
+    private int player2_tank_number;
     private float[] terrain=new float[Game.getWIDTH()];
 
     private int impact_rad, impact_coord;
@@ -64,5 +68,49 @@ public class Play {
             if(impact_coord-i>=0)
                 terrain[impact_coord - i] = Math.min(terrain[impact_coord - i], height - (float) Math.pow(impact_rad * impact_rad - i * i, 0.5));
     }
+
+    public int getPlayer1_tank_number() {
+        return player1_tank_number;
+    }
+
+    public int getPlayer2_tank_number() {
+        return player2_tank_number;
+    }
+
+    public void setPlayer1_tank_number() {
+        Tank tank = player1.getTank();
+        if(tank instanceof Pumpkin){
+            this.player1_tank_number = 2;
+
+        }
+        else if(tank instanceof Atomic){
+            this.player1_tank_number = 1;
+
+        }
+        else if(tank instanceof Toxic){
+            this.player1_tank_number = 3;
+        }
+        else if(tank instanceof Pinky){
+            this.player1_tank_number = 4;
+        }
+    }
+    public void setPlayer2_tank_number() {
+        Tank tank = player2.getTank();
+        if(tank instanceof Pumpkin){
+            this.player2_tank_number = 2;
+
+        }
+        else if(tank instanceof Atomic){
+            this.player2_tank_number = 1;
+
+        }
+        else if(tank instanceof Toxic){
+            this.player2_tank_number = 3;
+        }
+        else if(tank instanceof Pinky){
+            this.player2_tank_number = 4;
+        }
+    }
+
 
 }

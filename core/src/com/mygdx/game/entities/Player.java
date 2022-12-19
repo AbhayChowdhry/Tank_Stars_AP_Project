@@ -1,8 +1,9 @@
 package com.mygdx.game.entities;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Player {
+public class Player implements Serializable {
     private Tank tank;
 
     // Total health is 100
