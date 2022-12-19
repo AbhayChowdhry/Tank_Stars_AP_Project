@@ -13,9 +13,9 @@ public class Toxic extends Tank{
     Sprite snout = new Sprite(TOXIC_SNOUT);
     private Texture SpecialWeapon = new Texture("3_0.png");
     private Texture SharpShooter = new Texture("3_1.png");
-    private Texture RainbowAttack = new Texture("3_2.png");
     private Texture MakeItRain = new Texture("3_3.png");
     private Texture MassiveDrop = new Texture("3_4.png");
+
 
     public Texture getMakeItRain() {
         return MakeItRain;
@@ -24,11 +24,6 @@ public class Toxic extends Tank{
     public Texture getMassiveDrop() {
         return MassiveDrop;
     }
-
-    public Texture getRainbowAttack() {
-        return RainbowAttack;
-    }
-
     public Texture getSharpShooter() {
         return SharpShooter;
     }
@@ -36,6 +31,8 @@ public class Toxic extends Tank{
     public Texture getSpecialWeapon() {
         return SpecialWeapon;
     }
+
+
     @Override
     public Sprite getBody() {
         return body;
@@ -59,17 +56,6 @@ public class Toxic extends Tank{
     private final double snout_x_shift = - Game.getWIDTH()/27.81;
     private final double snout_y_shift= Game.getHEIGHT()/31.768f;
 
-    @Override
-    String name() {
-        return "3";
-    }
-
-    public void move_forward(){
-        x_body += 4;
-    }
-    public void move_backward(){
-        x_body -= 4;
-    }
 
     public double getSnout_height() {
         return snout_height;

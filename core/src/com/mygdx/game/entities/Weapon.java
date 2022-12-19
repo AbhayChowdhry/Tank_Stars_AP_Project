@@ -1,10 +1,12 @@
 package com.mygdx.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public abstract class Weapon{
     private int damage;
     private int radius;
+    private double width, height;
     private boolean isSelected;
     public void setIsSelected(boolean a) {
         this.isSelected = a;
@@ -14,4 +16,11 @@ public abstract class Weapon{
     }
 
     public abstract Texture picture(Tank tank);
+    public abstract Sprite weapons(Tank tank);
+
+    public abstract double getHeight(Tank tank);
+
+    public abstract double getWidth(Tank tank);
+
+    public abstract int getName();
 }

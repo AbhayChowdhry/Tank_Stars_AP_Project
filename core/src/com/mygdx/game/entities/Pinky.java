@@ -53,18 +53,6 @@ public class Pinky extends Tank{
     private final double snout_y = Game.getHEIGHT()/26.341f;
     private final double snout_x_flip = 0;
     private final double snout_y_flip = Game.getHEIGHT()/26.554f;
-    @Override
-    String name() {
-        return "2";
-    }
-
-
-    public void move_forward(){
-        x_body += 4;
-    }
-    public void move_backward(){
-        x_body -= 4;
-    }
 
     public double getSnout_height() {
         return snout_height;

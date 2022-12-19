@@ -28,7 +28,6 @@ public abstract class Tank {
 
     private Texture SpecialWeapon;
     private Texture SharpShooter;
-    private Texture RainbowAttack;
     private Texture MakeItRain;
     private Texture MassiveDrop;
     protected static final float SPEED = 50;
@@ -38,7 +37,6 @@ public abstract class Tank {
     Tank(){
         weapons = new LinkedList<Weapon>();
         this.weapons.add(new SharpShooter());
-        this.weapons.add(new RainbowAttack());
         this.weapons.add(new MakeItRain());
         this.weapons.add(new MassiveDrop());
     }
@@ -47,20 +45,6 @@ public abstract class Tank {
         return weapons;
     }
 
-    //    abstract void fire();
-//    abstract void selectWeapon();
-//    abstract void drawTank();
-
-    abstract String name();
-
-    public void forward(){
-        x_body += 4;
-        x_snout += 4;
-    }
-    public void backward(){
-        x_body -= 4;
-        x_snout -= 4;
-    }
 
     public Sprite getBody() {
         return body;
@@ -132,16 +116,13 @@ public abstract class Tank {
     public static float getSPEED() {
         return SPEED;
     }
+
     public Texture getMakeItRain() {
         return MakeItRain;
     }
 
     public Texture getMassiveDrop() {
         return MassiveDrop;
-    }
-
-    public Texture getRainbowAttack() {
-        return RainbowAttack;
     }
 
     public Texture getSharpShooter() {

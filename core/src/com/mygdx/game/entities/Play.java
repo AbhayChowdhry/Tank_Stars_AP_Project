@@ -54,15 +54,20 @@ public class Play {
         this.turn = turn;
     }
 
+
     public void updateTerrain(int impact_rad, int impact_coord) {
         float[] terrain=getTerrain();
         float height=terrain[impact_coord]+(float)(impact_rad/(Game.getHEIGHT()/175));
         for(int i=0;i<=impact_rad;i++)
             if(impact_coord+i<Game.getWIDTH())
+            {
                 terrain[impact_coord + i] = Math.min(terrain[impact_coord + i], height - (float) Math.pow(impact_rad * impact_rad - i * i, 0.5));
+                terrain[impact_coord + i] = Math.max(0, terrain[impact_coord + i]); }
         for(int i=0;i<=impact_rad;i++)
             if(impact_coord-i>=0)
+            {
                 terrain[impact_coord - i] = Math.min(terrain[impact_coord - i], height - (float) Math.pow(impact_rad * impact_rad - i * i, 0.5));
+                terrain[impact_coord - i] = Math.max(0, terrain[impact_coord - i]); }
     }
 
 }

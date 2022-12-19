@@ -66,18 +66,8 @@ public class Atomic extends Tank{
     //private float y_snout = (float) (y_body + 215);
 
 
-    @Override
-    String name() {
-        return "4";
-    }
 
 
-    public void move_forward(){
-        x_body += 4;
-    }
-    public void move_backward(){
-        x_body -= 4;
-    }
 
     public double getSnout_height() {
         return snout_height;

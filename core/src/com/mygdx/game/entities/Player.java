@@ -10,10 +10,12 @@ public class Player {
 
     // Total fuel is 10
     private float fuel;
+    private int power;
 
     Player() {
         this.fuel=10;
         this.health=100;
+        this.power = 10;
     }
 
 
@@ -40,4 +42,8 @@ public class Player {
     public void setTank(Tank tank) {
         this.tank = tank;
     }
+
+    public int getPower() { return power; }
+
+    public void setPower(int power) { this.power = power; }
 }

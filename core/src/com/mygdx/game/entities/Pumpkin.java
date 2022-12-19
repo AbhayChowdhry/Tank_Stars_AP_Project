@@ -35,7 +35,6 @@ public class Pumpkin extends Tank{
     public Texture getSpecialWeapon() {
         return SpecialWeapon;
     }
-
     Sprite body = new Sprite(PUMPKIN_BODY);
     Sprite snout = new Sprite(PUMPKIN_SNOUT);
 
@@ -56,20 +55,6 @@ public class Pumpkin extends Tank{
     private final double snout_height = Game.getHEIGHT()/38.571f;
     private final double snout_x = Game.getWIDTH()/31.475f;
     private final double snout_y = Game.getHEIGHT()/26.554f;
-
-    private final double snout_x_flip = 0;
-    private final double snout_y_flip = Game.getHEIGHT()/26.554f;
-    @Override
-    String name() {
-        return "1";
-    }
-
-    public void move_forward(){
-        x_body += 4;
-    }
-    public void move_backward(){
-        x_body -= 4;
-    }
 
 
     public double getSnout_height() {
