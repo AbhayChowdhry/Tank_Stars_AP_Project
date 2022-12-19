@@ -24,10 +24,6 @@ public class Pumpkin extends Tank implements Serializable {
         return MassiveDrop;
     }
 
-    public Texture getRainbowAttack() {
-        return RainbowAttack;
-    }
-
     public Texture getSharpShooter() {
         return SharpShooter;
     }

@@ -13,6 +13,8 @@ public class Play implements Serializable {
 
     private int impact_rad, impact_coord;
     private boolean turn; // TRUE for player1 and FALSE for player2
+    private int tank_1_position;
+    private int tank_2_position;
 
     public Play() {
         player1 = new Player();
@@ -36,6 +38,25 @@ public class Play implements Serializable {
         }
 //        updateTerrain(100, 300);
         turn = true;
+
+        tank_1_position =200;
+        tank_2_position =800;
+    }
+
+    public int getTank_1_position() {
+        return tank_1_position;
+    }
+
+    public int getTank_2_position() {
+        return tank_2_position;
+    }
+
+    public void setTank_1_position(int tank_1_position) {
+        this.tank_1_position = tank_1_position;
+    }
+
+    public void setTank_2_position(int tank_2_position) {
+        this.tank_2_position = tank_2_position;
     }
 
     public float[] getTerrain() {

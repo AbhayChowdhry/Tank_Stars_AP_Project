@@ -14,7 +14,6 @@ public class Pinky extends Tank implements Serializable {
     transient Sprite snout = new Sprite(PINKY_SNOUT);
     private transient Texture SpecialWeapon = new Texture("2_0.png");
     private transient Texture SharpShooter = new Texture("2_1.png");
-    private transient Texture RainbowAttack = new Texture("2_2.png");
     private transient Texture MakeItRain = new Texture("2_3.png");
     private transient Texture MassiveDrop = new Texture("2_4.png");
 
@@ -24,10 +23,6 @@ public class Pinky extends Tank implements Serializable {
 
     public Texture getMassiveDrop() {
         return MassiveDrop;
-    }
-
-    public Texture getRainbowAttack() {
-        return RainbowAttack;
     }
 
     public Texture getSharpShooter() {

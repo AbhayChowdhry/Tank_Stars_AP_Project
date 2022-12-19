@@ -96,7 +96,7 @@ public class MainMenuScreen implements Screen {
                     // System.out.println(deserializedObj);  // Output: 10
                     // MainGameScreen mainscreen = new MainGameScreen(game, deserializedObj);
                     // mainscreen.play = deserializedObj;
-                    game.setScreen( new MainGameScreen(game, deserializedObj));
+                    game.setScreen(new MainGameScreen(game, deserializedObj));
                     // game.setScreen();
 
                 } catch (IOException | ClassNotFoundException e) {
