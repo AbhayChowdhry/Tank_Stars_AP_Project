@@ -197,7 +197,7 @@ public class MainGameScreen implements Screen{
     }
 
 
-    TheChosenOne[] theChosenOne = new TheChosenOne[5];
+    TheChosenOne theChosenOne = new TheChosenOne();
     SharpShooter sharpShooter = new SharpShooter();
     MakeItRain[] makeItRain = new MakeItRain[5];
     MassiveDrop massiveDrop = new MassiveDrop();
@@ -501,13 +501,11 @@ public class MainGameScreen implements Screen{
         if(attack_1) {
             switch(weapon_number) {
                 case 0:
-                    for (int i = 0; i < 5; i++) {
-                        theChosenOne[i].weapons(play.getPlayer1().getTank()).setPosition((float) (weapon_1_multi[i].getPosition().x * PPM - theChosenOne[i].getWidth(play.getPlayer1().getTank()) / 3), (float) (weapon_1_multi[i].getPosition().y * PPM - theChosenOne[i].getHeight(play.getPlayer1().getTank()) / 3));
-                        theChosenOne[i].weapons(play.getPlayer1().getTank()).setSize((float) theChosenOne[i].getWidth(play.getPlayer1().getTank()) / 1.5f, (float) theChosenOne[i].getHeight(play.getPlayer1().getTank()) / 1.5f);
-                        theChosenOne[i].weapons(play.getPlayer1().getTank()).setRotation(weapon_1_multi[i].getAngle() * MathUtils.radiansToDegrees);
-                        theChosenOne[i].weapons(play.getPlayer1().getTank()).setOrigin((float) theChosenOne[i].getWidth(play.getPlayer1().getTank()) / 3f, (float) theChosenOne[i].getHeight(play.getPlayer1().getTank()) / 3f);
-                        theChosenOne[i].weapons(play.getPlayer1().getTank()).draw(game.batch);
-                    }
+                    theChosenOne.weapons(play.getPlayer1().getTank()).setPosition((float) (weapon_1.getPosition().x * PPM - theChosenOne.getWidth(play.getPlayer1().getTank()) / 3), (float) (weapon_1.getPosition().y * PPM - theChosenOne.getHeight(play.getPlayer1().getTank()) / 3));
+                    theChosenOne.weapons(play.getPlayer1().getTank()).setSize((float) theChosenOne.getWidth(play.getPlayer1().getTank()) / 1.5f, (float) theChosenOne.getHeight(play.getPlayer1().getTank()) / 1.5f);
+                    theChosenOne.weapons(play.getPlayer1().getTank()).setRotation(weapon_1.getAngle() * MathUtils.radiansToDegrees);
+                    theChosenOne.weapons(play.getPlayer1().getTank()).setOrigin((float) theChosenOne.getWidth(play.getPlayer1().getTank()) / 3f, (float) theChosenOne.getHeight(play.getPlayer1().getTank()) / 3f);
+                    theChosenOne.weapons(play.getPlayer1().getTank()).draw(game.batch);
                     break;
                 case 1:
                     sharpShooter.weapons(play.getPlayer1().getTank()).setPosition((float) (weapon_1.getPosition().x * PPM - sharpShooter.getWidth(play.getPlayer1().getTank()) / 3), (float) (weapon_1.getPosition().y * PPM - sharpShooter.getHeight(play.getPlayer1().getTank()) / 3));
@@ -539,13 +537,11 @@ public class MainGameScreen implements Screen{
         if(attack_2) {
             switch(weapon_number) {
                 case 0:
-                    for(int i=0;i<5;i++) {
-                        theChosenOne[i].weapons(play.getPlayer2().getTank()).setPosition((float)(weapon_2_multi[i].getPosition().x*PPM-theChosenOne[i].getWidth(play.getPlayer2().getTank())/3), (float)(weapon_2_multi[i].getPosition().y*PPM-theChosenOne[i].getHeight(play.getPlayer2().getTank())/3));
-                        theChosenOne[i].weapons(play.getPlayer2().getTank()).setSize((float)theChosenOne[i].getWidth(play.getPlayer2().getTank())/1.5f, (float)theChosenOne[i].getHeight(play.getPlayer2().getTank())/1.5f);
-                        theChosenOne[i].weapons(play.getPlayer2().getTank()).setRotation(weapon_2_multi[i].getAngle()*MathUtils.radiansToDegrees);
-                        theChosenOne[i].weapons(play.getPlayer2().getTank()).setOrigin((float)theChosenOne[i].getWidth(play.getPlayer2().getTank())/3f, (float)theChosenOne[i].getHeight(play.getPlayer2().getTank())/3f);
-                        theChosenOne[i].weapons(play.getPlayer2().getTank()).draw(game.batch);
-                    }
+                    theChosenOne.weapons(play.getPlayer2().getTank()).setPosition((float)(weapon_2.getPosition().x*PPM-theChosenOne.getWidth(play.getPlayer2().getTank())/3), (float)(weapon_2.getPosition().y*PPM-theChosenOne.getHeight(play.getPlayer2().getTank())/3));
+                    theChosenOne.weapons(play.getPlayer2().getTank()).setSize((float)theChosenOne.getWidth(play.getPlayer2().getTank())/1.5f, (float)theChosenOne.getHeight(play.getPlayer2().getTank())/1.5f);
+                    theChosenOne.weapons(play.getPlayer2().getTank()).setRotation(weapon_2.getAngle()*MathUtils.radiansToDegrees);
+                    theChosenOne.weapons(play.getPlayer2().getTank()).setOrigin((float)theChosenOne.getWidth(play.getPlayer2().getTank())/3f, (float)theChosenOne.getHeight(play.getPlayer2().getTank())/3f);
+                    theChosenOne.weapons(play.getPlayer2().getTank()).draw(game.batch);
                     break;
                 case 1:
                     sharpShooter.weapons(play.getPlayer2().getTank()).setPosition((float)(weapon_2.getPosition().x*PPM-sharpShooter.getWidth(play.getPlayer2().getTank())/3), (float)(weapon_2.getPosition().y*PPM-sharpShooter.getHeight(play.getPlayer2().getTank())/3));
@@ -748,26 +744,19 @@ public class MainGameScreen implements Screen{
                     switch(weapon_number)
                     {
                         case 0:
-                            int[] position_y = {30,32,31,33,34};
-                            int[] position_x = {1,2,3,4,5};
-                            for(int i=0;i<5;i++) {
-                                theChosenOne[i] = new TheChosenOne();
-                                bodydef.type = BodyDef.BodyType.DynamicBody;
-                                bodydef.position.set((play.getTank_1_position()+position_x[i])/PPM,(height[play.getTank_1_position()]+position_y[i])/PPM);
-                                fixturedef = new FixtureDef();
-                                shape = new PolygonShape();
-                                shape.setAsBox((float)theChosenOne[i].getWidth(play.getPlayer1().getTank())/(3*PPM),(float)theChosenOne[i].getHeight(play.getPlayer1().getTank())/(3*PPM));
-                                fixturedef.shape = shape;
-                                fixturedef.density = 500f;
-                                fixturedef.friction = 0.2f;
-                                fixturedef.restitution = 0;
-                                weapon_1_multi[i] = world.createBody(bodydef);
-                                weapon_1_multi[i].createFixture(fixturedef);
-                            }
-                            for(int i=0;i<5;i++)
-                                weapon_1_multi[i].setLinearVelocity(new Vector2((float)(play.getPlayer1().getPower()*1.8*Math.cos(slope1+Math.toRadians(getAngle_1()))),(float)(play.getPlayer1().getPower()*1.8*Math.sin(slope1+Math.toRadians(getAngle_1())))));
+                            bodydef.type = BodyDef.BodyType.DynamicBody;
+                            bodydef.position.set((play.getTank_1_position())/PPM,(height[play.getTank_1_position()]+30)/PPM);
+                            fixturedef = new FixtureDef();
+                            shape = new PolygonShape();
+                            shape.setAsBox((float)theChosenOne.getWidth(play.getPlayer1().getTank())/(3*PPM),(float)theChosenOne.getHeight(play.getPlayer1().getTank())/(3*PPM));
+                            fixturedef.shape = shape;
+                            fixturedef.density = 500f;
+                            fixturedef.friction = 0.2f;
+                            fixturedef.restitution = 0;
+                            weapon_1 = world.createBody(bodydef);
+                            weapon_1.createFixture(fixturedef);
+                            weapon_1.setLinearVelocity(new Vector2((float)(play.getPlayer1().getPower()*1.8*Math.cos(slope1+Math.toRadians(getAngle_1()))),(float)(play.getPlayer1().getPower()*1.8*Math.sin(slope1+Math.toRadians(getAngle_1())))));
                             attack_1 = true;
-                            is_multi_1 = true;
                             break;
                         case 1:
                             bodydef.type = BodyDef.BodyType.DynamicBody;
@@ -825,6 +814,7 @@ public class MainGameScreen implements Screen{
                     play.getPlayer1().getTank().getWeapons().remove(selected_weapon);
 
                     if(play.getPlayer1().getTank().getWeapons().isEmpty()){
+                        play.getPlayer1().getTank().getWeapons().add(new TheChosenOne());
                         play.getPlayer1().getTank().getWeapons().add(new SharpShooter());
                         play.getPlayer1().getTank().getWeapons().add(new MakeItRain());
                         play.getPlayer1().getTank().getWeapons().add(new MassiveDrop());
@@ -954,26 +944,19 @@ public class MainGameScreen implements Screen{
                     switch(weapon_number)
                     {
                         case 0:
-                            int[] position_y = {30,32,31,33,34};
-                            int[] position_x = {1,2,3,4,5};
-                            for(int i=0;i<5;i++) {
-                                theChosenOne[i] = new TheChosenOne();
-                                bodydef.type = BodyDef.BodyType.DynamicBody;
-                                bodydef.position.set((play.getTank_2_position()+position_x[i])/PPM,(height[play.getTank_2_position()]+position_y[i])/PPM);
-                                fixturedef = new FixtureDef();
-                                shape = new PolygonShape();
-                                shape.setAsBox((float)theChosenOne[i].getWidth(play.getPlayer2().getTank())/(3*PPM),(float)theChosenOne[i].getHeight(play.getPlayer2().getTank())/(3*PPM));
-                                fixturedef.shape = shape;
-                                fixturedef.density = 500f;
-                                fixturedef.friction = 0.2f;
-                                fixturedef.restitution = 0;
-                                weapon_2_multi[i] = world.createBody(bodydef);
-                                weapon_2_multi[i].createFixture(fixturedef);
-                            }
-                            for(int i=0;i<5;i++)
-                                weapon_2_multi[i].setLinearVelocity(new Vector2((float)(play.getPlayer2().getPower()*(-1.8)*Math.cos(slope2+Math.toRadians(getAngle_2()))),(float)(play.getPlayer2().getPower()*1.8*Math.sin(slope2+Math.toRadians(getAngle_2())))));
+                            bodydef.type = BodyDef.BodyType.DynamicBody;
+                            bodydef.position.set((play.getTank_2_position())/PPM,(height[play.getTank_2_position()]+30)/PPM);
+                            fixturedef = new FixtureDef();
+                            shape = new PolygonShape();
+                            shape.setAsBox((float)theChosenOne.getWidth(play.getPlayer2().getTank())/(3*PPM),(float)theChosenOne.getHeight(play.getPlayer2().getTank())/(3*PPM));
+                            fixturedef.shape = shape;
+                            fixturedef.density = 500f;
+                            fixturedef.friction = 0.2f;
+                            fixturedef.restitution = 0;
+                            weapon_2 = world.createBody(bodydef);
+                            weapon_2.createFixture(fixturedef);
+                            weapon_2.setLinearVelocity(new Vector2((float)(play.getPlayer2().getPower()*(-1.8)*Math.cos(slope2+Math.toRadians(getAngle_2()))),(float)(play.getPlayer2().getPower()*1.8*Math.sin(slope2+Math.toRadians(getAngle_2())))));
                             attack_2 = true;
-                            is_multi_2 = true;
                             break;
                         case 1:
                             bodydef.type = BodyDef.BodyType.DynamicBody;
@@ -1031,6 +1014,7 @@ public class MainGameScreen implements Screen{
                     play.getPlayer2().getTank().getWeapons().remove(selected_weapon);
 
                     if(play.getPlayer2().getTank().getWeapons().isEmpty()){
+                        play.getPlayer2().getTank().getWeapons().add(new TheChosenOne());
                         play.getPlayer2().getTank().getWeapons().add(new SharpShooter());
                         play.getPlayer2().getTank().getWeapons().add(new MakeItRain());
                         play.getPlayer2().getTank().getWeapons().add(new MassiveDrop());
