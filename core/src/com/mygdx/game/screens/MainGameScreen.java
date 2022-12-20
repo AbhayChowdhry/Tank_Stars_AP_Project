@@ -14,7 +14,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.*;
-import com.sun.javafx.stage.StageHelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -137,14 +136,14 @@ public class MainGameScreen implements Screen{
 
     private static final double FIRE_HEIGHT = Game.getHEIGHT() / 9.231;
     private static final double FIRE_WIDTH = Game.getWIDTH() / 10.667;
-    private static final double PLACEHOLDER_X = Game.getWIDTH() / 2.74;
+    private static final double PLACEHOLDER_X = Game.getWIDTH() / 2.74 - Game.getWIDTH() / 3.86;
     private static final double PLACEHOLDER_Y = Game.getHEIGHT() / 36.0;
     private static final double PLACEHOLDER_HEIGHT = Game.getHEIGHT() /7.2;
     private static final double PLACEHOLDER_WIDTH_4 = Game.getWIDTH() / 3.25;
     private static final double PLACEHOLDER_WIDTH_3 = Game.getWIDTH() / 4.08;
     private static final double PLACEHOLDER_WIDTH_2 = Game.getWIDTH() / 5.48;
     private static final double PLACEHOLDER_WIDTH_1 = Game.getWIDTH() / 8.34;
-    private static final double WEAPON_START_X = Game.getWIDTH() / 2.389;
+    private static final double WEAPON_START_X = Game.getWIDTH() / 2.389 - Game.getWIDTH() / 3.86;
     private static final double WEAPON_START_Y = Game.getHEIGHT()/ 19.63;
 
     private static final double WEAPON_WIDTH = Game.getWIDTH()/ 19.009;
@@ -647,7 +646,7 @@ public class MainGameScreen implements Screen{
                 }
                 else{
                     game.batch.draw(WPN_SEL_BACK, (float) (WEAPON_START_X + index * WEAPON_DIF), (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
-                    game.batch.draw(selected_weapon.picture(temp), (float) (WEAPON_SEl_X_DIF + index * WEAPON_DIF), (float) (WEAPON_SEL_Y_DIF), (float) WEAPON_WIDTH_SEL, (float) WEAPON_HEIGHT_SEL);
+                    game.batch.draw(selected_weapon.picture(temp), (float) (WEAPON_SEl_X_DIF + index * WEAPON_DIF  - Game.getWIDTH() / 3.86), (float) (WEAPON_SEL_Y_DIF), (float) WEAPON_WIDTH_SEL, (float) WEAPON_HEIGHT_SEL);
                 }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.D))
@@ -849,7 +848,7 @@ public class MainGameScreen implements Screen{
                 }
                 else{
                     game.batch.draw(WPN_SEL_BACK, (float) (WEAPON_START_X + index * WEAPON_DIF), (float) WEAPON_START_Y, (float) WEAPON_WIDTH, (float) WEAPON_HEIGHT);
-                    game.batch.draw(selected_weapon.picture(temp2), (float) (WEAPON_SEl_X_DIF + index * WEAPON_DIF), (float) (WEAPON_SEL_Y_DIF), (float) WEAPON_WIDTH_SEL, (float) WEAPON_HEIGHT_SEL);
+                    game.batch.draw(selected_weapon.picture(temp2), (float) (WEAPON_SEl_X_DIF + index * WEAPON_DIF - Game.getWIDTH() / 3.86), (float) (WEAPON_SEL_Y_DIF), (float) WEAPON_WIDTH_SEL, (float) WEAPON_HEIGHT_SEL);
                 }
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.D))

@@ -13,7 +13,7 @@ public class Player implements Serializable {
     private float fuel;
     private int power;
 
-    Player() {
+    public Player() {
         this.fuel=10;
         this.health=100;
         this.power = 10;
