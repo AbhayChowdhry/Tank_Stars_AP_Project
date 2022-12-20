@@ -140,7 +140,6 @@ public class MainGameScreen implements Screen{
     private static final double PLACEHOLDER_X = Game.getWIDTH() / 2.74;
     private static final double PLACEHOLDER_Y = Game.getHEIGHT() / 36.0;
     private static final double PLACEHOLDER_HEIGHT = Game.getHEIGHT() /7.2;
-    private static final double PLACEHOLDER_WIDTH_5 = Game.getWIDTH() / 2.704;
     private static final double PLACEHOLDER_WIDTH_4 = Game.getWIDTH() / 3.25;
     private static final double PLACEHOLDER_WIDTH_3 = Game.getWIDTH() / 4.08;
     private static final double PLACEHOLDER_WIDTH_2 = Game.getWIDTH() / 5.48;
@@ -341,103 +340,6 @@ public class MainGameScreen implements Screen{
         debugRenderer = new Box2DDebugRenderer();
         camera.setToOrtho(false, Game.getWIDTH(), Game.getHEIGHT());
         debugRenderer.render(world, camera.combined.cpy().scl(PPM));
-
-//        Gdx.input.setInputProcessor(new Input.Keys());
-
-        BodyDef bodydef = new BodyDef();
-        FixtureDef fixturedef;
-        PolygonShape shape;
-
-//        bodydef.type = BodyDef.BodyType.StaticBody;
-//        bodydef.position.set(0,0);
-//        fixturedef = new FixtureDef();
-//        shape = new PolygonShape();
-//        shape.setAsBox((Game.getWIDTH()-20)/PPM, 2*Game.getHEIGHT()/PPM);
-//        fixturedef.shape = shape;
-//        fixturedef.friction = 0.2f;
-//        boundary=world.createBody(bodydef);
-//        boundary.createFixture(fixturedef);
-
-        //Terrain
-//        Body[] terrain = new Body[Game.getWIDTH()];
-//        float[] height=play.getTerrain();
-//        for(int i=0;i<Game.getWIDTH();i++)
-//        {
-//            bodydef.type = BodyDef.BodyType.StaticBody;
-//            bodydef.position.set(i/PPM,0);
-//            fixturedef = new FixtureDef();
-//            shape = new PolygonShape();
-//            shape.setAsBox(1/PPM, Math.max(height[i],0)/PPM);
-//            fixturedef.shape = shape;
-//            fixturedef.friction = 0.2f;
-//            terrain[i]=world.createBody(bodydef);
-//            terrain[i].createFixture(fixturedef);
-//
-//        }
-
-        //Player 1 Tank
-//        bodydef.type = BodyDef.BodyType.KinematicBody;
-//        bodydef.position.set(200/PPM, height[200]/PPM+(float)(play.getPlayer1().getTank().getTank_height()/(3*PPM)));
-//        fixturedef = new FixtureDef();
-//        shape = new PolygonShape();
-//        shape.setAsBox((float)(play.getPlayer1().getTank().getTank_width()/(3*PPM)),(float)(play.getPlayer1().getTank().getTank_height()/(3*PPM)));
-//        fixturedef.shape = shape;
-//        fixturedef.density = 50f;
-//        fixturedef.friction = 0.2f;
-//        fixturedef.restitution = 0;
-//        tank_1=world.createBody(bodydef);
-//        tank_1.createFixture(fixturedef);
-
-
-
-
-        //Test Weapon
-//        bodydef.type = BodyDef.BodyType.DynamicBody;
-//        bodydef.position.set(tank_1_position/PPM, height[tank_1_position]/PPM);
-//        fixturedef = new FixtureDef();
-//        shape = new PolygonShape();
-//        shape.setAsBox((float)(play.getPlayer2().getTank().getTank_width()/(3*PPM)),(float)(play.getPlayer2().getTank().getTank_height()/(3*PPM)));
-//        fixturedef.shape = shape;
-//        fixturedef.density = 50f;
-//        fixturedef.friction = 0.2f;
-//        fixturedef.restitution = 0;
-//        tank_2=world.createBody(bodydef);
-//        tank_2.createFixture(fixturedef);
-
-
-//        bodydef.type = BodyDef.BodyType.DynamicBody;
-//        bodydef.position.set(7,10);
-//
-//        CircleShape shape1 = new CircleShape();
-//        shape1.setRadius(0.5f);
-
-//        FixtureDef fixtureDef = new FixtureDef();
-//        fixtureDef.shape = shape1;
-//        fixtureDef.density = 2.5f;
-//        fixtureDef.friction = 0.25f;
-//        fixtureDef.restitution = 0.75f;
-//        world.createBody(bodydef).createFixture(fixtureDef);
-//
-//        bodydef.type = BodyDef.BodyType.StaticBody;
-//        bodydef.position.set(0,0);
-//
-//        ChainShape ground = new ChainShape();
-//        ground.createChain(new Vector2[]{new Vector2(0,0), new Vector2(1080/PPM,607/PPM)});
-//
-//        fixtureDef.shape = ground;
-//        fixtureDef.friction = 0.5f;
-//        fixtureDef.restitution = 0;
-//        world.createBody(bodydef).createFixture(fixtureDef);
-
-
-//        shape.dispose();
-
-
-
-        //game = new Game();
-//        Image image1 = new Image(player1_body);
-//        image1.setPosition(player1.getTank().getX_body(), 215);
-//        stage.addActor(image1);
     }
     @Override
     public void render(float delta) {
@@ -570,64 +472,19 @@ public class MainGameScreen implements Screen{
         //Player 2 Slope
         int x1_2 = play.getTank_2_position();
         int x2_2 = (int)(play.getTank_2_position()+play.getPlayer2().getTank().getTank_width()/1.5f);
-        // float phi2 = (float)Math.atan(play.getPlayer2().getTank().getSnout_y_flip()/play.getPlayer2().getTank().getSnout_x_flip());
-        // float length2 = (float)Math.sqrt(Math.pow(play.getPlayer2().getTank().getSnout_x_flip()/1.5f,2)+Math.pow(play.getPlayer2().getTank().getSnout_y_flip()/1.5f,2));
-        float length2 = (float)(play.getPlayer2().getTank().getSnout_y_flip()/1.5f);
-
-        // float phi2 = (float)Math.atan((play.getPlayer2().getTank().getTank_width()- play.getPlayer2().getTank().getSnout_x())/(play.getPlayer2().getTank().getTank_height()- play.getPlayer2().getTank().getSnout_y()));
-        // float length2 = (float)Math.sqrt(Math.pow((play.getPlayer2().getTank().getTank_width()- play.getPlayer2().getTank().getSnout_x())/1.5f,2)+Math.pow((play.getPlayer2().getTank().getTank_height()- play.getPlayer2().getTank().getSnout_y())/1.5f,2));
-
         float slope2 = (float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
-        float slope2_minus90 = slope2 -(float) Math.PI/2 ;
 
-        //float slope2_sn = (float) Math.toRadians(Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2)));
-        // float slope2_sn_minus90 = slope2_sn -(float) Math.PI/2 ;
-
-
-//        Player 2 Snout
-//        play.getPlayer2().getTank().getSnout().setPosition(tank_2_position+length2*(float)Math.cos(slope2+phi2),height[tank_2_position]+length2*(float)Math.sin(slope2+phi2));
-//        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
-//        play.getPlayer2().getTank().getSnout().setRotation(slope2*MathUtils.radiansToDegrees+getAngle_2());
-//        play.getPlayer2().getTank().getSnout().setOrigin(play.getPlayer2().getTank().getSnout().getWidth()/1.5f,play.getPlayer2().getTank().getSnout().getHeight()/1.5f);
-
-
-//        play.getPlayer2().getTank().getSnout().setPosition(tank_2_position-length2*(float)Math.cos(slope2_minus90),height[tank_2_position]+length2*(float)Math.sin(slope2_minus90));
-                 // play.getPlayer2().getTank().getSnout().setPosition(tank_2_position+length1*(float)Math.cos(slope2+phi2),height[tank_2_position]+length1*(float)Math.sin(slope2+phi2));
+        //Player 2 Snout
+        float l = (float)play.getPlayer2().getTank().getSnout_y()-7.5f;
+        play.getPlayer2().getTank().getSnout().setPosition((float) (play.getTank_2_position()-l*Math.sin(slope2)),(float)(height[play.getTank_2_position()] + l* Math.cos(slope2)));
+        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
+        play.getPlayer2().getTank().getSnout().setRotation(slope2 * MathUtils.radiansToDegrees+getAngle_2());
+        play.getPlayer2().getTank().getSnout().setOrigin(0,0);
         if(!this.flip_2) {
             play.getPlayer2().getTank().getSnout().flip(true, false);
             this.flip_2 = true;
         }
-        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
-        play.getPlayer2().getTank().getSnout().setRotation(slope2 * MathUtils.radiansToDegrees+getAngle_2());
-        // play.getPlayer2().getTank().getSnout().setOrigin((float) (play.getPlayer2().getTank().getSnout_width()/1.5f * Math.cos(slope2)),(float) (play.getPlayer2().getTank().getSnout_width()/1.5f * Math.sin(slope2)));
-        play.getPlayer2().getTank().getSnout().setOrigin((float) play.getPlayer2().getTank().getSnout_width()/1.5f,0);
-        // play.getPlayer2().getTank().getSnout().setPosition(0, 0);
-        // play.getPlayer2().getTank().getSnout().setPosition(tank_2_position+length2*(float)Math.cos(slope2+phi2),height[tank_2_position]+length2*(float)Math.sin(slope2+phi2));
-
-        // play.getPlayer2().getTank().getSnout().setPosition((float) (tank_2_position + length2*Math.cos(phi2+slope2_minus90)),(float) (height[tank_2_position] + length2* Math.sin(phi2+slope2_minus90)));
-        play.getPlayer2().getTank().getSnout().setPosition((float) (play.getTank_2_position() + length2*Math.cos(slope2_minus90)),(float) (height[play.getTank_2_position()] + length2* Math.sin(slope2_minus90)));
-        // play.getPlayer2().getTank().getSnout().setPosition((tank_2_position),(float) ((height[(int) (tank_2_position + play.getPlayer2().getTank().getSnout().getWidth()/1.5f)])));
-//        System.out.println(slope2);
-//        System.out.println(slope2_minus90);
         play.getPlayer2().getTank().getSnout().draw(game.batch);
-
-        //play.getPlayer2().getTank().getSnout().setOrigin(tank_2_position-length2*(float)Math.cos(slope2_minus90)+play.getPlayer2().getTank().getSnout().getWidth()/1.5f,height[tank_2_position]+length2*(float)Math.sin(slope2_minus90));
-
-        //Atomic working
-//        if(player2_tank==1)
-//            play.getPlayer2().getTank().getSnout().setOrigin(5,5);
-//        else
-//            play.getPlayer2().getTank().getSnout().setOrigin(play.getPlayer2().getTank().getSnout().getWidth()/1.5f,0);
-//            play.getPlayer2().getTank().getSnout().setOrigin(0,0);
-
-//        play.getPlayer2().getTank().getSnout().setPosition((float)(tank_2.getPosition().x*PPM-play.getPlayer2().getTank().getSnout_x()/1.5f-play.getPlayer2().getTank().getSnout_width()/1.5f), (float)(tank_2.getPosition().y*PPM+play.getPlayer2().getTank().getSnout_y()/1.5f));
-//        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
-//        play.getPlayer2().getTank().getSnout().setRotation(slope2*MathUtils.radiansToDegrees-getAngle_2());
-//        if(player2_tank==1)
-//            play.getPlayer2().getTank().getSnout().setOrigin((float) play.getPlayer2().getTank().getSnout_width()/1.5f,0);
-//        else
-//            play.getPlayer2().getTank().getSnout().setOrigin((float) (play.getPlayer2().getTank().getSnout_width()-Game.getWIDTH()/480)/1.5f, (float) (play.getPlayer2().getTank().getSnout_height()-Game.getHEIGHT()/180)/1.5f);
-
 
         //Player 2 Tank
         play.getPlayer2().getTank().getBody().setPosition(play.getTank_2_position(), height[play.getTank_2_position()]);
@@ -640,11 +497,10 @@ public class MainGameScreen implements Screen{
         }
         play.getPlayer2().getTank().getBody().draw(game.batch);
 
-
         //Weapon Tank 1
         if(attack_1) {
             switch(weapon_number) {
-                case 1:
+                case 0:
                     for (int i = 0; i < 5; i++) {
                         theChosenOne[i].weapons(play.getPlayer1().getTank()).setPosition((float) (weapon_1_multi[i].getPosition().x * PPM - theChosenOne[i].getWidth(play.getPlayer1().getTank()) / 3), (float) (weapon_1_multi[i].getPosition().y * PPM - theChosenOne[i].getHeight(play.getPlayer1().getTank()) / 3));
                         theChosenOne[i].weapons(play.getPlayer1().getTank()).setSize((float) theChosenOne[i].getWidth(play.getPlayer1().getTank()) / 1.5f, (float) theChosenOne[i].getHeight(play.getPlayer1().getTank()) / 1.5f);
@@ -653,7 +509,7 @@ public class MainGameScreen implements Screen{
                         theChosenOne[i].weapons(play.getPlayer1().getTank()).draw(game.batch);
                     }
                     break;
-                case 2:
+                case 1:
                     sharpShooter.weapons(play.getPlayer1().getTank()).setPosition((float) (weapon_1.getPosition().x * PPM - sharpShooter.getWidth(play.getPlayer1().getTank()) / 3), (float) (weapon_1.getPosition().y * PPM - sharpShooter.getHeight(play.getPlayer1().getTank()) / 3));
                     sharpShooter.weapons(play.getPlayer1().getTank()).setSize((float) sharpShooter.getWidth(play.getPlayer1().getTank()) / 1.5f, (float) sharpShooter.getHeight(play.getPlayer1().getTank()) / 1.5f);
                     sharpShooter.weapons(play.getPlayer1().getTank()).setRotation(weapon_1.getAngle() * MathUtils.radiansToDegrees);
@@ -682,7 +538,7 @@ public class MainGameScreen implements Screen{
         //Weapon Tank 2
         if(attack_2) {
             switch(weapon_number) {
-                case 1:
+                case 0:
                     for(int i=0;i<5;i++) {
                         theChosenOne[i].weapons(play.getPlayer2().getTank()).setPosition((float)(weapon_2_multi[i].getPosition().x*PPM-theChosenOne[i].getWidth(play.getPlayer2().getTank())/3), (float)(weapon_2_multi[i].getPosition().y*PPM-theChosenOne[i].getHeight(play.getPlayer2().getTank())/3));
                         theChosenOne[i].weapons(play.getPlayer2().getTank()).setSize((float)theChosenOne[i].getWidth(play.getPlayer2().getTank())/1.5f, (float)theChosenOne[i].getHeight(play.getPlayer2().getTank())/1.5f);
@@ -691,7 +547,7 @@ public class MainGameScreen implements Screen{
                         theChosenOne[i].weapons(play.getPlayer2().getTank()).draw(game.batch);
                     }
                     break;
-                case 2:
+                case 1:
                     sharpShooter.weapons(play.getPlayer2().getTank()).setPosition((float)(weapon_2.getPosition().x*PPM-sharpShooter.getWidth(play.getPlayer2().getTank())/3), (float)(weapon_2.getPosition().y*PPM-sharpShooter.getHeight(play.getPlayer2().getTank())/3));
                     sharpShooter.weapons(play.getPlayer2().getTank()).setSize((float)sharpShooter.getWidth(play.getPlayer2().getTank())/1.5f, (float)sharpShooter.getHeight(play.getPlayer2().getTank())/1.5f);
                     sharpShooter.weapons(play.getPlayer2().getTank()).setRotation(weapon_2.getAngle()*MathUtils.radiansToDegrees);
@@ -720,6 +576,12 @@ public class MainGameScreen implements Screen{
         //Attack Tank 1
         if(attack_1 && !is_multi_1 && weapon_1.getPosition().y*PPM<=height[(int)(weapon_1.getPosition().x*PPM)]+(float)massiveDrop.getHeight(play.getPlayer1().getTank())/3f)
         {
+            float diff_1 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
+            float diff_2 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
+            if(diff_1<=100)
+                play.getPlayer2().setHealth(Math.max(0,(int)(play.getPlayer2().getHealth()+0.2*diff_1-20)));
+            if(diff_2<=100)
+                play.getPlayer1().setHealth(Math.max(0,(int)(play.getPlayer1().getHealth()+0.2*diff_2-20)));
             play.updateTerrain(play.getPlayer1().getPower() * Game.getWIDTH() / 320, (int) (weapon_1.getPosition().x * PPM));
             world.destroyBody(weapon_1);
             attack_1 = false;
@@ -728,6 +590,12 @@ public class MainGameScreen implements Screen{
         {
             for(int i=0;i<5;i++)
                 if(weapon_1_multi[i].getPosition().y*PPM<=height[(int)(weapon_1_multi[i].getPosition().x*PPM)]+(float)makeItRain[i].getHeight(play.getPlayer1().getTank())/3f){
+//                    float diff_1 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
+//                    float diff_2 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
+//                    if(diff_1<=100)
+//                        play.getPlayer2().setHealth(Math.max(0,(int)(play.getPlayer2().getHealth()+0.2*diff_1-20)));
+//                    if(diff_2<=100)
+//                        play.getPlayer1().setHealth(Math.max(0,(int)(play.getPlayer1().getHealth()+0.2*diff_2-20)));
                     play.updateTerrain(play.getPlayer1().getPower()*Game.getWIDTH()/320, (int)(weapon_1_multi[i].getPosition().x*PPM));
                     world.destroyBody(weapon_1_multi[i]);
                     count_1++;
@@ -879,7 +747,7 @@ public class MainGameScreen implements Screen{
 
                     switch(weapon_number)
                     {
-                        case 1:
+                        case 0:
                             int[] position_y = {30,32,31,33,34};
                             int[] position_x = {1,2,3,4,5};
                             for(int i=0;i<5;i++) {
@@ -901,7 +769,7 @@ public class MainGameScreen implements Screen{
                             attack_1 = true;
                             is_multi_1 = true;
                             break;
-                        case 2:
+                        case 1:
                             bodydef.type = BodyDef.BodyType.DynamicBody;
                             bodydef.position.set(play.getTank_1_position()/PPM,(height[play.getTank_1_position()]+30)/PPM);
                             fixturedef = new FixtureDef();
@@ -1085,7 +953,7 @@ public class MainGameScreen implements Screen{
 
                     switch(weapon_number)
                     {
-                        case 1:
+                        case 0:
                             int[] position_y = {30,32,31,33,34};
                             int[] position_x = {1,2,3,4,5};
                             for(int i=0;i<5;i++) {
@@ -1107,7 +975,7 @@ public class MainGameScreen implements Screen{
                             attack_2 = true;
                             is_multi_2 = true;
                             break;
-                        case 2:
+                        case 1:
                             bodydef.type = BodyDef.BodyType.DynamicBody;
                             bodydef.position.set(play.getTank_2_position()/PPM,(height[play.getTank_2_position()]+30)/PPM);
                             fixturedef = new FixtureDef();

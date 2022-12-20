@@ -67,9 +67,7 @@ public class Pumpkin extends Tank implements Serializable {
     }
 
     @Override
-    public double getTank_width() {
-        return tank_width;
-    }
+    public double getTank_width() { return tank_width; }
 
     public double getSnout_x() {
         return snout_x;

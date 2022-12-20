@@ -10,10 +10,6 @@ import java.util.LinkedList;
 public abstract class Tank implements Serializable {
 
     protected Sprite body, snout;
-    protected float x_body = 0;
-    protected float y_body = 0;
-    protected float x_snout;
-    protected float y_snout;
 
     private double tank_width;
     private double tank_height;
@@ -21,10 +17,6 @@ public abstract class Tank implements Serializable {
     private double snout_height;
     private double snout_x;
     private double snout_y;
-    private double snout_x_flip;
-    private double snout_y_flip;
-    private double snout_x_shift;
-    private double snout_y_shift;
     private transient Texture PUMPKIN_SNOUT;
 
     private transient Texture SpecialWeapon;
@@ -54,37 +46,6 @@ public abstract class Tank implements Serializable {
         return snout;
     }
 
-    public float getX_body() {
-        return x_body;
-    }
-
-    public float getX_snout() {
-        return x_snout;
-    }
-
-    public float getY_body() {
-        return y_body;
-    }
-
-    public float getY_snout() {
-        return y_snout;
-    }
-
-    public double getSnout_x_flip() {
-        return snout_x_flip;
-    }
-
-    public double getSnout_y_flip() {
-        return snout_y_flip;
-    }
-
-    public double getSnout_x_shift() {
-        return snout_x_shift;
-    }
-
-    public double getSnout_y_shift() {
-        return snout_y_shift;
-    }
 
     public double getTank_height() {
         return tank_height;
@@ -94,9 +55,6 @@ public abstract class Tank implements Serializable {
         return tank_width;
     }
 
-    public Texture getPUMPKIN_SNOUT() {
-        return PUMPKIN_SNOUT;
-    }
 
     public double getSnout_height() {
         return snout_height;
@@ -114,9 +72,6 @@ public abstract class Tank implements Serializable {
         return snout_y;
     }
 
-    public static float getSPEED() {
-        return SPEED;
-    }
 
     public Texture getMakeItRain() {
         return MakeItRain;

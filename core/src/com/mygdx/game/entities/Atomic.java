@@ -13,7 +13,6 @@ public class Atomic extends Tank implements Serializable {
 
     private transient Texture SpecialWeapon = new Texture("4_0.png");
     private transient Texture SharpShooter = new Texture("4_1.png");
-    private transient Texture RainbowAttack = new Texture("4_2.png");
     private transient Texture MakeItRain = new Texture("4_3.png");
     private transient Texture MassiveDrop = new Texture("4_4.png");
 
@@ -23,10 +22,6 @@ public class Atomic extends Tank implements Serializable {
 
     public Texture getMassiveDrop() {
         return MassiveDrop;
-    }
-
-    public Texture getRainbowAttack() {
-        return RainbowAttack;
     }
 
     public Texture getSharpShooter() {
@@ -57,20 +52,6 @@ public class Atomic extends Tank implements Serializable {
     private final double snout_x = Game.getWIDTH()/137.14f;
     private final double snout_y = Game.getHEIGHT()/22.618f;
 
-    private final double snout_x_flip = 0;
-    //    private final double snout_x_flip = - Game.getWIDTH()/125.49;
-    private final double snout_y_flip = Game.getHEIGHT()/22.618f;
-
-//    private float x_body = 0;
-//    private float y_body = 0;
-//    private float x_snout = x_body;
-    // private float y_snout = (float) (y_body + Game.getHEIGHT()/5.0232);
-    //private float y_snout = (float) (y_body + 215);
-
-
-
-
-
     public double getSnout_height() {
         return snout_height;
     }
@@ -97,13 +78,4 @@ public class Atomic extends Tank implements Serializable {
         return snout_y;
     }
 
-    @Override
-    public double getSnout_x_flip() {
-        return snout_x_flip;
-    }
-
-    @Override
-    public double getSnout_y_flip() {
-        return snout_y_flip;
-    }
 }

@@ -48,9 +48,6 @@ public class Pinky extends Tank implements Serializable {
     private final double snout_height = Game.getHEIGHT()/54f;
     private final double snout_x = Game.getWIDTH()/32.542f;
     private final double snout_y = Game.getHEIGHT()/26.341f;
-    private final double snout_x_flip = 0;
-    private final double snout_y_flip = Game.getHEIGHT()/26.554f;
-
     public double getSnout_height() {
         return snout_height;
     }
@@ -75,12 +72,5 @@ public class Pinky extends Tank implements Serializable {
 
     public double getSnout_y() {
         return snout_y;
-    }
-
-    public double getSnout_x_flip() {
-        return snout_x_flip;
-    }
-    public double getSnout_y_flip() {
-        return snout_y_flip;
     }
 }

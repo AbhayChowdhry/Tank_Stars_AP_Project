@@ -22,7 +22,6 @@ public class Toxic extends Tank implements Serializable {
     public Texture getMakeItRain() {
         return MakeItRain;
     }
-
     public Texture getMassiveDrop() {
         return MassiveDrop;
     }
@@ -52,13 +51,6 @@ public class Toxic extends Tank implements Serializable {
     private final double snout_height = Game.getHEIGHT()/38.571f;
     private final double snout_x = Game.getWIDTH()/40f;
     private final double snout_y = Game.getHEIGHT()/31.768f;
-    private final double snout_x_flip = 0;
-//    private final double snout_x_flip = - Game.getWIDTH()/125.49;
-    private final double snout_y_flip = Game.getHEIGHT()/31.768f;
-    private final double snout_x_shift = - Game.getWIDTH()/27.81;
-    private final double snout_y_shift= Game.getHEIGHT()/31.768f;
-
-
     public double getSnout_height() {
         return snout_height;
     }
@@ -83,23 +75,5 @@ public class Toxic extends Tank implements Serializable {
 
     public double getSnout_y() {
         return snout_y;
-    }
-
-    public double getSnout_x_shift() {
-        return snout_x_shift;
-    }
-
-    @Override
-    public double getSnout_x_flip() {
-        return snout_x_flip;
-    }
-
-    @Override
-    public double getSnout_y_flip() {
-        return snout_y_flip;
-    }
-
-    public double getSnout_y_shift() {
-        return snout_y_shift;
     }
 }
