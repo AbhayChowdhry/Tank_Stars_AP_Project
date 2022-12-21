@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -15,6 +17,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.*;
 
+import java.awt.*;
+import java.awt.geom.CubicCurve2D;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,11 +26,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+import static java.awt.Color.BLUE;
+
+
 public class MainGameScreen implements Screen{
 
     public static final float SPEED = 2;
     public static final int TANK_X = 150;
     public static final int TANK_Y = 200;
+
     transient Texture BACKGROUND = new Texture("PLAY_BACK.png");
     transient Texture TERRAIN = new Texture("TERRAIN.png");
 
@@ -61,6 +69,7 @@ public class MainGameScreen implements Screen{
     Texture POWER = new Texture("POWER.png");
     Texture POWER_BACK = new Texture("POWER_BACK.png");
     Texture POWER_CURR = new Texture("POWER_CURR.png");
+    Texture dot = new Texture("dot.png");
 
     Sprite ground = new Sprite(TERRAIN);
 
@@ -204,6 +213,7 @@ public class MainGameScreen implements Screen{
     private int weapon_number;
     private boolean is_multi_1, is_multi_2;
     private int count_1, count_2;
+    private ShapeRenderer shapeRenderer;
 
     public MainGameScreen (Game game, int tank1, int tank2){
         play = new Play();
@@ -262,6 +272,9 @@ public class MainGameScreen implements Screen{
         this.count_2 = 0;
 
         this.weapon_number = -1;
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.setAutoShapeType(true);
     }
     public MainGameScreen(Game game, Play newplay){
         play = new Play();
@@ -332,6 +345,8 @@ public class MainGameScreen implements Screen{
 
         play.getPlayer1().setHealth(newplay.getPlayer1().getHealth());
         play.getPlayer2().setHealth(newplay.getPlayer2().getHealth());
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
     }
     @Override
     public void show() {
@@ -354,6 +369,7 @@ public class MainGameScreen implements Screen{
 
         //Background
         game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
+
 
         //Health
         game.batch.draw(HEALTH_LOGO_P1, (float) HEALTH_LOGO_X1, (float) HEALTH_LOGO_Y, (float) HEALTH_LOGO_WIDTH, (float) HEALTH_LOGO_HEIGHT);
@@ -471,18 +487,27 @@ public class MainGameScreen implements Screen{
         //Player 2 Slope
         int x1_2 = play.getTank_2_position();
         int x2_2 = (int)(play.getTank_2_position()+play.getPlayer2().getTank().getTank_width()/1.5f);
+
+        float phi2 = (float)Math.atan(play.getPlayer2().getTank().getSnout_y()/play.getPlayer2().getTank().getSnout_x());
+        float length2 = (float)Math.sqrt(Math.pow(play.getPlayer2().getTank().getSnout_x()/1.5f,2)+Math.pow(play.getPlayer2().getTank().getSnout_y()/1.5f,2));
         float slope2 = (float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
 
         //Player 2 Snout
-        float l = (float)play.getPlayer2().getTank().getSnout_y()-7.5f;
-        play.getPlayer2().getTank().getSnout().setPosition((float) (play.getTank_2_position()-l*Math.sin(slope2)),(float)(height[play.getTank_2_position()] + l* Math.cos(slope2)));
+//        float l = (float)play.getPlayer2().getTank().getSnout_y()-7.5f;
+//        play.getPlayer2().getTank().getSnout().setPosition((float) (play.getTank_2_position()-l*Math.sin(slope2)),(float)(height[play.getTank_2_position()] + l* Math.cos(slope2)));
+//        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
+//        play.getPlayer2().getTank().getSnout().setRotation(slope2 * MathUtils.radiansToDegrees+getAngle_2());
+//        play.getPlayer2().getTank().getSnout().setOrigin((float) play.getPlayer2().getTank().getSnout_width()/1.5f,0);
+//        if(!this.flip_2) {
+//            play.getPlayer2().getTank().getSnout().flip(true, false);
+//            this.flip_2 = true;
+//        }
+
+        play.getPlayer2().getTank().getSnout().setPosition(play.getTank_2_position()+length2*(float)Math.cos(slope2+phi2),height[play.getTank_2_position()]+length2*(float)Math.sin(slope2+phi2));
         play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
-        play.getPlayer2().getTank().getSnout().setRotation(slope2 * MathUtils.radiansToDegrees+getAngle_2());
-        play.getPlayer2().getTank().getSnout().setOrigin(0,0);
-        if(!this.flip_2) {
-            play.getPlayer2().getTank().getSnout().flip(true, false);
-            this.flip_2 = true;
-        }
+        play.getPlayer2().getTank().getSnout().setRotation((float) (Math.PI - slope2*MathUtils.radiansToDegrees+getAngle_2()));
+        play.getPlayer2().getTank().getSnout().setOrigin(0, 0);
+
         play.getPlayer2().getTank().getSnout().draw(game.batch);
 
         //Player 2 Tank
@@ -569,8 +594,7 @@ public class MainGameScreen implements Screen{
         }
 
         //Attack Tank 1
-        if(attack_1 && !is_multi_1 && weapon_1.getPosition().y*PPM<=height[(int)(weapon_1.getPosition().x*PPM)]+(float)massiveDrop.getHeight(play.getPlayer1().getTank())/3f)
-        {
+        if(attack_1 && !is_multi_1 && weapon_1.getPosition().y*PPM<=height[(int)(weapon_1.getPosition().x*PPM)]+(float)massiveDrop.getHeight(play.getPlayer1().getTank())/3f) {
             float diff_1 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
             float diff_2 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
             if(diff_1<=100)
@@ -581,8 +605,7 @@ public class MainGameScreen implements Screen{
             world.destroyBody(weapon_1);
             attack_1 = false;
         }
-        else if(attack_1 && is_multi_1)
-        {
+        else if(attack_1 && is_multi_1) {
             for(int i=0;i<5;i++)
                 if(weapon_1_multi[i].getPosition().y*PPM<=height[(int)(weapon_1_multi[i].getPosition().x*PPM)]+(float)makeItRain[i].getHeight(play.getPlayer1().getTank())/3f){
 //                    float diff_1 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
@@ -603,14 +626,12 @@ public class MainGameScreen implements Screen{
         }
 
         //Attack Tank 2
-        if(attack_2 && !is_multi_2 && weapon_2.getPosition().y*PPM<=height[(int)(weapon_2.getPosition().x*PPM)]+(float)massiveDrop.getHeight(play.getPlayer2().getTank())/3f)
-        {
+        if(attack_2 && !is_multi_2 && weapon_2.getPosition().y*PPM<=height[(int)(weapon_2.getPosition().x*PPM)]+(float)massiveDrop.getHeight(play.getPlayer2().getTank())/3f) {
             play.updateTerrain(play.getPlayer2().getPower() * Game.getWIDTH() / 320, (int) (weapon_2.getPosition().x * PPM));
             world.destroyBody(weapon_2);
             attack_2 = false;
         }
-        else if(attack_2 && is_multi_2)
-        {
+        else if(attack_2 && is_multi_2) {
             for(int i=0;i<5;i++)
                 if(weapon_2_multi[i].getPosition().y*PPM<=height[(int)(weapon_2_multi[i].getPosition().x*PPM)]+(float)makeItRain[i].getHeight(play.getPlayer2().getTank())/3f){
                     play.updateTerrain(play.getPlayer2().getPower()*Game.getWIDTH()/320, (int)(weapon_2_multi[i].getPosition().x*PPM));
@@ -623,6 +644,31 @@ public class MainGameScreen implements Screen{
                 count_2 = 0;
             }
         }
+
+//        Vector2[] controlPoints = new Vector2[4];
+//        controlPoints[0] = new Vector2(play.getTank_1_position(), height[play.getTank_1_position()]);
+//        controlPoints[1] = new Vector2(play.getTank_1_position() + 50, height[play.getTank_1_position()] + 50);
+//        controlPoints[2] = new Vector2(play.getTank_1_position() + 100 , height[play.getTank_1_position()] + 50 );
+//        controlPoints[3] = new Vector2(play.getTank_1_position() + 150, height[play.getTank_1_position()]);
+//
+//        Bezier<Vector2> path1 = new Bezier<Vector2>(controlPoints);
+//
+//        for(int i = 0; i < 100; ++i){
+//            float t = i /100f;
+//            // create vectors to store start and end points of this section of the curve
+//            Vector2 st = new Vector2();
+//            Vector2 end = new Vector2();
+//            // get the start point of this curve section
+//            path1.valueAt(st,t);
+//            // get the next start point(this point's end)
+//            path1.valueAt(end, t-0.01f);
+//            // draw the curve
+//             // shapeRenderer.line(st.x, st.y, end.x, end.y);
+//
+//
+//        }
+//        shapeRenderer.line(50, 100, 200, 200);
+//        shapeRenderer.end();
 
 
         if(play.getTurn()) {
@@ -649,6 +695,7 @@ public class MainGameScreen implements Screen{
                     game.batch.draw(selected_weapon.picture(temp), (float) (WEAPON_SEl_X_DIF + index * WEAPON_DIF  - Game.getWIDTH() / 3.86), (float) (WEAPON_SEL_Y_DIF), (float) WEAPON_WIDTH_SEL, (float) WEAPON_HEIGHT_SEL);
                 }
             }
+
             if (Gdx.input.isKeyJustPressed(Input.Keys.D))
                 play.getPlayer1().setPower(Math.min(10,play.getPlayer1().getPower()+1));
             if (Gdx.input.isKeyJustPressed(Input.Keys.A))
@@ -825,10 +872,30 @@ public class MainGameScreen implements Screen{
                 }
             }
 
+//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//            shapeRenderer.curve(
+//                    play.getTank_1_position(), height[play.getTank_1_position()],
+//                    65, 70,
+//                    85, 70,
+//                    play.getTank_1_position() + 200, height[play.getTank_1_position()],
+//                    100
+//            );
+//            shapeRenderer.end();
+
 
         }
 
         else{
+//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+//            shapeRenderer.curve(
+//                    play.getTank_2_position(), height[play.getTank_2_position()],
+//                    65, 70,
+//                    85, 70,
+//                    play.getTank_2_position() + 200, height[play.getTank_2_position()],
+//                    100
+//            );
+//            shapeRenderer.end();
+
             weapon_count =  play.getPlayer2().getTank().getWeapons().size();
             Tank temp2 = play.getPlayer2().getTank();
             switch(weapon_count){
@@ -1030,6 +1097,15 @@ public class MainGameScreen implements Screen{
         //Fire
         game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
 
+//        game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_1_position()], 50, 50);
+        game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_2_position()], 10, 10);
+
+        float angle1 = slope1 + getAngle_1();
+        float range1 =
+        // float angle2 = slope2 + getAngle_2();
+
+
+        play.getPlayer1().getTank().getSnout().getRotation();
         game.batch.end();
     }
 
