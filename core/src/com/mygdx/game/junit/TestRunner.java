@@ -16,7 +16,7 @@ public class TestRunner {
             System.out.println(failure.toString());
         }
         if(result.getFailures().isEmpty()){
-            System.out.println("There were no failiures!");
+            System.out.println("There were no failures!");
         }
 
         System.out.println("Result of the rest was : " +result.wasSuccessful());
@@ -29,7 +29,7 @@ public class TestRunner {
             System.out.println(failure.toString());
         }
         if(result.getFailures().isEmpty()){
-            System.out.println("There were no failiures!");
+            System.out.println("There were no failures!");
         }
 
         System.out.println("Result of the rest was : " +result.wasSuccessful());

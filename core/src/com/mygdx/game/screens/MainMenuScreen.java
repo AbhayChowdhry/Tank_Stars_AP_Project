@@ -23,8 +23,9 @@ public class MainMenuScreen implements Screen {
     // private static final double BUTTON_HEIGHT = Game.HEIGHT / 13.4;
     private static final double BUTTON_HEIGHT = Game.getHEIGHT() / 12.56;
     private static final double BUTTON_X = Game.getWIDTH()/9.89;
-    private static final double BUTTON_Y = Game.getHEIGHT()/2.28;
-    private static final double BUTTON_DIF = Game.getHEIGHT()/10.09;
+    private static final double BUTTON_Y = Game.getHEIGHT()/2.28 - 5*BUTTON_HEIGHT/6;
+    private static final double BUTTON_DIF = Game.getHEIGHT()/8;
+//    private static final double BUTTON_DIF = Game.getHEIGHT()/10.09;
 
     private static MainMenuScreen gen = null;
     public static MainMenuScreen getInstance(Game game1)
