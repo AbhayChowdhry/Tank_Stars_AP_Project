@@ -1,5 +1,6 @@
 package com.mygdx.game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.screens.FinalWinScreen;
 import com.mygdx.game.screens.MainGameScreen;
 import com.mygdx.game.screens.MainMenuScreen;
 import com.mygdx.game.screens.TankSelectionScreen;
@@ -23,9 +24,8 @@ public class Game extends com.badlogic.gdx.Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		 // this.setScreen(new MainMenuScreen(this));
 		this.setScreen(MainMenuScreen.getInstance(this));
-//		this.setScreen(new MainGameScreen(this, 1, 2));
+		// this.setScreen(new FinalWinScreen(this, 2));
 	}
 
 	@Override

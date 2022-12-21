@@ -493,21 +493,16 @@ public class MainGameScreen implements Screen{
         float slope2 = (float)Math.atan((height[x2_2]-height[x1_2])/(float)(x2_2-x1_2));
 
         //Player 2 Snout
-//        float l = (float)play.getPlayer2().getTank().getSnout_y()-7.5f;
-//        play.getPlayer2().getTank().getSnout().setPosition((float) (play.getTank_2_position()-l*Math.sin(slope2)),(float)(height[play.getTank_2_position()] + l* Math.cos(slope2)));
-//        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
-//        play.getPlayer2().getTank().getSnout().setRotation(slope2 * MathUtils.radiansToDegrees+getAngle_2());
-//        play.getPlayer2().getTank().getSnout().setOrigin((float) play.getPlayer2().getTank().getSnout_width()/1.5f,0);
-//        if(!this.flip_2) {
-//            play.getPlayer2().getTank().getSnout().flip(true, false);
-//            this.flip_2 = true;
-//        }
 
         play.getPlayer2().getTank().getSnout().setPosition(play.getTank_2_position()+length2*(float)Math.cos(slope2+phi2),height[play.getTank_2_position()]+length2*(float)Math.sin(slope2+phi2));
         play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
-        play.getPlayer2().getTank().getSnout().setRotation((float) (Math.PI - slope2*MathUtils.radiansToDegrees+getAngle_2()));
+        play.getPlayer2().getTank().getSnout().setRotation((float) (180 + ((slope2)*MathUtils.radiansToDegrees + getAngle_2())));
         play.getPlayer2().getTank().getSnout().setOrigin(0, 0);
 
+        if(player2_tank==1)
+            play.getPlayer2().getTank().getSnout().setOrigin(5,5);
+        else
+            play.getPlayer2().getTank().getSnout().setOrigin(0,0);
         play.getPlayer2().getTank().getSnout().draw(game.batch);
 
         //Player 2 Tank
@@ -1100,8 +1095,7 @@ public class MainGameScreen implements Screen{
 //        game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_1_position()], 50, 50);
         game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_2_position()], 10, 10);
 
-        float angle1 = slope1 + getAngle_1();
-        float range1 =
+
         // float angle2 = slope2 + getAngle_2();
 
 
