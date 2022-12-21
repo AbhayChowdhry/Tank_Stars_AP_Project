@@ -470,6 +470,7 @@ public class MainGameScreen implements Screen{
                                 e.printStackTrace();
                             }
                     }
+                    System.out.println("Saved to " + index);
 
                     index = (index%4) + 1;
                     String towrite = Integer.toString(index);
