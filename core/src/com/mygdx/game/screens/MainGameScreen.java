@@ -179,6 +179,7 @@ public class MainGameScreen implements Screen{
     private World world;
     private Box2DDebugRenderer debugRenderer;
     private final OrthographicCamera camera;
+    private boolean isDropped = false;
 
     Game game;
     Play play;
@@ -193,6 +194,7 @@ public class MainGameScreen implements Screen{
     private int angle_1, angle_2;
     private final boolean flip_2;
     private boolean flip_3;
+    private boolean isReceived = false;
 
     public int getAngle_1() {
         return angle_1;
@@ -384,14 +386,36 @@ public class MainGameScreen implements Screen{
         //Airdrop
         if((int)(Math.random()*(20))==1)
             airdrop = true;
-        if(airdrop) {
-            game.batch.draw(AIRPLANE, (float) AIRPLANE_X, (float) AIRPLANE_Y, (float) AIRPLANE_WIDTH, (float) AIRPLANE_HEIGHT);
-            AIRPLANE_X--;
-            if(AIRPLANE_X<=500) {
-                game.batch.draw(AIRDROP,600+(float)Game.getWIDTH()/28.05f, (float) AIRDROP_Y, (float)AIRDROP_WIDTH, (float)AIRDROP_HEIGHT);
-                AIRDROP_Y--;
-                if(AIRDROP_Y<=height[(int)(600+(float)Game.getWIDTH()/28.05f)])
-                    AIRDROP_Y++;
+        if(!isReceived) {
+            if (airdrop) {
+                game.batch.draw(AIRPLANE, (float) AIRPLANE_X, (float) AIRPLANE_Y, (float) AIRPLANE_WIDTH, (float) AIRPLANE_HEIGHT);
+                AIRPLANE_X--;
+                if (AIRPLANE_X <= 500) {
+
+                    game.batch.draw(AIRDROP, 500 + (float) Game.getWIDTH() / 28.05f, (float) AIRDROP_Y, (float) AIRDROP_WIDTH, (float) AIRDROP_HEIGHT);
+                    AIRDROP_Y--;
+                    if (AIRDROP_Y <= height[(int) (500 + (float) Game.getWIDTH() / 28.05f)])
+                        AIRDROP_Y++;
+
+                }
+            }
+        }
+
+//            if(AIRDROP_Y == height[(int) (500+(float)Game.getWIDTH()/28.05f)]){
+//                isDropped = true;
+//            }
+
+
+        if(airdrop && !isReceived){
+            if(500+(float)Game.getWIDTH()/28.05f < play.getTank_1_position() && play.getTank_1_position()  < 500+(float)Game.getWIDTH()/28.05f + play.getPlayer1().getTank().getTank_width()){
+                play.getPlayer1().getTank().getWeapons().add(new MakeItRain());
+                isReceived = true;
+                airdrop = false;
+            }
+            else if(500+(float)Game.getWIDTH()/28.05f < play.getTank_2_position()  && play.getTank_2_position()  < 500+(float)Game.getWIDTH()/28.05f + play.getPlayer2().getTank().getTank_width()){
+                play.getPlayer2().getTank().getWeapons().add(new MakeItRain());
+                isReceived = true;
+                airdrop = false;
             }
         }
 
@@ -971,7 +995,7 @@ public class MainGameScreen implements Screen{
                         if (play.getPlayer1().getTank().getWeapons().isEmpty()) {
                             play.getPlayer1().getTank().getWeapons().add(new TheChosenOne());
                             play.getPlayer1().getTank().getWeapons().add(new SharpShooter());
-                            play.getPlayer1().getTank().getWeapons().add(new MakeItRain());
+                            // play.getPlayer1().getTank().getWeapons().add(new MakeItRain());
                             play.getPlayer1().getTank().getWeapons().add(new MassiveDrop());
                         }
                         play.setTurn(false);
@@ -1166,7 +1190,7 @@ public class MainGameScreen implements Screen{
                         if (play.getPlayer2().getTank().getWeapons().isEmpty()) {
                             play.getPlayer2().getTank().getWeapons().add(new TheChosenOne());
                             play.getPlayer2().getTank().getWeapons().add(new SharpShooter());
-                            play.getPlayer2().getTank().getWeapons().add(new MakeItRain());
+                            // play.getPlayer2().getTank().getWeapons().add(new MakeItRain());
                             play.getPlayer2().getTank().getWeapons().add(new MassiveDrop());
                         }
                         play.setTurn(true);
@@ -1183,7 +1207,8 @@ public class MainGameScreen implements Screen{
         //Fire
         game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
 
-        game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_2_position()], 10, 10);
+        // game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_2_position()], 10, 10);
+
 
         try{
             if(play.getPlayer1().getHealth() <= 0) {
