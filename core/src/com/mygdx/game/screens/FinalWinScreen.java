@@ -68,11 +68,11 @@ public class FinalWinScreen implements Screen {
 
 
         if(this.getWon() == 1){
-            // player 1 won
+            // Player 1 Wins
             game.batch.draw(P1_wins, (float) (Game.getHEIGHT()/3.588), (float) (Game.getHEIGHT()/1.641), (float) (Game.getWIDTH()/2.344), (float) (Game.getHEIGHT()/4.86));
         }
         else{
-            // player 2 won
+            // Player 2 Wins
             game.batch.draw(P2_wins, (float) (Game.getHEIGHT()/3.588), (float) (Game.getHEIGHT()/1.641), (float) (Game.getWIDTH()/2.344), (float) (Game.getHEIGHT()/4.86));
         }
 

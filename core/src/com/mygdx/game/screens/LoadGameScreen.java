@@ -23,16 +23,10 @@ public class LoadGameScreen implements Screen {
     private static final double DIF_VERT = Game.getHEIGHT()/3.32;
     private static final double START_X = Game.getWIDTH()/11.36;
     private static final double START_Y = Game.getHEIGHT()/2.77;
-    private static final double IMG_X = Game.getWIDTH()/1.62;
-    private static final double IMG_Y = Game.getHEIGHT()/11.61;
-    private static final double IMG_WIDTH = Game.getWIDTH()/3.27;
-    private static final double IMG_HEIGHT = Game.getHEIGHT()/2.48;
     private static final double BACK_X = Game.getWIDTH()/38.4;
     private static final double BACK_Y = Game.getHEIGHT()/1.167;
     private static final double NAV_WIDTH = Game.getWIDTH()/20.42;
     private static final double NAV_HEIGHT = Game.getHEIGHT()/11.49;
-    private static final double FORWARD_X = Game.getWIDTH()/1.087;
-    private static final double FORWARD_Y = Game.getHEIGHT()/16.61;
     Texture LOAD_BACK;
 
 

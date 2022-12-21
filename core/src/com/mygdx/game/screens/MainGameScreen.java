@@ -5,29 +5,16 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.*;
 import com.mygdx.game.exceptions.HealthZeroException;
 import com.mygdx.game.exceptions.OutOfArenaException;
-
-import java.awt.*;
-import java.awt.geom.CubicCurve2D;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import static java.awt.Color.BLUE;
-
-
 public class MainGameScreen implements Screen{
     transient Texture BACKGROUND = new Texture("PLAY_BACK.png");
     transient Texture TERRAIN = new Texture("TERRAIN.png");
@@ -45,7 +32,6 @@ public class MainGameScreen implements Screen{
     transient Texture HEALTH_LOGO_P2 = new Texture("HEALTH_LOGO_P2.png");
     transient Texture HEALTH_CURR_P1 = new Texture("HEALTH_CURR_P1.png");
     transient Texture HEALTH_CURR_P2 = new Texture("HEALTH_CURR_P2.png");
-    transient Texture PLACEHOLDER_5 = new Texture("WPN_5.png");
     transient Texture PLACEHOLDER_4 = new Texture("WPN_4.png");
     transient Texture PLACEHOLDER_3 = new Texture("WPN_3.png");
     transient Texture PLACEHOLDER_2 = new Texture("WPN_2.png");
@@ -76,7 +62,6 @@ public class MainGameScreen implements Screen{
     private static final double BUTTON_DIF = Game.getHEIGHT() / 9.0;
     private static final double BUTTON_X = Game.getWIDTH() / 1.257;
     private static final double BUTTON_Y = Game.getHEIGHT() / 1.35;
-    // private static final double BUTTON_Y = Game.getHEIGHT() / 1.291;
     private static final double PAUSE_Y = Game.getHEIGHT() / 1.129;
     private static final double PAUSE_X = Game.getWIDTH() / 1.067;
     private static final double PAUSE_WIDTH = Game.getWIDTH() / 22.32;
@@ -169,7 +154,7 @@ public class MainGameScreen implements Screen{
     private static final double AIRPLANE_Y = Game.getHEIGHT() / 1.588;
     private static final double AIRDROP_WIDTH = Game.getWIDTH() / 32.719;
     private static final double AIRDROP_HEIGHT = Game.getHEIGHT() / 9.0;
-    private static double AIRDROP_Y = (AIRPLANE_Y - Game.getHEIGHT() / 9);
+    private static double AIRDROP_Y = (AIRPLANE_Y - Game.getHEIGHT() / 9.0);
 
 
     private static final float PPM = 32f;
@@ -378,13 +363,12 @@ public class MainGameScreen implements Screen{
         game.batch.begin();
 
         float[] height=play.getTerrain();
-        float mid = 0;
 
         //Background
         game.batch.draw(BACKGROUND, 0, 0, Game.getWIDTH(), Game.getHEIGHT());
 
         //Airdrop
-        if((int)(Math.random()*(20))==1)
+        if((int)(Math.random()*(1500))==1)
             airdrop = true;
         if(!isReceived) {
             if (airdrop) {
@@ -400,11 +384,6 @@ public class MainGameScreen implements Screen{
                 }
             }
         }
-
-//            if(AIRDROP_Y == height[(int) (500+(float)Game.getWIDTH()/28.05f)]){
-//                isDropped = true;
-//            }
-
 
         if(airdrop && !isReceived){
             if(500+(float)Game.getWIDTH()/28.05f < play.getTank_1_position() && play.getTank_1_position()  < 500+(float)Game.getWIDTH()/28.05f + play.getPlayer1().getTank().getTank_width()){
@@ -995,7 +974,6 @@ public class MainGameScreen implements Screen{
                         if (play.getPlayer1().getTank().getWeapons().isEmpty()) {
                             play.getPlayer1().getTank().getWeapons().add(new TheChosenOne());
                             play.getPlayer1().getTank().getWeapons().add(new SharpShooter());
-                            // play.getPlayer1().getTank().getWeapons().add(new MakeItRain());
                             play.getPlayer1().getTank().getWeapons().add(new MassiveDrop());
                         }
                         play.setTurn(false);
@@ -1128,7 +1106,6 @@ public class MainGameScreen implements Screen{
                                 weapon_2 = world.createBody(bodydef);
                                 weapon_2.createFixture(fixturedef);
                                 weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * (-1.8) * Math.cos(slope2-Math.toRadians(getAngle_2())) ), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(slope2-Math.toRadians(getAngle_2())))));
-//                                weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * (-1.8) * Math.cos(-slope2 - Math.toRadians(getAngle_2()))), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(slope2 + Math.toRadians(getAngle_2())))));
                                 attack_2 = true;
                                 break;
                             case 1:
@@ -1144,7 +1121,6 @@ public class MainGameScreen implements Screen{
                                 weapon_2 = world.createBody(bodydef);
                                 weapon_2.createFixture(fixturedef);
                                 weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * (-1.8) *Math.cos(slope2-Math.toRadians(getAngle_2())) ), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(slope2-Math.toRadians(getAngle_2())))));
-//                                weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * (-1.8) * Math.cos(-slope2 - Math.toRadians(getAngle_2()))), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(slope2 + Math.toRadians(getAngle_2())))));
                                 attack_2 = true;
                                 break;
                             case 3:
@@ -1190,7 +1166,6 @@ public class MainGameScreen implements Screen{
                         if (play.getPlayer2().getTank().getWeapons().isEmpty()) {
                             play.getPlayer2().getTank().getWeapons().add(new TheChosenOne());
                             play.getPlayer2().getTank().getWeapons().add(new SharpShooter());
-                            // play.getPlayer2().getTank().getWeapons().add(new MakeItRain());
                             play.getPlayer2().getTank().getWeapons().add(new MassiveDrop());
                         }
                         play.setTurn(true);
@@ -1206,10 +1181,6 @@ public class MainGameScreen implements Screen{
 
         //Fire
         game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
-
-        // game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_2_position()], 10, 10);
-
-
         try{
             if(play.getPlayer1().getHealth() <= 0) {
                 throw new HealthZeroException("Player 2 Wins!");

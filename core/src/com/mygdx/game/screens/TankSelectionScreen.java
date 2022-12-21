@@ -48,14 +48,6 @@ public class TankSelectionScreen implements Screen {
     private int selection_number = 0;
     private int sel;
 
-    public int getPlayer1_tank() {
-        return player1_tank;
-    }
-
-    public int getPlayer2_tank() {
-        return player2_tank;
-    }
-
     public TankSelectionScreen(Game game, boolean isP1Done, int sel){
         this.game = game;
         this.isP1Done = isP1Done;
@@ -147,12 +139,6 @@ public class TankSelectionScreen implements Screen {
                     game.setScreen(new TankSelectionScreen(game, true, selection_number));
                 }
             }
-//            if (Gdx.input.isTouched()) {
-//                if(isSelected){
-////                    game.setScreen(new TankSelectionScreen(game));
-//                    game.setScreen(new MainGameScreen(game));
-//                }
-//            }
         }
         else if (Gdx.input.getX() > BACK_X && Gdx.input.getX() < BACK_X + NAV_WIDTH && y > BACK_Y && y < BACK_Y + NAV_HEIGHT) {
             game.batch.draw(BACK_ACTIVE, (float) BACK_X, (float) (BACK_Y), (float) NAV_WIDTH, (float) NAV_HEIGHT);
@@ -161,7 +147,6 @@ public class TankSelectionScreen implements Screen {
                     game.setScreen(new TankSelectionScreen(game, false, sel));
                 }
                 else{
-                    // game.setScreen(new MainMenuScreen(game));
                     game.setScreen(MainMenuScreen.getInstance(game));
                 }
             }

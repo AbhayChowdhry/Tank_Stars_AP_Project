@@ -31,7 +31,6 @@ public abstract class Tank implements Serializable {
         weapons = new LinkedList<Weapon>();
         this.weapons.add(new TheChosenOne());
         this.weapons.add(new SharpShooter());
-        // this.weapons.add(new MakeItRain());
         this.weapons.add(new MassiveDrop());
     }
 

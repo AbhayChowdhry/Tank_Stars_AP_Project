@@ -5,11 +5,7 @@ import java.util.LinkedList;
 
 public class Player implements Serializable {
     private Tank tank;
-
-    // Total health is 100
     private int health;
-
-    // Total fuel is 10
     private float fuel;
     private int power;
 
