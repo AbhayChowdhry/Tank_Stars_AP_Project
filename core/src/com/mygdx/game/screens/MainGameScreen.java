@@ -16,6 +16,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.game.Game;
 import com.mygdx.game.entities.*;
+import com.mygdx.game.exceptions.HealthZeroException;
+import com.mygdx.game.exceptions.OutOfArenaException;
 
 import java.awt.*;
 import java.awt.geom.CubicCurve2D;
@@ -468,7 +470,6 @@ public class MainGameScreen implements Screen{
         play.getPlayer1().getTank().getSnout().setPosition(play.getTank_1_position()+length1*(float)Math.cos(slope1+phi1),height[play.getTank_1_position()]+length1*(float)Math.sin(slope1+phi1));
         play.getPlayer1().getTank().getSnout().setSize((float) play.getPlayer1().getTank().getSnout_width()/1.5f, (float) play.getPlayer1().getTank().getSnout_height()/1.5f);
         play.getPlayer1().getTank().getSnout().setRotation(slope1*MathUtils.radiansToDegrees+getAngle_1());
-        //Atomic working
         if(player1_tank==1)
             play.getPlayer1().getTank().getSnout().setOrigin(5,5);
         else
@@ -497,12 +498,18 @@ public class MainGameScreen implements Screen{
         play.getPlayer2().getTank().getSnout().setPosition(play.getTank_2_position()+length2*(float)Math.cos(slope2+phi2),height[play.getTank_2_position()]+length2*(float)Math.sin(slope2+phi2));
         play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
         play.getPlayer2().getTank().getSnout().setRotation((float) (180 + ((slope2)*MathUtils.radiansToDegrees + getAngle_2())));
-        play.getPlayer2().getTank().getSnout().setOrigin(0, 0);
-
-        if(player2_tank==1)
-            play.getPlayer2().getTank().getSnout().setOrigin(5,5);
+        if(player2_tank == 1)
+            play.getPlayer2().getTank().getSnout().setOrigin(5, 5);
         else
-            play.getPlayer2().getTank().getSnout().setOrigin(0,0);
+            play.getPlayer2().getTank().getSnout().setOrigin(0, 0);
+
+//        play.getPlayer2().getTank().getSnout().setPosition(play.getTank_2_position()+length2*(float)Math.cos(slope2+phi2),height[play.getTank_2_position()]+length2*(float)Math.sin(slope2+phi2));
+//        play.getPlayer2().getTank().getSnout().setSize((float) play.getPlayer2().getTank().getSnout_width()/1.5f, (float) play.getPlayer2().getTank().getSnout_height()/1.5f);
+//        play.getPlayer2().getTank().getSnout().setRotation((float) (180 + ((slope2)*MathUtils.radiansToDegrees + getAngle_2())));
+//        if(player2_tank==1)
+//            play.getPlayer1().getTank().getSnout().setOrigin(5,5);
+//        else
+//            play.getPlayer1().getTank().getSnout().setOrigin(0,0);
         play.getPlayer2().getTank().getSnout().draw(game.batch);
 
         //Player 2 Tank
@@ -589,13 +596,32 @@ public class MainGameScreen implements Screen{
         }
 
         //Attack Tank 1
+        try{
+            if(attack_1 && !is_multi_1 && (weapon_1.getPosition().x*PPM>1050 || weapon_1.getPosition().x*PPM<30)) {
+                throw new OutOfArenaException("Going out of frame");
+            }
+        }
+        catch (OutOfArenaException e) {
+            world.destroyBody(weapon_1);
+            attack_1 = false;
+        }
         if(attack_1 && !is_multi_1 && weapon_1.getPosition().y*PPM<=height[(int)(weapon_1.getPosition().x*PPM)]+(float)massiveDrop.getHeight(play.getPlayer1().getTank())/3f) {
             float diff_1 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
             float diff_2 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
-            if(diff_1<=100)
-                play.getPlayer2().setHealth(Math.max(0,(int)(play.getPlayer2().getHealth()+0.2*diff_1-20)));
-            if(diff_2<=100)
-                play.getPlayer1().setHealth(Math.max(0,(int)(play.getPlayer1().getHealth()+0.2*diff_2-20)));
+            if(diff_1<=100) {
+                play.getPlayer2().setHealth(Math.max(0, (int) (play.getPlayer2().getHealth() + 0.2 * diff_1 - 23)));
+                if (weapon_1.getPosition().x * PPM > play.getTank_2_position() + play.getPlayer2().getTank().getTank_width() / 3f)
+                    play.setTank_2_position(Math.max(80,play.getTank_2_position() - (int)(diff_1 + 100)));
+                else
+                    play.setTank_2_position(Math.min(1000, play.getTank_2_position() + (int)(diff_1 + 100)));
+            }
+            if(diff_2<=100) {
+                play.getPlayer1().setHealth(Math.max(0, (int) (play.getPlayer1().getHealth() + 0.2 * diff_2 - 23)));
+                if (weapon_1.getPosition().x * PPM > play.getTank_1_position() + play.getPlayer1().getTank().getTank_width() / 3f)
+                    play.setTank_1_position(Math.max(80, play.getTank_1_position() - (int)(diff_2 + 100)));
+                else
+                    play.setTank_1_position(Math.min(1000, play.getTank_1_position() + (int)(diff_2 + 100)));
+            }
             play.updateTerrain(play.getPlayer1().getPower() * Game.getWIDTH() / 320, (int) (weapon_1.getPosition().x * PPM));
             world.destroyBody(weapon_1);
             attack_1 = false;
@@ -603,12 +629,22 @@ public class MainGameScreen implements Screen{
         else if(attack_1 && is_multi_1) {
             for(int i=0;i<5;i++)
                 if(weapon_1_multi[i].getPosition().y*PPM<=height[(int)(weapon_1_multi[i].getPosition().x*PPM)]+(float)makeItRain[i].getHeight(play.getPlayer1().getTank())/3f){
-//                    float diff_1 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
-//                    float diff_2 = (float) Math.abs(weapon_1.getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
-//                    if(diff_1<=100)
-//                        play.getPlayer2().setHealth(Math.max(0,(int)(play.getPlayer2().getHealth()+0.2*diff_1-20)));
-//                    if(diff_2<=100)
-//                        play.getPlayer1().setHealth(Math.max(0,(int)(play.getPlayer1().getHealth()+0.2*diff_2-20)));
+                    float diff_1 = (float) Math.abs(weapon_1_multi[i].getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
+                    float diff_2 = (float) Math.abs(weapon_1_multi[i].getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
+                    if(diff_1<=100) {
+                        play.getPlayer2().setHealth(Math.max(0, (int) (play.getPlayer2().getHealth() + 0.005 * diff_1 - 5)));
+                        if (weapon_1_multi[i].getPosition().x * PPM > play.getTank_2_position() + play.getPlayer2().getTank().getTank_width() / 3f)
+                            play.setTank_2_position(Math.max(80, play.getTank_2_position() - (int)(diff_1 + 20)));
+                        else
+                            play.setTank_2_position(Math.min(1000, play.getTank_2_position() + (int)(diff_1 + 20)));
+                    }
+                    if(diff_2<=100) {
+                        play.getPlayer1().setHealth(Math.max(0, (int) (play.getPlayer1().getHealth() + 0.005 * diff_2 - 5)));
+                        if (weapon_1_multi[i].getPosition().x * PPM > play.getTank_1_position() + play.getPlayer1().getTank().getTank_width() / 3f)
+                            play.setTank_1_position(Math.max(80, play.getTank_1_position() - (int)(diff_2 + 20)));
+                        else
+                            play.setTank_1_position(Math.min(1000, play.getTank_1_position() + (int)(diff_2 + 20)));
+                    }
                     play.updateTerrain(play.getPlayer1().getPower()*Game.getWIDTH()/320, (int)(weapon_1_multi[i].getPosition().x*PPM));
                     world.destroyBody(weapon_1_multi[i]);
                     count_1++;
@@ -621,7 +657,32 @@ public class MainGameScreen implements Screen{
         }
 
         //Attack Tank 2
+        try{
+            if(attack_2 && !is_multi_2 && (weapon_2.getPosition().x*PPM>1050 || weapon_2.getPosition().x*PPM<30)) {
+                throw new OutOfArenaException("Going out of frame");
+            }
+        }
+        catch (OutOfArenaException e) {
+            world.destroyBody(weapon_2);
+            attack_2 = false;
+        }
         if(attack_2 && !is_multi_2 && weapon_2.getPosition().y*PPM<=height[(int)(weapon_2.getPosition().x*PPM)]+(float)massiveDrop.getHeight(play.getPlayer2().getTank())/3f) {
+            float diff_1 = (float) Math.abs(weapon_2.getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
+            float diff_2 = (float) Math.abs(weapon_2.getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
+            if(diff_1<=100) {
+                play.getPlayer2().setHealth(Math.max(0, (int) (play.getPlayer2().getHealth() + 0.2 * diff_1 - 23)));
+                if (weapon_2.getPosition().x * PPM > play.getTank_2_position() + play.getPlayer2().getTank().getTank_width() / 3f)
+                    play.setTank_2_position(Math.max(80, play.getTank_2_position() - (int)(diff_1 + 100)));
+                else
+                    play.setTank_2_position(Math.min(1000, play.getTank_2_position() + (int)(diff_1 + 100)));
+            }
+            if(diff_2<=100) {
+                play.getPlayer1().setHealth(Math.max(0, (int) (play.getPlayer1().getHealth() + 0.2 * diff_2 - 23)));
+                if (weapon_2.getPosition().x * PPM > play.getTank_1_position() + play.getPlayer1().getTank().getTank_width() / 3f)
+                    play.setTank_1_position(Math.max(80, play.getTank_1_position() - (int)(diff_2 + 100)));
+                else
+                    play.setTank_1_position(Math.min(1000, play.getTank_1_position() + (int)(diff_2 + 100)));
+            }
             play.updateTerrain(play.getPlayer2().getPower() * Game.getWIDTH() / 320, (int) (weapon_2.getPosition().x * PPM));
             world.destroyBody(weapon_2);
             attack_2 = false;
@@ -629,6 +690,22 @@ public class MainGameScreen implements Screen{
         else if(attack_2 && is_multi_2) {
             for(int i=0;i<5;i++)
                 if(weapon_2_multi[i].getPosition().y*PPM<=height[(int)(weapon_2_multi[i].getPosition().x*PPM)]+(float)makeItRain[i].getHeight(play.getPlayer2().getTank())/3f){
+                    float diff_1 = (float) Math.abs(weapon_2_multi[i].getPosition().x*PPM-play.getTank_2_position()-play.getPlayer2().getTank().getTank_width()/3f);
+                    float diff_2 = (float) Math.abs(weapon_2_multi[i].getPosition().x*PPM-play.getTank_1_position()-play.getPlayer1().getTank().getTank_width()/3f);
+                    if(diff_1<=100) {
+                        play.getPlayer2().setHealth(Math.max(0, (int) (play.getPlayer2().getHealth() + 0.005 * diff_1 - 5)));
+                        if (weapon_2_multi[i].getPosition().x * PPM > play.getTank_2_position() + play.getPlayer2().getTank().getTank_width() / 3f)
+                            play.setTank_2_position(Math.max(80, play.getTank_2_position() - (int)(diff_1 + 20)));
+                        else
+                            play.setTank_2_position(Math.min(1000, play.getTank_2_position() + (int)(diff_1 + 20)));
+                    }
+                    if(diff_2<=100) {
+                        play.getPlayer1().setHealth(Math.max(0, (int) (play.getPlayer1().getHealth() + 0.005 * diff_2 - 5)));
+                        if (weapon_2_multi[i].getPosition().x * PPM > play.getTank_1_position() + play.getPlayer1().getTank().getTank_width() / 3f)
+                            play.setTank_1_position(Math.max(80, play.getTank_1_position() - (int)(diff_2 + 20)));
+                        else
+                            play.setTank_1_position(Math.min(1000, play.getTank_1_position() + (int)(diff_2 + 20)));
+                    }
                     play.updateTerrain(play.getPlayer2().getPower()*Game.getWIDTH()/320, (int)(weapon_2_multi[i].getPosition().x*PPM));
                     world.destroyBody(weapon_2_multi[i]);
                     count_2++;
@@ -639,32 +716,6 @@ public class MainGameScreen implements Screen{
                 count_2 = 0;
             }
         }
-
-//        Vector2[] controlPoints = new Vector2[4];
-//        controlPoints[0] = new Vector2(play.getTank_1_position(), height[play.getTank_1_position()]);
-//        controlPoints[1] = new Vector2(play.getTank_1_position() + 50, height[play.getTank_1_position()] + 50);
-//        controlPoints[2] = new Vector2(play.getTank_1_position() + 100 , height[play.getTank_1_position()] + 50 );
-//        controlPoints[3] = new Vector2(play.getTank_1_position() + 150, height[play.getTank_1_position()]);
-//
-//        Bezier<Vector2> path1 = new Bezier<Vector2>(controlPoints);
-//
-//        for(int i = 0; i < 100; ++i){
-//            float t = i /100f;
-//            // create vectors to store start and end points of this section of the curve
-//            Vector2 st = new Vector2();
-//            Vector2 end = new Vector2();
-//            // get the start point of this curve section
-//            path1.valueAt(st,t);
-//            // get the next start point(this point's end)
-//            path1.valueAt(end, t-0.01f);
-//            // draw the curve
-//             // shapeRenderer.line(st.x, st.y, end.x, end.y);
-//
-//
-//        }
-//        shapeRenderer.line(50, 100, 200, 200);
-//        shapeRenderer.end();
-
 
         if(play.getTurn()) {
 
@@ -866,31 +917,9 @@ public class MainGameScreen implements Screen{
                     weaponSelected = false;
                 }
             }
-
-//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-//            shapeRenderer.curve(
-//                    play.getTank_1_position(), height[play.getTank_1_position()],
-//                    65, 70,
-//                    85, 70,
-//                    play.getTank_1_position() + 200, height[play.getTank_1_position()],
-//                    100
-//            );
-//            shapeRenderer.end();
-
-
         }
 
         else{
-//            shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-//            shapeRenderer.curve(
-//                    play.getTank_2_position(), height[play.getTank_2_position()],
-//                    65, 70,
-//                    85, 70,
-//                    play.getTank_2_position() + 200, height[play.getTank_2_position()],
-//                    100
-//            );
-//            shapeRenderer.end();
-
             weapon_count =  play.getPlayer2().getTank().getWeapons().size();
             Tank temp2 = play.getPlayer2().getTank();
             switch(weapon_count){
@@ -1016,7 +1045,7 @@ public class MainGameScreen implements Screen{
                             fixturedef.restitution = 0;
                             weapon_2 = world.createBody(bodydef);
                             weapon_2.createFixture(fixturedef);
-                            weapon_2.setLinearVelocity(new Vector2((float)(play.getPlayer2().getPower()*(-1.8)*Math.cos(slope2+Math.toRadians(getAngle_2()))),(float)(play.getPlayer2().getPower()*1.8*Math.sin(slope2+Math.toRadians(getAngle_2())))));
+                            weapon_2.setLinearVelocity(new Vector2((float)(play.getPlayer2().getPower()*(-1.8)*Math.cos(-slope2-Math.toRadians(getAngle_2()))),(float)(play.getPlayer2().getPower()*1.8*Math.sin(slope2+Math.toRadians(getAngle_2())))));
                             attack_2 = true;
                             break;
                         case 1:
@@ -1031,7 +1060,7 @@ public class MainGameScreen implements Screen{
                             fixturedef.restitution = 0;
                             weapon_2 = world.createBody(bodydef);
                             weapon_2.createFixture(fixturedef);
-                            weapon_2.setLinearVelocity(new Vector2((float)(play.getPlayer2().getPower()*(-1.8)*Math.cos(slope2+Math.toRadians(getAngle_2()))),(float)(play.getPlayer2().getPower()*1.8*Math.sin(slope2+Math.toRadians(getAngle_2())))));
+                            weapon_2.setLinearVelocity(new Vector2((float)(play.getPlayer2().getPower()*(-1.8)*Math.cos(-slope2-Math.toRadians(getAngle_2()))),(float)(play.getPlayer2().getPower()*1.8*Math.sin(slope2+Math.toRadians(getAngle_2())))));
                             attack_2 = true;
                             break;
                         case 3:
@@ -1092,14 +1121,25 @@ public class MainGameScreen implements Screen{
         //Fire
         game.batch.draw(FIRE_BUTTON, (float) FIRE_X, (float) FIRE_Y, (float) FIRE_WIDTH, (float) FIRE_HEIGHT);
 
-//        game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_1_position()], 50, 50);
         game.batch.draw(dot, play.getTank_1_position(), height[play.getTank_2_position()], 10, 10);
 
+        try{
+            if(play.getPlayer1().getHealth() <= 0) {
+                throw new HealthZeroException("Player 2 Wins!");
+            }
+        }
+        catch(HealthZeroException e){
+            game.setScreen(new FinalWinScreen(game, 2));
+        }
 
-        // float angle2 = slope2 + getAngle_2();
-
-
-        play.getPlayer1().getTank().getSnout().getRotation();
+        try{
+            if(play.getPlayer2().getHealth() <= 0) {
+                throw new HealthZeroException("Player 1 Wins!");
+            }
+        }
+        catch(HealthZeroException e){
+            game.setScreen(new FinalWinScreen(game, 1));
+        }
         game.batch.end();
     }
 
