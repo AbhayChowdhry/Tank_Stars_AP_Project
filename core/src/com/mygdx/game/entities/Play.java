@@ -15,6 +15,15 @@ public class Play implements Serializable {
     private boolean turn; // TRUE for player1 and FALSE for player2
     private int tank_1_position;
     private int tank_2_position;
+    private int Sno;
+
+    public int getSno() {
+        return Sno;
+    }
+
+    public void setSno(int sno) {
+        Sno = sno;
+    }
 
     public Play() {
         player1 = new Player();

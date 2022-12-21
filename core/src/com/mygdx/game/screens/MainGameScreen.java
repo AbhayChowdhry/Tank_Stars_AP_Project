@@ -21,12 +21,9 @@ import com.mygdx.game.exceptions.OutOfArenaException;
 
 import java.awt.*;
 import java.awt.geom.CubicCurve2D;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 import static java.awt.Color.BLUE;
 
@@ -423,8 +420,67 @@ public class MainGameScreen implements Screen{
             else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - BUTTON_DIF){
                 game.batch.draw(SAVE_ACTIVE, (float) BUTTON_X, (float) (BUTTON_Y - BUTTON_DIF), (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
                 if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
-                    try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("obj.txt"))) {
-                        oos.writeObject(play);
+                    String file = "indexStore.txt";
+                    String stuff_in_string = "";
+                    int index;
+
+                    try {
+                        FileReader fileReader = new FileReader(file);
+                        BufferedReader bufferedReader = new BufferedReader(fileReader);
+                        String line;
+                        while ((line = bufferedReader.readLine()) != null) {
+                            stuff_in_string += line;
+                        }
+
+                        bufferedReader.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(stuff_in_string.isEmpty()){
+                        index = 1;
+                    }
+                    else{
+                        index = Integer.parseInt(stuff_in_string);
+                    }
+
+                    switch(index){
+                        case 1:
+                            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("obj1.txt"))) {
+                                oos.writeObject(play);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        case 2:
+                            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("obj2.txt"))) {
+                                oos.writeObject(play);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        case 3:
+                            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("obj3.txt"))) {
+                                oos.writeObject(play);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        case 4:
+                            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("obj4.txt"))) {
+                                oos.writeObject(play);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                    }
+
+                    index = (index%4) + 1;
+                    String towrite = Integer.toString(index);
+
+                    try {
+                        FileWriter fileWriter = new FileWriter(file);
+                        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                        bufferedWriter.write(towrite);
+                        bufferedWriter.flush();
+                        bufferedWriter.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

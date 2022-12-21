@@ -63,9 +63,9 @@ public class MainMenuScreen implements Screen {
 
         game.batch.draw(MAIN_BACK, 0, 0, game.getWIDTH(), game.getHEIGHT());
         game.batch.draw(VS_FRIEND_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-        game.batch.draw(VS_COMP_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y - (float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-        game.batch.draw(LOAD_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-        game.batch.draw(EXIT_INACTIVE,(float) BUTTON_X, (float) BUTTON_Y - 3*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+        game.batch.draw(LOAD_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y - (float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+        game.batch.draw(EXIT_INACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+        // game.batch.draw(EXIT_INACTIVE,(float) BUTTON_X, (float) BUTTON_Y - 3*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
 
 
         // Introduction of new variable y because Gdx.input.getY() return the distance from top, while the drawings of the buttons are made from the bottom
@@ -80,34 +80,16 @@ public class MainMenuScreen implements Screen {
             }
 
         }else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - (float) BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT- (float) BUTTON_DIF){
-            game.batch.draw(VS_COMP_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y - (float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+            game.batch.draw(LOAD_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 1*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
-                game.batch.draw(VS_COMP_CLICK, (float) BUTTON_X, (float) BUTTON_Y - (float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-                //send tanks fo human and comp
-//                game.setScreen(new MainGameScreen(game, ));
+                game.batch.draw(LOAD_CLICK, (float) BUTTON_X, (float) BUTTON_Y - 1*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+                game.setScreen(new LoadGameScreen(game));
             }
         }
         else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y -  2*(float) BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - 2*(float) BUTTON_DIF){
-            game.batch.draw(LOAD_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+            game.batch.draw(EXIT_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
             if(Gdx.input.isTouched()){
-                game.batch.draw(LOAD_CLICK, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("obj.txt"))) {
-                    Play deserializedObj = (Play) ois.readObject();
-                    // System.out.println(deserializedObj);  // Output: 10
-                    // MainGameScreen mainscreen = new MainGameScreen(game, deserializedObj);
-                    // mainscreen.play = deserializedObj;
-                    game.setScreen(new MainGameScreen(game, deserializedObj));
-                    // game.setScreen();
-
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        else if(Gdx.input.getX() > BUTTON_X && Gdx.input.getX() < BUTTON_X + BUTTON_WIDTH && y > BUTTON_Y - 3 * (float) BUTTON_DIF && y < BUTTON_Y + BUTTON_HEIGHT - 3*(float) BUTTON_DIF){
-            game.batch.draw(EXIT_ACTIVE, (float) BUTTON_X, (float) BUTTON_Y - 3*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
-            if(Gdx.input.isTouched()){
-                game.batch.draw(EXIT_CLICK, (float) BUTTON_X, (float) BUTTON_Y - 3*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
+                game.batch.draw(EXIT_CLICK, (float) BUTTON_X, (float) BUTTON_Y - 2*(float) BUTTON_DIF, (float) BUTTON_WIDTH, (float) BUTTON_HEIGHT);
                 Gdx.app.exit();
             }
         }
