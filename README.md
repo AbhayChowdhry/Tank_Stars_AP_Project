@@ -45,7 +45,7 @@ The Game comprises of 4 tanks, each having 3 unique attacks, and one special att
 - Airdrops are generated randomly once in every 1-2 minutes.
 - Collecting the Airdrop gives the respective tank the power to use the Special Weapon called MakeItRain, and trust me, it's not as “nice” as it sounds. Beware!
 
-![Screenshot 2022-12-22 at 2.30.36 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/9a384fdd-8016-4f3b-897e-623def0e17cb/Screenshot_2022-12-22_at_2.30.36_PM.png)
+![alt text](http://url/to/Screenshot 2022-12-22 at 2.30.36 PM.png)
 
 # Win Screen
 
