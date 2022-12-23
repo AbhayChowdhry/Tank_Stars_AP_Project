@@ -19,7 +19,8 @@ The following showcases glimpse of a clone of the mobile game ‘Tank Stars’, 
 
 ## Main Menu Screen
 
-![Screenshot 2022-12-22 at 3.16.40 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4e03248a-3898-4fef-bdbd-a126c8bfabcb/Screenshot_2022-12-22_at_3.16.40_PM.png)
+
+![Uploading Screenshot 2022-12-22 at 2.29.45 PM.png…]()
 
 ## Tank Selection Screen
 
