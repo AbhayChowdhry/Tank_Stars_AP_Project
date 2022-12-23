@@ -19,7 +19,7 @@ The following showcases glimpse of a clone of the mobile game ‘Tank Stars’, 
 
 ## Main Menu Screen
 
-![My Image](Desktop/MainMenu.jpg)
+![My Image](/Desktop/MainMenu.jpg)
 <image>
 
 ## Tank Selection Screen
