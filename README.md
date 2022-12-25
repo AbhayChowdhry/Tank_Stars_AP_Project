@@ -19,14 +19,14 @@ The following showcases glimpse of a clone of the mobile game ‘Tank Stars’, 
 
 ## Main Menu Screen
 
-![My Image](/Desktop/MainMenu.jpg)
+![MainMeu.png](https://github.com/AbhayChowdhry/Tank_Stars_AP_Project/blob/master/MainMeu.png)
 <image>
 
 ## Tank Selection Screen
 
 The Game comprises of 4 tanks, each having 3 unique attacks, and one special attack that can only be obtained from airdrops.
 
-![Screenshot 2022-12-22 at 3.17.29 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/c97f8fe2-9fda-4385-9c68-9368f724636d/Screenshot_2022-12-22_at_3.17.29_PM.png)
+![Screenshot 2022-12-22 at 3.17.29 PM.png](https://github.com/AbhayChowdhry/Tank_Stars_AP_Project/blob/master/Screenshot%202022-12-22%20at%202.29.55%20PM.png)
 
 ## Main Game Screen
 
@@ -46,7 +46,7 @@ The Game comprises of 4 tanks, each having 3 unique attacks, and one special att
 - Airdrops are generated randomly once in every 1-2 minutes.
 - Collecting the Airdrop gives the respective tank the power to use the Special Weapon called MakeItRain, and trust me, it's not as “nice” as it sounds. Beware!
 
-![alt text](http://url/to/Screenshot 2022-12-22 at 2.30.36 PM.png)
+![alt text](https://github.com/AbhayChowdhry/Tank_Stars_AP_Project/blob/master/Screenshot%202022-12-22%20at%202.30.36%20PM.png)
 
 # Win Screen
 
