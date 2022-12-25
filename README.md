@@ -52,7 +52,7 @@ The Game comprises of 4 tanks, each having 3 unique attacks, and one special att
 
 Every game is incomplete without a win screen, and we made sure ours isn’t.
 
-![Screenshot 2022-12-22 at 3.26.05 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/5b3bb2d4-69fe-4e99-9edd-12dc326cf5c7/Screenshot_2022-12-22_at_3.26.05_PM.png)
+![Screenshot 2022-12-22 at 3.26.05 PM.png](https://github.com/AbhayChowdhry/Tank_Stars_AP_Project/blob/master/Screenshot%202022-12-25%20at%205.27.25%20PM.png)
 
 # Load Game Screen
 
@@ -90,7 +90,7 @@ try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("obj1.txt
 }
 ```
 
-![Screenshot 2022-12-22 at 3.27.11 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4315b6b5-e760-47b9-9655-32cd37894223/Screenshot_2022-12-22_at_3.27.11_PM.png)
+![Screenshot 2022-12-22 at 3.27.11 PM.png](https://github.com/AbhayChowdhry/Tank_Stars_AP_Project/blob/master/Screenshot%202022-12-25%20at%205.26.27%20PM.png)
 
 ## Exception Handling
 
