@@ -790,7 +790,7 @@ public class MainGameScreen implements Screen{
                 count_2 = 0;
             }
         }
-
+    //1
         if(play.getTurn()) {
 
             weapon_count =  play.getPlayer1().getTank().getWeapons().size();
