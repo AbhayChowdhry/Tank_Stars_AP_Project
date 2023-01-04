@@ -1105,7 +1105,7 @@ public class MainGameScreen implements Screen{
                                 fixturedef.restitution = 0;
                                 weapon_2 = world.createBody(bodydef);
                                 weapon_2.createFixture(fixturedef);
-                                weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * (-1.8) * Math.cos(slope2-Math.toRadians(getAngle_2())) ), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(slope2-Math.toRadians(getAngle_2())))));
+                                weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * 1.8 * Math.cos(Math.PI+slope2+Math.toRadians(getAngle_2())) ), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(Math.PI+slope2+Math.toRadians(getAngle_2())))));
                                 attack_2 = true;
                                 break;
                             case 1:
@@ -1120,7 +1120,7 @@ public class MainGameScreen implements Screen{
                                 fixturedef.restitution = 0;
                                 weapon_2 = world.createBody(bodydef);
                                 weapon_2.createFixture(fixturedef);
-                                weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * (-1.8) *Math.cos(slope2-Math.toRadians(getAngle_2())) ), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(slope2-Math.toRadians(getAngle_2())))));
+                                weapon_2.setLinearVelocity(new Vector2((float) (play.getPlayer2().getPower() * 1.8 *Math.cos(Math.PI+slope2+Math.toRadians(getAngle_2())) ), (float) (play.getPlayer2().getPower() * 1.8 * Math.sin(Math.PI+slope2+Math.toRadians(getAngle_2())))));
                                 attack_2 = true;
                                 break;
                             case 3:
